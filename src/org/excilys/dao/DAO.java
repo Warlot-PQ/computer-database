@@ -8,7 +8,7 @@ import java.util.List;
  *
  * @param <T>
  */
-public abstract class DAO<T> {
+public interface DAO<T> {
 	public abstract List<T> findAll();
 	
 	public abstract T find(int id);

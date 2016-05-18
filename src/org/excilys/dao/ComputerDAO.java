@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.excilys.beans.Computer;
+import org.excilys.db.CoManagerFactory;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
@@ -18,7 +19,7 @@ import com.mysql.jdbc.Statement;
  * @author pqwarlot
  *
  */
-public class ComputerDAO extends DAO<Computer> {
+public class ComputerDAO implements DAO<Computer> {
 	
 	public List<Computer> findAll() {
 		Connection connection = null;
@@ -31,7 +32,7 @@ public class ComputerDAO extends DAO<Computer> {
 		ResultSet rs = null;
 		List<Computer> computers = new ArrayList<>();
 		
-		connection = CoManager.getInstance().getConnection();
+		connection = CoManagerFactory.getCoManager().getConnection();
 		if (connection == null) return computers;
 		
 		try {
@@ -50,7 +51,7 @@ public class ComputerDAO extends DAO<Computer> {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			CoManager.getInstance().cleanup(connection, stmt, rs);
+			CoManagerFactory.getCoManager().cleanup(connection, stmt, rs);
 		}
 		
 		return computers;
@@ -65,7 +66,7 @@ public class ComputerDAO extends DAO<Computer> {
 		String sql = "SELECT id,name,introduced,discontinued,company_id FROM computer WHERE id=?";
 		ResultSet rs = null;
 		
-		connection = CoManager.getInstance().getConnection();
+		connection = CoManagerFactory.getCoManager().getConnection();
 		if (connection == null) return computer;
 		
 		try {
@@ -85,7 +86,7 @@ public class ComputerDAO extends DAO<Computer> {
 		} catch (SQLException e) {
 			System.err.println();
 		} finally {
-			CoManager.getInstance().cleanup(connection, pstmt, rs);
+			CoManagerFactory.getCoManager().cleanup(connection, pstmt, rs);
 		}
 		
 		return computer;
@@ -109,7 +110,7 @@ public class ComputerDAO extends DAO<Computer> {
 			discontinuedTimestamp = computer.getDiscontinued();
 		}
 		
-		connection = CoManager.getInstance().getConnection();
+		connection = CoManagerFactory.getCoManager().getConnection();
 		if (connection == null) return computerEmpty;
 		
 		try {
@@ -123,7 +124,7 @@ public class ComputerDAO extends DAO<Computer> {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			CoManager.getInstance().cleanup(connection, pstmt, null);
+			CoManagerFactory.getCoManager().cleanup(connection, pstmt, null);
 		}
 		
 		return computer;
@@ -136,7 +137,7 @@ public class ComputerDAO extends DAO<Computer> {
 		PreparedStatement pstmt = null;
 		String sql = "DELETE FROM computer WHERE id=?";
 		
-		connection = CoManager.getInstance().getConnection();
+		connection = CoManagerFactory.getCoManager().getConnection();
 		if (connection == null) return false;
 		
 		try {
@@ -147,7 +148,7 @@ public class ComputerDAO extends DAO<Computer> {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			CoManager.getInstance().cleanup(connection, pstmt, null);
+			CoManagerFactory.getCoManager().cleanup(connection, pstmt, null);
 		}
 		
 		return true;
@@ -171,7 +172,7 @@ public class ComputerDAO extends DAO<Computer> {
 			discontinuedTimestamp = computer.getDiscontinued();
 		}
 		
-		connection = CoManager.getInstance().getConnection();
+		connection = CoManagerFactory.getCoManager().getConnection();
 		if (connection == null) return computerEmpty;
 		
 		try {
@@ -186,7 +187,7 @@ public class ComputerDAO extends DAO<Computer> {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			CoManager.getInstance().cleanup(connection, pstmt, null);
+			CoManagerFactory.getCoManager().cleanup(connection, pstmt, null);
 		}
 		
 		return computer;

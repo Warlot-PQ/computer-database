@@ -1,4 +1,4 @@
-package org.excilys.dao;
+package org.excilys.db;
 
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -15,12 +15,12 @@ import com.mysql.jdbc.Statement;
  *
  */
 public class CoManager {
-	private static CoManager instance = null;
+	protected static CoManager instance = null;
 	
-	private ResourceBundle properties;
-	private static String resourceBundle = "org/excilys/dao/config";
+	protected ResourceBundle properties;
+	protected static String resourceBundle = "org/excilys/db/config";
 	
-	private CoManager() {
+	protected CoManager() {
 		properties = ResourceBundle.getBundle(resourceBundle);
 		
 		try {

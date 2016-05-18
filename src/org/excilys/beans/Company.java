@@ -66,4 +66,22 @@ public class Company {
 		}
 		return false;
 	}
+	
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		Company company = (Company) obj;
+		if (company.getId() == getId() && company.getName().equals(getName())) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

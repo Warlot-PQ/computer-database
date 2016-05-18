@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.excilys.beans.Company;
+import org.excilys.db.CoManagerFactory;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
@@ -16,7 +17,7 @@ import com.mysql.jdbc.Statement;
  * @author pqwarlot
  *
  */
-public class CompanyDAO extends DAO<Company> {
+public class CompanyDAO implements DAO<Company> {
 		
 	public List<Company> findAll() {
 		Connection connection = null;
@@ -25,7 +26,7 @@ public class CompanyDAO extends DAO<Company> {
 		ResultSet rs = null;
 		List<Company> companies = new ArrayList<>();
 		
-		connection = CoManager.getInstance().getConnection();
+		connection = CoManagerFactory.getCoManager().getConnection();
 		if (connection == null) return companies;
 		
 		try {
@@ -41,7 +42,7 @@ public class CompanyDAO extends DAO<Company> {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			CoManager.getInstance().cleanup(connection, stmt, rs);
+			CoManagerFactory.getCoManager().cleanup(connection, stmt, rs);
 		}
 		
 		return companies;
