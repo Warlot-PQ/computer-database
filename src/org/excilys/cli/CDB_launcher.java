@@ -26,7 +26,7 @@ public class CDB_launcher {
 			
 			// Infinite loop until the user enter "exit" 
 			while (true) {
-				System.out.printf("%nPlease enter your command:%n>");
+				System.out.printf("%nPlease enter your command: (enter anything for help)%n>");
 				firstArg = input.nextLine();
 				
 				command.dispatch(firstArg);

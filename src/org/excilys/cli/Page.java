@@ -25,7 +25,12 @@ public class Page<T> {
 			this.entities = entities;
 		}
 		this.totalPage = (int) Math.ceil(entities.size() / eltByPage);
-		this.currentEntities = entities.subList(0, currentPage * eltByPage);
+		// Handle beigining of set
+		if (totalPage == 1) {
+			this.currentEntities = entities.subList(0, currentPage * eltByPage);
+		} else {
+			this.currentEntities = entities.subList(0, entities.size());
+		}
 	}
 	
 	/**
@@ -51,7 +56,12 @@ public class Page<T> {
 		if (currentPage < totalPage) {
 			currentPage += 1;
 		}
-		this.currentEntities = entities.subList((currentPage - 1) * eltByPage, currentPage * eltByPage);
+		// Handle end of set
+		if (currentPage != totalPage) {
+			this.currentEntities = entities.subList((currentPage - 1) * eltByPage, currentPage * eltByPage);
+		} else {
+			this.currentEntities = entities.subList((currentPage - 1) * eltByPage, entities.size());
+		}
 	}
 
 	private void previousPage() {
@@ -65,6 +75,14 @@ public class Page<T> {
 		for (Object entity : this.currentEntities) {
 			System.out.println(entity.toString());
 		}
-		System.out.printf("%npage %d/%d, press n for next, p for previous, e to leave listing.", this.currentPage, this.totalPage);
+		
+		System.out.printf("%npage %d/%d", this.currentPage, this.totalPage);
+		if (currentPage != totalPage) {
+			System.out.printf(", press n for next");
+		}
+		if (currentPage != 1) {
+			System.out.printf(", p for previous");
+		}
+		System.out.printf(", e to leave listing.%n");
 	}
 }

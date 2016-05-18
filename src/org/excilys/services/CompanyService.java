@@ -12,7 +12,7 @@ import org.excilys.dao.DAOFactory;
  *
  */
 public class CompanyService {
-private DAO<Company> companyDAO = null;
+	private DAO<Company> companyDAO = null;
 
 	/**
 	 * Contruct a ComputerService object to access ComputerDAO

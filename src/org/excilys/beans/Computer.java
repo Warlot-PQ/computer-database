@@ -129,6 +129,10 @@ public class Computer {
 		return s;
 	}
 	
+	/**
+	 * Check if object is empty (replace null)
+	 * @return true is empty, false otherwise
+	 */
 	public boolean isEmpty() {
 		if (getName().equals("")
 				&& getDiscontinued().equals(new Timestamp(0)) 
@@ -137,5 +141,26 @@ public class Computer {
 			return true;
 		}
 		return false;
+	}
+	
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		Computer computer = (Computer) obj;
+		if (computer.getId() == getId() && computer.getName().equals(getName())
+				&& computer.getDiscontinued().equals(getDiscontinued())
+				&& computer.getIntroduced().equals(getIntroduced())
+				&& computer.getCompany_id() == getCompany_id()) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }
