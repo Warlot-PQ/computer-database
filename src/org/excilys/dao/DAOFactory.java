@@ -4,7 +4,7 @@ import org.excilys.beans.Company;
 import org.excilys.beans.Computer;
 
 /**
- * Factory generating DAO to access differents tables DB
+ * Factory generating DAO to access different tables DB
  * 
  * @author pqwarlot
  *

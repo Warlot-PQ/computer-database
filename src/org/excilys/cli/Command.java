@@ -68,17 +68,13 @@ public class Command {
 		@SuppressWarnings("resource")
 		Scanner input = new Scanner(System.in);
 		String computerId = null;
-		int computerIdInt = 0;
+		Integer computerIdInt = 0;
 		
 		System.out.printf("Enter the computer id wanted:%n>");
 		computerId = input.nextLine();
 		
-		try {
-			computerIdInt = Integer.valueOf(computerId);
-		} catch (IllegalArgumentException e) {
-			System.out.println(FORMAT_ERROR);
-			return;
-		}
+		computerIdInt = convertStringToInteger(computerId);
+		if (computerIdInt == null) return;
 		
 		Computer computer = computerService.getComputer(computerIdInt);
 		
@@ -104,41 +100,29 @@ public class Command {
 		Timestamp computerIntroducedTimestamp = null;
 		Timestamp computerDiscontinuedTimestamp = null;
 		String computerCompany_id = null;
-		int computerCompany_idInt = 0;
+		Integer computerCompany_idInt = 0;
 		Computer computer = null;
 		
 		System.out.printf("Enter the computer name:%n>");
 		computerName = input.nextLine();
 		
-		System.out.printf("Enter the computer introduced date: format YYYY-MM-DD HH:MM:SS%n>");
+		System.out.printf("Enter the computer introduced date: format YYYY-MM-DD HH:MM:SS (enter to skip)%n>");
 		computerIntroduced = input.nextLine();
 		
-		try {
-			computerIntroducedTimestamp = Timestamp.valueOf(computerIntroduced);
-		} catch (IllegalArgumentException e) {
-			System.out.println(FORMAT_ERROR);
-			return;
-		}
+		computerIntroducedTimestamp = convertStringToTimestamp(computerIntroduced);
+		if (computerIntroducedTimestamp == null) return;
 		
-		System.out.printf("Enter the computer discontinued date: format YYYY-MM-DD HH:MM:SS%n>");
+		System.out.printf("Enter the computer discontinued date: format YYYY-MM-DD HH:MM:SS (enter to skip)%n>");
 		computerDiscontinued = input.nextLine();
 
-		try {
-			computerDiscontinuedTimestamp = Timestamp.valueOf(computerDiscontinued);
-		} catch (IllegalArgumentException e) {
-			System.out.println(FORMAT_ERROR);
-			return;
-		}
-		
+		computerDiscontinuedTimestamp = convertStringToTimestamp(computerDiscontinued);
+		if (computerDiscontinuedTimestamp == null) return;
+				
 		System.out.printf("Enter the company id:%n>");
 		computerCompany_id = input.nextLine();
 		
-		try {
-			computerCompany_idInt = Integer.valueOf(computerCompany_id);
-		} catch (IllegalArgumentException e) {
-			System.out.println(FORMAT_ERROR);
-			return;
-		}
+		computerCompany_idInt = convertStringToInteger(computerCompany_id);
+		if (computerCompany_idInt == null) return;
 		
 		computer = computerService.createComputer(new Computer(computerName, computerIntroducedTimestamp,
 				computerDiscontinuedTimestamp, computerCompany_idInt));
@@ -154,61 +138,49 @@ public class Command {
 		@SuppressWarnings("resource")
 		Scanner input = new Scanner(System.in);
 		String computerId = null;
-		int computerIdInt = 0;
+		Integer computerIdInt = 0;
 		String computerName = null;
 		String computerIntroduced = null;
 		String computerDiscontinued = null;
 		Timestamp computerIntroducedTimestamp = null;
 		Timestamp computerDiscontinuedTimestamp = null;
 		String computerCompany_id = null;
-		int computerCompany_idInt = 0;
+		Integer computerCompany_idInt = 0;
 		Computer computer = null;
 
 		System.out.printf("Enter the machine id:%n>");
 		computerId = input.nextLine();
 		
-		try {
-			computerIdInt = Integer.valueOf(computerId);
-		} catch (IllegalArgumentException e) {
-			System.out.println(FORMAT_ERROR);
-			return;
-		}
+		computerIdInt = convertStringToInteger(computerId);
+		if (computerIdInt == null) return;
 
 		System.out.println("You have chosen to update the following computer:");
 		displayComputerDetails(computerIdInt);
 
+		if (computerService.getComputer(computerIdInt).isEmpty()) {
+			return;
+		}
+		
 		System.out.printf("Enter the computer name:%n>");
 		computerName = input.nextLine();
 
-		System.out.printf("Enter the computer introduced date: format YYYY-MM-DD HH:MM:SS%n>");
+		System.out.printf("Enter the computer introduced date: format YYYY-MM-DD HH:MM:SS (enter to skip)%n>");
 		computerIntroduced = input.nextLine();
 
-		try {
-			computerIntroducedTimestamp = Timestamp.valueOf(computerIntroduced);
-		} catch (IllegalArgumentException e) {
-			System.out.println(FORMAT_ERROR);
-			return;
-		}
+		computerIntroducedTimestamp = convertStringToTimestamp(computerIntroduced);
+		if (computerIntroducedTimestamp == null) return;
 		
-		System.out.printf("Enter the computer discontinued date: format YYYY-MM-DD HH:MM:SS%n>");
+		System.out.printf("Enter the computer discontinued date: format YYYY-MM-DD HH:MM:SS (enter to skip)%n>");
 		computerDiscontinued = input.nextLine();
 		
-		try {
-			computerDiscontinuedTimestamp = Timestamp.valueOf(computerDiscontinued);
-		} catch (IllegalArgumentException e) {
-			System.out.println(FORMAT_ERROR);
-			return;
-		}
+		computerDiscontinuedTimestamp = convertStringToTimestamp(computerDiscontinued);
+		if (computerDiscontinuedTimestamp == null) return;
 		
 		System.out.printf("Enter the computer company id:%n>");
 		computerCompany_id = input.nextLine();
 		
-		try {
-			computerCompany_idInt = Integer.valueOf(computerCompany_id);
-		} catch (IllegalArgumentException e) {
-			System.out.println(FORMAT_ERROR);
-			return;
-		}
+		computerCompany_idInt = convertStringToInteger(computerCompany_id);
+		if (computerCompany_idInt == null) return;
 		
 		computer = computerService.updateComputer(new Computer(computerIdInt, computerName, computerIntroducedTimestamp,
 				computerDiscontinuedTimestamp, computerCompany_idInt));
@@ -234,25 +206,71 @@ public class Command {
 		@SuppressWarnings("resource")
 		Scanner input = new Scanner(System.in);
 		String comupterId = null;
-		int comupterIdInt = 0;
+		Integer computerIdInt = 0;
 		boolean success = false;
-
+		Computer computer = null;
+		
 		System.out.printf("Enter the machine id to delete:%n>");
 		comupterId = input.nextLine();
 		
-		try {
-			comupterIdInt = Integer.valueOf(comupterId);
-		} catch (IllegalArgumentException e) {
-			System.out.println(FORMAT_ERROR);
-			return;
-		}
+		computerIdInt = convertStringToInteger(comupterId);
+		if (computerIdInt == null) return;
 
-		success = computerService.deleteComputer(computerService.getComputer(comupterIdInt));
+		computer = computerService.getComputer(computerIdInt);
+		if (computer.isEmpty()) {
+			System.out.println("No computer matching this id.");
+			return;
+		} else {
+			System.out.println("You have chosen to delete the following computer:");
+			System.out.println(computer.toString());
+		}
+		
+		success = computerService.deleteComputer(computerService.getComputer(computerIdInt));
 
 		if (success == true) {
 			System.out.println("Computer deleted with success.");
 		} else {
 			System.out.println("Computer not deleted from the database!");
 		}
+	}
+	
+	/**
+	 * Convert string object to timestamp object, return timestamp(0) if string empty
+	 * @param msg string to convert
+	 * @return timestamp object if success, null otherwise
+	 */
+	private Timestamp convertStringToTimestamp(String msg) {
+		Timestamp timestamp = null;
+		
+		if (msg.isEmpty() == false) {
+			try {
+				timestamp = Timestamp.valueOf(msg);
+			} catch (IllegalArgumentException e) {
+				System.out.println(FORMAT_ERROR);
+				timestamp = null;
+			}
+		} else {
+			timestamp = new Timestamp(0);
+		}
+		
+		return timestamp;
+	}
+	
+	/**
+	 * Convert string object to integer object
+	 * @param msg string to convert
+	 * @return integer object if success, null otherwise
+	 */
+	private Integer convertStringToInteger(String msg) {
+		Integer integer = null;
+		
+		try {
+			integer = Integer.valueOf(msg);
+		} catch (IllegalArgumentException e) {
+			System.out.println(FORMAT_ERROR);
+			integer = null;
+		}
+		
+		return integer;
 	}
 }

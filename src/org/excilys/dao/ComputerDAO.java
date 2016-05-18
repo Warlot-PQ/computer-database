@@ -2,6 +2,7 @@ package org.excilys.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -97,6 +98,16 @@ public class ComputerDAO extends DAO<Computer> {
 		Connection connection = null;
 		PreparedStatement pstmt = null;
 		String sql = "INSERT INTO computer (name, discontinued, introduced, company_id) VALUES ( ?, ?, ?, ?)";
+		Timestamp introducedTimestamp = null;
+		Timestamp discontinuedTimestamp = null;
+		
+		// Insert null in DB for discontinued and introduced if default timestamp
+		if (computer.getIntroduced().equals(new Timestamp(0)) == false) {
+			introducedTimestamp = computer.getIntroduced();
+		}
+		if (computer.getDiscontinued().equals(new Timestamp(0)) == false) {
+			discontinuedTimestamp = computer.getDiscontinued();
+		}
 		
 		connection = CoManager.getInstance().getConnection();
 		if (connection == null) return computerEmpty;
@@ -104,11 +115,11 @@ public class ComputerDAO extends DAO<Computer> {
 		try {
 			pstmt = (PreparedStatement) connection.prepareStatement(sql);
 			pstmt.setString(1, computer.getName());
-			pstmt.setTimestamp(2, computer.getIntroduced());
-			pstmt.setTimestamp(3, computer.getDiscontinued());
+			pstmt.setTimestamp(2, introducedTimestamp);
+			pstmt.setTimestamp(3, discontinuedTimestamp);
 			pstmt.setInt(4, computer.getCompany_id());
 
-			pstmt .executeUpdate();
+			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -149,6 +160,16 @@ public class ComputerDAO extends DAO<Computer> {
 		Connection connection = null;
 		PreparedStatement pstmt = null;
 		String sql = "UPDATE computer SET name=?, discontinued=?, introduced=?, company_id=? WHERE id=?";
+		Timestamp introducedTimestamp = null;
+		Timestamp discontinuedTimestamp = null;
+		
+		// Insert null in DB for discontinued and introduced if default timestamp
+		if (computer.getIntroduced().equals(new Timestamp(0)) == false) {
+			introducedTimestamp = computer.getIntroduced();
+		}
+		if (computer.getDiscontinued().equals(new Timestamp(0)) == false) {
+			discontinuedTimestamp = computer.getDiscontinued();
+		}
 		
 		connection = CoManager.getInstance().getConnection();
 		if (connection == null) return computerEmpty;
@@ -156,8 +177,8 @@ public class ComputerDAO extends DAO<Computer> {
 		try {
 			pstmt = (PreparedStatement) connection.prepareStatement(sql);
 			pstmt.setString(1, computer.getName());
-			pstmt.setTimestamp(2, computer.getDiscontinued());
-			pstmt.setTimestamp(3, computer.getIntroduced());
+			pstmt.setTimestamp(2, discontinuedTimestamp);
+			pstmt.setTimestamp(3, introducedTimestamp);
 			pstmt.setInt(4, computer.getCompany_id());
 			pstmt.setInt(5, computer.getId());
 

@@ -13,7 +13,7 @@ public class CDB_launcher {
 		Command command = new Command();
 		String firstArg = null;
 		
-		System.out.println("Welcome to CBD program :)");
+		System.out.println("Welcome to CDB program :)");
 		
 		if (args.length > 0) {
 			firstArg = args[0];
@@ -26,7 +26,7 @@ public class CDB_launcher {
 			
 			// Infinite loop until the user enter "exit" 
 			while (true) {
-				System.out.printf("Please enter you command:%n>");
+				System.out.printf("%nPlease enter your command:%n>");
 				firstArg = input.nextLine();
 				
 				command.dispatch(firstArg);
