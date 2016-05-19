@@ -28,4 +28,12 @@ public class CompanyService {
 	public List<Company> allCompany() {
 		return companyDAO.findAll();
 	}
+	
+	/**
+	 * Get a companie informations
+	 * @return all companies
+	 */
+	public Company getCompany(long id) {
+		return companyDAO.findById(id);
+	}
 }

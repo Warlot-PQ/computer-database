@@ -24,7 +24,7 @@ public class Page<T> {
 		} else {
 			this.entities = entities;
 		}
-		this.totalPage = (int) Math.ceil(entities.size() / eltByPage);
+		this.totalPage = (int) Math.ceil(entities.size() / (double) eltByPage);
 		// Handle beigining of set
 		if (totalPage == 1) {
 			this.currentEntities = entities.subList(0, currentPage * eltByPage);

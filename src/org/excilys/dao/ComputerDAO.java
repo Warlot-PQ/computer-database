@@ -6,8 +6,10 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.excilys.beans.Company;
 import org.excilys.beans.Computer;
 import org.excilys.db.CoManagerFactory;
+import org.excilys.services.CompanyService;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
@@ -49,7 +51,8 @@ public class ComputerDAO implements DAO<Computer> {
 						));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("computer all finding error!");
+//			e.printStackTrace();
 		} finally {
 			CoManagerFactory.getCoManager().cleanup(connection, stmt, rs);
 		}
@@ -57,7 +60,7 @@ public class ComputerDAO implements DAO<Computer> {
 		return computers;
 	}
 	
-	public Computer find(int id) {
+	public Computer findById(long id) {
 		Computer computer = new Computer();
 		if (id < 0) return computer;
 		
@@ -71,7 +74,7 @@ public class ComputerDAO implements DAO<Computer> {
 		
 		try {
 			pstmt = (PreparedStatement) connection.prepareStatement(sql);
-			pstmt.setInt(1, id);
+			pstmt.setLong(1, id);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()){
@@ -84,7 +87,8 @@ public class ComputerDAO implements DAO<Computer> {
 						);
 			}
 		} catch (SQLException e) {
-			System.err.println();
+			System.out.println("computer finding error!");
+//			e.printStackTrace();
 		} finally {
 			CoManagerFactory.getCoManager().cleanup(connection, pstmt, rs);
 		}
@@ -98,6 +102,7 @@ public class ComputerDAO implements DAO<Computer> {
 		
 		Connection connection = null;
 		PreparedStatement pstmt = null;
+		ResultSet generatedKeys = null;
 		String sql = "INSERT INTO computer (name, discontinued, introduced, company_id) VALUES ( ?, ?, ?, ?)";
 		Timestamp introducedTimestamp = null;
 		Timestamp discontinuedTimestamp = null;
@@ -109,29 +114,51 @@ public class ComputerDAO implements DAO<Computer> {
 		if (computer.getDiscontinued().equals(new Timestamp(0)) == false) {
 			discontinuedTimestamp = computer.getDiscontinued();
 		}
-		
+				
 		connection = CoManagerFactory.getCoManager().getConnection();
 		if (connection == null) return computerEmpty;
 		
 		try {
-			pstmt = (PreparedStatement) connection.prepareStatement(sql);
+			pstmt = (PreparedStatement) connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			pstmt.setString(1, computer.getName());
 			pstmt.setTimestamp(2, introducedTimestamp);
 			pstmt.setTimestamp(3, discontinuedTimestamp);
-			pstmt.setInt(4, computer.getCompany_id());
-
+			// Company id not existing
+			if (new CompanyService().getCompany(computer.getCompany_id()).isEmpty()) {
+				// Set company id to NULL if company id equals 0, error otherwise
+				if (computer.getCompany_id() == 0) {
+					pstmt.setNull(4, java.sql.Types.INTEGER);
+				} else {
+					System.out.println("Company id not existing, set it to 0 to force creation.");
+					throw new SQLException();
+				}
+			} else {
+				pstmt.setLong(4, computer.getCompany_id());
+			}
+			
 			pstmt.executeUpdate();
+			
+			generatedKeys = pstmt.getGeneratedKeys();
+            if (generatedKeys.next()) {
+            	computer.setId(generatedKeys.getInt(1));
+            }
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("computer creation error!");
+//			e.printStackTrace();
+			computer = computerEmpty;
 		} finally {
-			CoManagerFactory.getCoManager().cleanup(connection, pstmt, null);
+			CoManagerFactory.getCoManager().cleanup(connection, pstmt, generatedKeys);
 		}
 		
 		return computer;
 	}
 
-	public boolean delete(Computer computer) {
-		if (computer == null) return false;
+	public boolean delete(long id) {
+		boolean success = true;
+		if (id < 0) {
+			success = false;
+			return success;
+		}
 		
 		Connection connection = null;
 		PreparedStatement pstmt = null;
@@ -142,11 +169,13 @@ public class ComputerDAO implements DAO<Computer> {
 		
 		try {
 			pstmt = (PreparedStatement) connection.prepareStatement(sql);
-			pstmt.setInt(1, computer.getId());
+			pstmt.setLong(1, id);
 
 			pstmt .executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("computer deletion error!");
+//			e.printStackTrace();
+			success = false;
 		} finally {
 			CoManagerFactory.getCoManager().cleanup(connection, pstmt, null);
 		}
@@ -154,12 +183,13 @@ public class ComputerDAO implements DAO<Computer> {
 		return true;
 	}
 
-	public Computer update(Computer computer) {
+	public Computer updateById(Computer computer) {
 		Computer computerEmpty = new Computer();
 		if (computer == null) return computerEmpty;
 		
 		Connection connection = null;
 		PreparedStatement pstmt = null;
+		ResultSet generatedKeys = null;
 		String sql = "UPDATE computer SET name=?, discontinued=?, introduced=?, company_id=? WHERE id=?";
 		Timestamp introducedTimestamp = null;
 		Timestamp discontinuedTimestamp = null;
@@ -181,13 +211,31 @@ public class ComputerDAO implements DAO<Computer> {
 			pstmt.setTimestamp(2, discontinuedTimestamp);
 			pstmt.setTimestamp(3, introducedTimestamp);
 			pstmt.setInt(4, computer.getCompany_id());
-			pstmt.setInt(5, computer.getId());
+			// Company id not existing
+			if (new CompanyService().getCompany(computer.getCompany_id()).isEmpty()) {
+				// Set company id to NULL if company id equals 0, error otherwise
+				if (computer.getCompany_id() == 0) {
+					pstmt.setNull(5, java.sql.Types.INTEGER);
+				} else {
+					System.out.println("Company id not existing, set it to 0 to force creation.");
+					throw new SQLException();
+				}
+			} else {
+				pstmt.setLong(5, computer.getCompany_id());
+			}
 
 			pstmt.executeUpdate();
+
+			generatedKeys = pstmt.getGeneratedKeys();
+            if (generatedKeys.next()) {
+            	computer.setId(generatedKeys.getInt(1));
+            }
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("computer update error!");
+//			e.printStackTrace();
+			computer = computerEmpty;
 		} finally {
-			CoManagerFactory.getCoManager().cleanup(connection, pstmt, null);
+			CoManagerFactory.getCoManager().cleanup(connection, pstmt, generatedKeys);
 		}
 		
 		return computer;

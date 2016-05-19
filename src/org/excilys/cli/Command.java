@@ -225,7 +225,7 @@ public class Command {
 			System.out.println(computer.toString());
 		}
 		
-		success = computerService.deleteComputer(computerService.getComputer(computerIdInt));
+		success = computerService.deleteComputer(computerIdInt);
 
 		if (success == true) {
 			System.out.println("Computer deleted with success.");
