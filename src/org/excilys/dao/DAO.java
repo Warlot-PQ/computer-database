@@ -9,13 +9,13 @@ import java.util.List;
  * @param <T>
  */
 public interface DAO<T> {
-	public abstract List<T> findAll();
+	public List<T> findAll();
 	
-	public abstract T find(int id);
+	public T findById(long id);
 	
-	public abstract T create(T obj);
+	public T create(T obj);
 	
-	public abstract T update(T obj);
+	public T updateById(T obj);
 	
-	public abstract boolean delete(T obj);
+	public boolean delete(long id);
 }

@@ -11,7 +11,7 @@ import java.text.SimpleDateFormat;
  */
 public class Computer {
 	// Optional
-	private int id;
+	private long id;
 	// Mandatory
 	private String name;
 	private Timestamp introduced;
@@ -55,7 +55,7 @@ public class Computer {
 	 * @param company_id
 	 *            computer company id
 	 */
-	public Computer(int id, String name, Timestamp introduced, Timestamp discontinued, int company_id) {
+	public Computer(long id, String name, Timestamp introduced, Timestamp discontinued, int company_id) {
 		this.id = id;
 		this.name = name;
 		this.introduced = introduced;
@@ -63,11 +63,11 @@ public class Computer {
 		this.company_id = company_id;
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -143,24 +143,46 @@ public class Computer {
 		return false;
 	}
 	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + company_id;
+		result = prime * result + ((discontinued == null) ? 0 : discontinued.hashCode());
+		result = (int) (prime * result + id);
+		result = prime * result + ((introduced == null) ? 0 : introduced.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
+
+	@Override
 	public boolean equals(Object obj) {
-		if (this == obj) {
+		if (this == obj)
 			return true;
-		}
-		if (obj == null) {
+		if (obj == null)
 			return false;
-		}
-		if (getClass() != obj.getClass()) {
+		if (getClass() != obj.getClass())
 			return false;
-		}
-		Computer computer = (Computer) obj;
-		if (computer.getId() == getId() && computer.getName().equals(getName())
-				&& computer.getDiscontinued().equals(getDiscontinued())
-				&& computer.getIntroduced().equals(getIntroduced())
-				&& computer.getCompany_id() == getCompany_id()) {
-			return true;
-		} else {
+		Computer other = (Computer) obj;
+		if (company_id != other.company_id)
 			return false;
-		}
+		if (discontinued == null) {
+			if (other.discontinued != null)
+				return false;
+		} else if (!discontinued.equals(other.discontinued))
+			return false;
+		if (id != other.id)
+			return false;
+		if (introduced == null) {
+			if (other.introduced != null)
+				return false;
+		} else if (!introduced.equals(other.introduced))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
 	}
 }
