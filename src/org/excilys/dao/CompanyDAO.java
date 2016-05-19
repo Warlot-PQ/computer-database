@@ -8,6 +8,8 @@ import java.util.List;
 import org.excilys.beans.Company;
 import org.excilys.beans.Computer;
 import org.excilys.db.CoManagerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
@@ -42,7 +44,8 @@ public class CompanyDAO implements DAO<Company> {
 						));
 			}
 		} catch (SQLException e) {
-//			e.printStackTrace();
+			Logger logger = LoggerFactory.getLogger(this.getClass());
+			logger.error("campany fin all SQL error!", e);
 		} finally {
 			CoManagerFactory.getCoManager().cleanup(connection, stmt, rs);
 		}
@@ -74,7 +77,9 @@ public class CompanyDAO implements DAO<Company> {
 			}
 		} catch (SQLException e) {
 			System.out.println("company finding error!");
-//				e.printStackTrace();
+
+			Logger logger = LoggerFactory.getLogger(this.getClass());
+			logger.error("company find by id SQL error!", e);
 		} finally {
 			CoManagerFactory.getCoManager().cleanup(connection, pstmt, rs);
 		}
@@ -84,12 +89,12 @@ public class CompanyDAO implements DAO<Company> {
 
 	public Company create(Company obj) {
 		// TODO Auto-generated method stub
-		return null;
+		return new Company();
 	}
 
 	public Company updateById(Company obj) {
 		// TODO Auto-generated method stub
-		return null;
+		return new Company();
 	}
 
 	public boolean delete(long id) {

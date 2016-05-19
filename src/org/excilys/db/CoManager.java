@@ -5,6 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
 
@@ -26,7 +29,8 @@ public class CoManager {
 		try {
 			Class.forName(properties.getString("DB_DRIVER"));
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			Logger logger = LoggerFactory.getLogger(this.getClass());
+			logger.error("Driver load error!", e);
 		}
 	}
 
@@ -36,7 +40,8 @@ public class CoManager {
 			connection = (Connection) DriverManager.getConnection(properties.getString("JDBC_URL"), properties.getString("DB_LOGIN"), properties.getString("DB_PASSWORD"));
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			Logger logger = LoggerFactory.getLogger(this.getClass());
+			logger.error("DB connection exception!", e);
 		}
 		return connection;
 	}
@@ -53,21 +58,18 @@ public class CoManager {
 			try {
 				rs.close();
 			} catch (SQLException e) {
-				e.printStackTrace();
 			}
 		}
 		if (stat!=null) {
 			try {
 				stat.close();
 			} catch (SQLException e) {
-				e.printStackTrace();
 			}
 		}
 		if (connection != null) {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				e.printStackTrace();
 			}
 		}
 	}

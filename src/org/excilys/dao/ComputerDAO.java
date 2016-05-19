@@ -8,8 +8,11 @@ import java.util.List;
 
 import org.excilys.beans.Company;
 import org.excilys.beans.Computer;
+import org.excilys.cli.CDB_launcher;
 import org.excilys.db.CoManagerFactory;
 import org.excilys.services.CompanyService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
@@ -26,7 +29,7 @@ public class ComputerDAO implements DAO<Computer> {
 	public List<Computer> findAll() {
 		Connection connection = null;
 		Statement stmt = null;
-		String sql = "SELECT computer.id,computer.name,computer.introduced,"
+		String sql = "ELECT computer.id,computer.name,computer.introduced,"
 				+ "computer.discontinued,computer.company_id,company.name AS company_name "
 				+ "FROM computer "
 				+ "LEFT OUTER JOIN company "
@@ -52,7 +55,9 @@ public class ComputerDAO implements DAO<Computer> {
 			}
 		} catch (SQLException e) {
 			System.out.println("computer all finding error!");
-//			e.printStackTrace();
+
+			Logger logger = LoggerFactory.getLogger(this.getClass());
+			logger.error("computer find all SQL error!", e);
 		} finally {
 			CoManagerFactory.getCoManager().cleanup(connection, stmt, rs);
 		}
@@ -88,7 +93,9 @@ public class ComputerDAO implements DAO<Computer> {
 			}
 		} catch (SQLException e) {
 			System.out.println("computer finding error!");
-//			e.printStackTrace();
+			
+			Logger logger = LoggerFactory.getLogger(this.getClass());
+			logger.error("computer find by id SQL error!", e);
 		} finally {
 			CoManagerFactory.getCoManager().cleanup(connection, pstmt, rs);
 		}
@@ -130,7 +137,9 @@ public class ComputerDAO implements DAO<Computer> {
 					pstmt.setNull(4, java.sql.Types.INTEGER);
 				} else {
 					System.out.println("Company id not existing, set it to 0 to force creation.");
-					throw new SQLException();
+					
+					CoManagerFactory.getCoManager().cleanup(connection, pstmt, generatedKeys);
+					return computerEmpty;
 				}
 			} else {
 				pstmt.setLong(4, computer.getCompany_id());
@@ -144,8 +153,10 @@ public class ComputerDAO implements DAO<Computer> {
             }
 		} catch (SQLException e) {
 			System.out.println("computer creation error!");
-//			e.printStackTrace();
 			computer = computerEmpty;
+			
+			Logger logger = LoggerFactory.getLogger(this.getClass());
+			logger.error("computer create SQL error!", e);
 		} finally {
 			CoManagerFactory.getCoManager().cleanup(connection, pstmt, generatedKeys);
 		}
@@ -174,8 +185,10 @@ public class ComputerDAO implements DAO<Computer> {
 			pstmt .executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("computer deletion error!");
-//			e.printStackTrace();
 			success = false;
+			
+			Logger logger = LoggerFactory.getLogger(this.getClass());
+			logger.error("computer delete SQL error!", e);
 		} finally {
 			CoManagerFactory.getCoManager().cleanup(connection, pstmt, null);
 		}
@@ -218,7 +231,9 @@ public class ComputerDAO implements DAO<Computer> {
 					pstmt.setNull(5, java.sql.Types.INTEGER);
 				} else {
 					System.out.println("Company id not existing, set it to 0 to force creation.");
-					throw new SQLException();
+					
+					CoManagerFactory.getCoManager().cleanup(connection, pstmt, generatedKeys);
+					return computerEmpty;
 				}
 			} else {
 				pstmt.setLong(5, computer.getCompany_id());
@@ -232,8 +247,10 @@ public class ComputerDAO implements DAO<Computer> {
             }
 		} catch (SQLException e) {
 			System.out.println("computer update error!");
-//			e.printStackTrace();
 			computer = computerEmpty;
+			
+			Logger logger = LoggerFactory.getLogger(this.getClass());
+			logger.error("computer update by id SQL error!", e);
 		} finally {
 			CoManagerFactory.getCoManager().cleanup(connection, pstmt, generatedKeys);
 		}
