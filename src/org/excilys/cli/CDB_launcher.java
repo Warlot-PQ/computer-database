@@ -10,7 +10,7 @@ public class CDB_launcher {
 	 *            arguments to parse, only the first one is used
 	 */
 	public static void main(String[] args) {
-		Command command = new Command();
+		CommandFactory cf = CommandFactory.init();
 		String firstArg = null;
 		
 		System.out.println("Welcome to CDB program :)");
@@ -19,7 +19,7 @@ public class CDB_launcher {
 			firstArg = args[0];
 
 			System.out.println("You have entered: " + firstArg + ".");
-			command.dispatch(firstArg);
+			cf.executeCommand(firstArg);
 		} else {
 			@SuppressWarnings("resource")
 			Scanner input = new Scanner(System.in);
@@ -29,7 +29,7 @@ public class CDB_launcher {
 				System.out.printf("%nPlease enter your command: (enter anything for help)%n>");
 				firstArg = input.nextLine();
 				
-				command.dispatch(firstArg);
+				cf.executeCommand(firstArg);
 			}
 		}
 		System.out.println("Bye bye.");

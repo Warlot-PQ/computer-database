@@ -1,22 +1,23 @@
 package org.excilys.dao;
 
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.excilys.beans.Company;
 import org.excilys.beans.Computer;
-import org.excilys.cli.CDB_launcher;
 import org.excilys.db.CoManagerFactory;
-import org.excilys.services.CompanyService;
+import org.excilys.exceptions.ConnectionException;
+import org.excilys.exceptions.DAOException;
+import org.excilys.exceptions.DriverException;
+import org.excilys.service.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.PreparedStatement;
-import com.mysql.jdbc.Statement;
 
 /**
  * DB manipulation on Computer table
@@ -25,236 +26,164 @@ import com.mysql.jdbc.Statement;
  *
  */
 public class ComputerDAO implements DAO<Computer> {
-	
-	public List<Computer> findAll() {
+	private static ComputerDAO instance;
+	private static Logger logger = null;
+
+	private ComputerDAO() {
+		logger = LoggerFactory.getLogger(this.getClass());
+	}
+
+	protected static ComputerDAO getInstance() {
+		if (instance == null) {
+			synchronized (ComputerDAO.class) {
+				if (instance == null) {
+					instance = new ComputerDAO();
+				}
+			}
+		}
+		return instance;
+	}
+
+	public List<Computer> findAll() throws DAOException, ConnectionException, DriverException {
 		Connection connection = null;
 		Statement stmt = null;
-		String sql = "ELECT computer.id,computer.name,computer.introduced,"
-				+ "computer.discontinued,computer.company_id,company.name AS company_name "
-				+ "FROM computer "
-				+ "LEFT OUTER JOIN company "
-				+ "ON computer.company_id=company.id";
+		String sql = "SELECT computer.id,computer.name,computer.introduced,"
+				+ "computer.discontinued,computer.company_id,company.name AS company_name " + "FROM computer "
+				+ "LEFT OUTER JOIN company " + "ON computer.company_id=company.id";
 		ResultSet rs = null;
 		List<Computer> computers = new ArrayList<>();
-		
+
 		connection = CoManagerFactory.getCoManager().getConnection();
-		if (connection == null) return computers;
-		
+
 		try {
-			stmt = (Statement) connection.createStatement();
+			stmt = connection.createStatement();
 			rs = stmt.executeQuery(sql);
-			
-			while(rs.next()){
-				computers.add(new Computer(
-						rs.getInt("id"),
-						rs.getString("name"),
-						rs.getTimestamp("introduced"),
-						rs.getTimestamp("discontinued"),
-						rs.getInt("company_id")
-						));
+
+			while (rs.next()) {
+				computers.add(new Computer(rs.getLong("id"), rs.getString("name"),
+						Mapper.sqlDateToJavaLocalDate(rs.getDate("introduced")),
+						Mapper.sqlDateToJavaLocalDate(rs.getDate("discontinued")), rs.getLong("company_id"),
+						rs.getString("company_name")));
 			}
 		} catch (SQLException e) {
-			System.out.println("computer all finding error!");
-
-			Logger logger = LoggerFactory.getLogger(this.getClass());
 			logger.error("computer find all SQL error!", e);
+
+			throw new DAOException(e);
 		} finally {
 			CoManagerFactory.getCoManager().cleanup(connection, stmt, rs);
 		}
-		
+
 		return computers;
 	}
-	
-	public Computer findById(long id) {
-		Computer computer = new Computer();
-		if (id < 0) return computer;
-		
+
+	public Computer findById(Long id) throws DAOException, ConnectionException, DriverException {
 		Connection connection = null;
 		PreparedStatement pstmt = null;
-		String sql = "SELECT id,name,introduced,discontinued,company_id FROM computer WHERE id=?";
+		String sql = "SELECT computer.id,computer.name,computer.introduced,"
+				+ "computer.discontinued,computer.company_id,company.name AS company_name" + " FROM computer "
+				+ "LEFT OUTER JOIN company " + "ON computer.company_id=company.id" + " WHERE computer.id=?";
 		ResultSet rs = null;
-		
+		Computer computer = null;
+
 		connection = CoManagerFactory.getCoManager().getConnection();
-		if (connection == null) return computer;
-		
+
 		try {
-			pstmt = (PreparedStatement) connection.prepareStatement(sql);
+			pstmt = connection.prepareStatement(sql);
 			pstmt.setLong(1, id);
 			rs = pstmt.executeQuery();
-			
-			while(rs.next()){
-				computer = new Computer(
-						rs.getInt("id"),
-						rs.getString("name"),
-						rs.getTimestamp("introduced"),
-						rs.getTimestamp("discontinued"),
-						rs.getInt("company_id")
-						);
+
+			if (rs.next()) {
+				computer = new Computer(rs.getLong("id"), rs.getString("name"),
+						Mapper.sqlDateToJavaLocalDate(rs.getDate("introduced")),
+						Mapper.sqlDateToJavaLocalDate(rs.getDate("discontinued")), rs.getLong("company_id"),
+						rs.getString("company_name"));
 			}
 		} catch (SQLException e) {
-			System.out.println("computer finding error!");
-			
-			Logger logger = LoggerFactory.getLogger(this.getClass());
 			logger.error("computer find by id SQL error!", e);
+
+			throw new DAOException(e);
 		} finally {
 			CoManagerFactory.getCoManager().cleanup(connection, pstmt, rs);
 		}
-		
+
 		return computer;
 	}
 
-	public Computer create(Computer computer) {
-		Computer computerEmpty = new Computer();
-		if (computer == null) return computerEmpty;
-		
+	public void create(Computer computer) throws DAOException, ConnectionException, DriverException {
 		Connection connection = null;
 		PreparedStatement pstmt = null;
 		ResultSet generatedKeys = null;
 		String sql = "INSERT INTO computer (name, discontinued, introduced, company_id) VALUES ( ?, ?, ?, ?)";
-		Timestamp introducedTimestamp = null;
-		Timestamp discontinuedTimestamp = null;
-		
-		// Insert null in DB for discontinued and introduced if default timestamp
-		if (computer.getIntroduced().equals(new Timestamp(0)) == false) {
-			introducedTimestamp = computer.getIntroduced();
-		}
-		if (computer.getDiscontinued().equals(new Timestamp(0)) == false) {
-			discontinuedTimestamp = computer.getDiscontinued();
-		}
-				
+
 		connection = CoManagerFactory.getCoManager().getConnection();
-		if (connection == null) return computerEmpty;
-		
+
 		try {
-			pstmt = (PreparedStatement) connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			pstmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			pstmt.setString(1, computer.getName());
-			pstmt.setTimestamp(2, introducedTimestamp);
-			pstmt.setTimestamp(3, discontinuedTimestamp);
-			// Company id not existing
-			if (new CompanyService().getCompany(computer.getCompany_id()).isEmpty()) {
-				// Set company id to NULL if company id equals 0, error otherwise
-				if (computer.getCompany_id() == 0) {
-					pstmt.setNull(4, java.sql.Types.INTEGER);
-				} else {
-					System.out.println("Company id not existing, set it to 0 to force creation.");
-					
-					CoManagerFactory.getCoManager().cleanup(connection, pstmt, generatedKeys);
-					return computerEmpty;
-				}
-			} else {
-				pstmt.setLong(4, computer.getCompany_id());
-			}
-			
+			pstmt.setDate(2, Mapper.javaLocalDateToSqlTimeStamp(computer.getDiscontinued()));
+			pstmt.setDate(3, Mapper.javaLocalDateToSqlTimeStamp(computer.getIntroduced()));
+			pstmt.setObject(4, computer.getCompanyId());
+
 			pstmt.executeUpdate();
-			
+
 			generatedKeys = pstmt.getGeneratedKeys();
-            if (generatedKeys.next()) {
-            	computer.setId(generatedKeys.getInt(1));
-            }
+			if (generatedKeys.next()) {
+				computer.setId(generatedKeys.getInt(1));
+			}
 		} catch (SQLException e) {
-			System.out.println("computer creation error!");
-			computer = computerEmpty;
-			
-			Logger logger = LoggerFactory.getLogger(this.getClass());
 			logger.error("computer create SQL error!", e);
+
+			throw new DAOException(e);
 		} finally {
 			CoManagerFactory.getCoManager().cleanup(connection, pstmt, generatedKeys);
 		}
-		
-		return computer;
 	}
 
-	public boolean delete(long id) {
-		boolean success = true;
-		if (id < 0) {
-			success = false;
-			return success;
-		}
-		
+	public void delete(Long id) throws DAOException, ConnectionException, DriverException {
 		Connection connection = null;
 		PreparedStatement pstmt = null;
 		String sql = "DELETE FROM computer WHERE id=?";
-		
+
 		connection = CoManagerFactory.getCoManager().getConnection();
-		if (connection == null) return false;
-		
+
 		try {
-			pstmt = (PreparedStatement) connection.prepareStatement(sql);
+			pstmt = connection.prepareStatement(sql);
 			pstmt.setLong(1, id);
 
-			pstmt .executeUpdate();
+			pstmt.executeUpdate();
 		} catch (SQLException e) {
-			System.out.println("computer deletion error!");
-			success = false;
-			
-			Logger logger = LoggerFactory.getLogger(this.getClass());
 			logger.error("computer delete SQL error!", e);
+
+			throw new DAOException(e);
 		} finally {
 			CoManagerFactory.getCoManager().cleanup(connection, pstmt, null);
 		}
-		
-		return true;
 	}
 
-	public Computer updateById(Computer computer) {
-		Computer computerEmpty = new Computer();
-		if (computer == null) return computerEmpty;
-		
+	public void updateById(Computer computer) throws DAOException, ConnectionException, DriverException {
 		Connection connection = null;
 		PreparedStatement pstmt = null;
 		ResultSet generatedKeys = null;
 		String sql = "UPDATE computer SET name=?, discontinued=?, introduced=?, company_id=? WHERE id=?";
-		Timestamp introducedTimestamp = null;
-		Timestamp discontinuedTimestamp = null;
-		
-		// Insert null in DB for discontinued and introduced if default timestamp
-		if (computer.getIntroduced().equals(new Timestamp(0)) == false) {
-			introducedTimestamp = computer.getIntroduced();
-		}
-		if (computer.getDiscontinued().equals(new Timestamp(0)) == false) {
-			discontinuedTimestamp = computer.getDiscontinued();
-		}
-		
+
 		connection = CoManagerFactory.getCoManager().getConnection();
-		if (connection == null) return computerEmpty;
-		
+
 		try {
-			pstmt = (PreparedStatement) connection.prepareStatement(sql);
+			pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, computer.getName());
-			pstmt.setTimestamp(2, discontinuedTimestamp);
-			pstmt.setTimestamp(3, introducedTimestamp);
-			pstmt.setInt(4, computer.getCompany_id());
-			// Company id not existing
-			if (new CompanyService().getCompany(computer.getCompany_id()).isEmpty()) {
-				// Set company id to NULL if company id equals 0, error otherwise
-				if (computer.getCompany_id() == 0) {
-					pstmt.setNull(5, java.sql.Types.INTEGER);
-				} else {
-					System.out.println("Company id not existing, set it to 0 to force creation.");
-					
-					CoManagerFactory.getCoManager().cleanup(connection, pstmt, generatedKeys);
-					return computerEmpty;
-				}
-			} else {
-				pstmt.setLong(5, computer.getCompany_id());
-			}
+			pstmt.setDate(2, Mapper.javaLocalDateToSqlTimeStamp(computer.getDiscontinued()));
+			pstmt.setDate(3, Mapper.javaLocalDateToSqlTimeStamp(computer.getIntroduced()));
+			pstmt.setObject(4, computer.getCompanyId());
+			pstmt.setLong(5, computer.getId());
 
 			pstmt.executeUpdate();
-
-			generatedKeys = pstmt.getGeneratedKeys();
-            if (generatedKeys.next()) {
-            	computer.setId(generatedKeys.getInt(1));
-            }
 		} catch (SQLException e) {
 			System.out.println("computer update error!");
-			computer = computerEmpty;
-			
-			Logger logger = LoggerFactory.getLogger(this.getClass());
 			logger.error("computer update by id SQL error!", e);
+
+			throw new DAOException(e);
 		} finally {
 			CoManagerFactory.getCoManager().cleanup(connection, pstmt, generatedKeys);
 		}
-		
-		return computer;
 	}
 }

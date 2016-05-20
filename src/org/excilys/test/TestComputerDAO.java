@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.excilys.beans.Computer;
-import org.excilys.services.ComputerService;
+import org.excilys.service.ComputerService;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

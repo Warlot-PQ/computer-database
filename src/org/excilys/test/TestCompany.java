@@ -31,7 +31,7 @@ public class TestCompany {
 	
 	@Test
 	public void testNotEmpty2() {
-		int id = 3;
+		Long id = (long) 3;
 		String name = "test1";
 		
 		company = new Company(id, name);

@@ -7,14 +7,14 @@ package org.excilys.beans;
  *
  */
 public class Company {
-	private long id;
+	private Long id;
 	private String name;
 
 	/**
 	 * Construct an empty company object
 	 */
 	public Company() {
-		this(0, "");
+		this(null, null);
 	}
 
 	/**
@@ -24,7 +24,7 @@ public class Company {
 	 *            company name
 	 */
 	public Company(String name) {
-		this(0, name);
+		this(null, name);
 	}
 	
 	/**
@@ -35,16 +35,16 @@ public class Company {
 	 * @param name
 	 *            company name
 	 */
-	public Company(long id, String name) {
+	public Company(Long id, String name) {
 		this.id = id;
 		this.name = name;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -57,21 +57,14 @@ public class Company {
 	}
 
 	public String toString() {
-		return "id: " + this.getId() + " name: " + this.getName();
-	}
-	
-	public boolean isEmpty() {
-		if (getName().equals("")) {
-			return true;
-		}
-		return false;
+		return "id: " + getId() + " name: " + getName();
 	}
 	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = (int) (prime * result + id);
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
@@ -85,7 +78,10 @@ public class Company {
 		if (getClass() != obj.getClass())
 			return false;
 		Company other = (Company) obj;
-		if (id != other.id)
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
 			return false;
 		if (name == null) {
 			if (other.name != null)

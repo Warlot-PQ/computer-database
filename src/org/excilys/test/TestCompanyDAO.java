@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.excilys.beans.Company;
-import org.excilys.services.CompanyService;
+import org.excilys.service.CompanyService;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -28,8 +28,8 @@ public class TestCompanyDAO {
 	@Test
 	public void testReadAll() {
 		List<Company> companiesExpected = new ArrayList<>();
-		companiesExpected.add(new Company(1, "Apple Inc"));
-		companiesExpected.add(new Company(2, "Microsoft"));
+		companiesExpected.add(new Company(1L, "Apple Inc"));
+		companiesExpected.add(new Company(2L, "Microsoft"));
 		
 		List<Company> companies = companyService.allCompany();
 		

@@ -10,7 +10,7 @@ import java.util.Scanner;
  *
  * @param <T> entities to list, list through toString method
  */
-public class Page<T> {
+public class Page<Service> { // Service must implement fetch(from, to)
 	private static int eltByPage = 30;
 	private List<T> entities;
 	private int totalPage;
@@ -27,9 +27,9 @@ public class Page<T> {
 		this.totalPage = (int) Math.ceil(entities.size() / (double) eltByPage);
 		// Handle beigining of set
 		if (totalPage == 1) {
-			this.currentEntities = entities.subList(0, currentPage * eltByPage);
-		} else {
 			this.currentEntities = entities.subList(0, entities.size());
+		} else {
+			this.currentEntities = entities.subList(0, currentPage * eltByPage);
 		}
 	}
 	

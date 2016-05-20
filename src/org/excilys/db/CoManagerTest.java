@@ -2,22 +2,33 @@ package org.excilys.db;
 
 import java.util.ResourceBundle;
 
+import org.excilys.exceptions.DriverException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class CoManagerTest extends CoManager {
-	protected static String resourceBundle = "org/excilys/db/configTest";
+	protected static String resourceBundle = "com/excilys/db/configTest";
 	
-	protected CoManagerTest() {
+	protected CoManagerTest() throws DriverException {
 		properties = ResourceBundle.getBundle(resourceBundle);
 		
 		try {
 			Class.forName(properties.getString("DB_DRIVER"));
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			Logger logger = LoggerFactory.getLogger(this.getClass());
+			logger.error("Driver load error!", e);
+			
+			throw new DriverException(e);
 		}
 	}
 	
-	public synchronized static CoManager getInstance() {
+	public static CoManager getInstance() throws DriverException {
 		if (instance == null) {
-			instance = new CoManagerTest();
+			synchronized (CoManagerTest.class) {
+				if (instance == null) {
+					instance = new CoManagerTest();
+				}
+			}
 		}
 		return instance;
 	}
