@@ -28,7 +28,7 @@ public class ComputerUpdateCommand implements Command {
 		
 		System.out.println("You have chosen to update the following computer:");
 		try {
-			computerToUpdate = ComputerService.getInstance().getComputer(computerIdToUpdate);
+			computerToUpdate = ComputerService.getInstance().get(computerIdToUpdate);
 		} catch (DAOException | ConnectionException | DriverException e) {
 			System.out.println("BD error!");
 			return;
@@ -60,7 +60,7 @@ public class ComputerUpdateCommand implements Command {
 		// Report changes to the DB
 		
 		try {
-			success = ComputerService.getInstance().updateComputer(computerToUpdate);
+			success = ComputerService.getInstance().update(computerToUpdate);
 		} catch (DAOException | ConnectionException | DriverException e) {
 			System.out.println("BD error!");
 			return;

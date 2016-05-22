@@ -26,7 +26,7 @@ public class ComputerDeleteCommand implements Command {
 		if (computerIdInt == null) return;
 
 		try {
-			computer = ComputerService.getInstance().getComputer(computerIdInt);
+			computer = ComputerService.getInstance().get(computerIdInt);
 		} catch (DAOException | ConnectionException | DriverException e) {
 			System.out.println("DB error!");
 			return;
@@ -41,7 +41,7 @@ public class ComputerDeleteCommand implements Command {
 		}
 		
 		try {
-			success = ComputerService.getInstance().deleteComputer(computerIdInt);
+			success = ComputerService.getInstance().delete(computerIdInt);
 		} catch (DAOException | ConnectionException | DriverException e) {
 			System.out.println("DB error!");
 			return;

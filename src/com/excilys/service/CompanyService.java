@@ -12,7 +12,7 @@ import com.excilys.exceptions.DriverException;
  * @author pqwarlot
  *
  */
-public class CompanyService {
+public class CompanyService implements Service<Company> {
 	private static CompanyService instance = null;
 	private DAO<Company> companyDAO = CompanyDAO.getInstance();
 	
@@ -32,7 +32,7 @@ public class CompanyService {
 	 */
 	private CompanyService() {
 	}
-	
+
 	/**
 	 * Get all companies informations
 	 * @return all companies
@@ -40,8 +40,17 @@ public class CompanyService {
 	 * @throws ConnectionException 
 	 * @throws DAOException 
 	 */
-	public List<Company> allCompany() throws DAOException, ConnectionException, DriverException {
+	@Override
+	public List<Company> getAll() throws DAOException, ConnectionException, DriverException {
 		return companyDAO.findAll();
+	}
+	
+	@Override
+	public List<Company> getAllFromTo(int offset, int limit) throws DAOException, ConnectionException, DriverException {
+		if (offset < 0 || limit < 0) {
+			return null;
+		}
+		return companyDAO.findAllFromTo(offset, limit);
 	}
 	
 	/**
@@ -51,7 +60,32 @@ public class CompanyService {
 	 * @throws ConnectionException 
 	 * @throws DAOException 
 	 */
-	public Company getCompany(Long id) throws DAOException, ConnectionException, DriverException {
+	@Override
+	public Company get(Long id) throws DAOException, ConnectionException, DriverException {
+		if (id == null) {
+			return null;
+		}
+		if (id <= 0) {
+			return null;
+		}
 		return companyDAO.findById(id);
+	}
+	
+	@Override
+	public boolean create(Company obj) throws DAOException, ConnectionException, DriverException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean update(Company obj) throws DAOException, ConnectionException, DriverException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean delete(Long id) throws DAOException, ConnectionException, DriverException {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

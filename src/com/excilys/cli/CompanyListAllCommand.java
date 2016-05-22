@@ -15,16 +15,22 @@ public class CompanyListAllCommand implements Command {
 	public void execute() {
 		List<Company> companies = new ArrayList<>();
 		try {
-			companies = CompanyService.getInstance().allCompany();
+			companies = CompanyService.getInstance().getAll();
 		} catch (DAOException | ConnectionException | DriverException e) {
 			System.out.println("DB error!");
 			return;
 		}
 
+		Page<Company> p = new Page<Company>(CompanyService.getInstance());
+		try {
+			companies = p.nextPage();
+		} catch (DAOException | ConnectionException | DriverException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		for (Company company: companies) {
 			System.out.println(company.toString());
 		}
-//		new Page<Company>(companies).startPagination();
 	}
-	
 }

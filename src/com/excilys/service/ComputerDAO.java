@@ -13,6 +13,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.excilys.beans.Company;
 import com.excilys.beans.Computer;
 import com.excilys.db.CoManagerFactory;
 import com.excilys.exceptions.ConnectionException;
@@ -49,7 +50,8 @@ public class ComputerDAO implements DAO<Computer> {
 		Statement stmt = null;
 		String sql = "SELECT computer.id,computer.name,computer.introduced,"
 				+ "computer.discontinued,computer.company_id,company.name AS company_name " + "FROM computer "
-				+ "LEFT OUTER JOIN company " + "ON computer.company_id=company.id";
+				+ "LEFT OUTER JOIN company "
+				+ "ON computer.company_id=company.id";
 		ResultSet rs = null;
 		List<Computer> computers = new ArrayList<>();
 
@@ -75,13 +77,52 @@ public class ComputerDAO implements DAO<Computer> {
 
 		return computers;
 	}
+	
+	@Override
+	public List<Computer> findAllFromTo(int offset, int limit) throws DAOException, ConnectionException, DriverException {
+		Connection connection = null;
+		PreparedStatement pstmt = null;
+		String sql = "SELECT computer.id,computer.name,computer.introduced,"
+				+ "computer.discontinued,computer.company_id,company.name AS company_name " 
+				+ "FROM computer "
+				+ "LEFT OUTER JOIN company "
+				+ "ON computer.company_id=company.id "
+				+ "LIMIT ?, ?";
+		ResultSet rs = null;
+		List<Computer> computers = new ArrayList<>();
 
+		connection = CoManagerFactory.getCoManager().getConnection();
+
+		try {
+			pstmt = connection.prepareStatement(sql);
+			pstmt.setInt(1, offset);
+			pstmt.setInt(2, limit);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				computers.add(new Computer(rs.getLong("id"), rs.getString("name"),
+						Mapper.sqlDateToJavaLocalDate(rs.getDate("introduced")),
+						Mapper.sqlDateToJavaLocalDate(rs.getDate("discontinued")), rs.getLong("company_id"),
+						rs.getString("company_name")));
+			}
+		} catch (SQLException e) {
+			logger.error("computer find by id SQL error!", e);
+
+			throw new DAOException(e);
+		} finally {
+			CoManagerFactory.getCoManager().cleanup(connection, pstmt, rs);
+		}
+
+		return computers;
+	}
+	
 	public Computer findById(Long id) throws DAOException, ConnectionException, DriverException {
 		Connection connection = null;
 		PreparedStatement pstmt = null;
 		String sql = "SELECT computer.id,computer.name,computer.introduced,"
-				+ "computer.discontinued,computer.company_id,company.name AS company_name" + " FROM computer "
-				+ "LEFT OUTER JOIN company " + "ON computer.company_id=company.id" + " WHERE computer.id=?";
+				+ "computer.discontinued,computer.company_id,company.name AS company_name" 
+				+ " FROM computer "
+				+ "LEFT OUTER JOIN company "
+				+ "ON computer.company_id=company.id" + " WHERE computer.id=?";
 		ResultSet rs = null;
 		Computer computer = null;
 
@@ -113,7 +154,8 @@ public class ComputerDAO implements DAO<Computer> {
 		Connection connection = null;
 		PreparedStatement pstmt = null;
 		ResultSet generatedKeys = null;
-		String sql = "INSERT INTO computer (name, discontinued, introduced, company_id) VALUES ( ?, ?, ?, ?)";
+		String sql = "INSERT INTO computer (name, discontinued, introduced, company_id) "
+				+ "VALUES ( ?, ?, ?, ?)";
 
 		connection = CoManagerFactory.getCoManager().getConnection();
 
@@ -164,7 +206,9 @@ public class ComputerDAO implements DAO<Computer> {
 		Connection connection = null;
 		PreparedStatement pstmt = null;
 		ResultSet generatedKeys = null;
-		String sql = "UPDATE computer SET name=?, discontinued=?, introduced=?, company_id=? WHERE id=?";
+		String sql = "UPDATE computer "
+				+ "SET name=?, discontinued=?, introduced=?, company_id=? "
+				+ "WHERE id=?";
 
 		connection = CoManagerFactory.getCoManager().getConnection();
 

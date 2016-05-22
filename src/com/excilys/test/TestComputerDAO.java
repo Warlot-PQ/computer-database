@@ -15,6 +15,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import com.excilys.beans.Computer;
+import com.excilys.db.CoManagerFactory;
 import com.excilys.service.ComputerService;
 
 public class TestComputerDAO {
@@ -22,6 +23,7 @@ public class TestComputerDAO {
 	
 	@Before
 	public void setUp() throws Exception {
+		CoManagerFactory.enableTest();
 		computerService = new ComputerService();
 	}
 
@@ -43,7 +45,7 @@ public class TestComputerDAO {
 		companiesExpected.add(new Computer(5, "CM-5", timestamp1, null, 2));
 		companiesExpected.add(new Computer(6, "MacBook Pro", timestamp2, null, 1));
 		
-		List<Computer> companies = computerService.allComputer();
+		List<Computer> companies = computerService.getAll();
 		
 		Assert.assertThat(companies, is(companiesExpected));
 	}
@@ -53,7 +55,7 @@ public class TestComputerDAO {
 		Computer computerToCreate = null;
 		Timestamp discontinuedTime = new Timestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("1991-01-01 00:00:00").getTime());
 		
-		computerToCreate = computerService.getComputer(5);
+		computerToCreate = computerService.get(5);
 		
 		Assert.assertEquals(computerToCreate.getId(), 5);
 		Assert.assertEquals(computerToCreate.getName(), "CM-5");
@@ -70,27 +72,27 @@ public class TestComputerDAO {
 		Computer computerToCreate = null;
 	
 		computerToCreate = new Computer("good computer", null, discontinuedTime, 2);
-		computerCreated = computerService.createComputer(computerToCreate);
+		computerCreated = computerService.create(computerToCreate);
 		Assert.assertFalse(computerCreated.isEmpty());
 		
-		Assert.assertTrue( computerService.deleteComputer(computerCreated.getId()) );
-		Assert.assertTrue( computerService.getComputer(computerCreated.getId()).isEmpty() );
+		Assert.assertTrue( computerService.delete(computerCreated.getId()) );
+		Assert.assertTrue( computerService.get(computerCreated.getId()).isEmpty() );
 
 		
 		computerToCreate = new Computer("good computer", introducedTime, null, 2);
-		computerCreated = computerService.createComputer(computerToCreate);
+		computerCreated = computerService.create(computerToCreate);
 		Assert.assertFalse(computerCreated.isEmpty());
 		
-		Assert.assertTrue( computerService.deleteComputer(computerCreated.getId()) );
-		Assert.assertTrue( computerService.getComputer(computerCreated.getId()).isEmpty() );
+		Assert.assertTrue( computerService.delete(computerCreated.getId()) );
+		Assert.assertTrue( computerService.get(computerCreated.getId()).isEmpty() );
 		
 		
 		computerToCreate = new Computer("good computer", null, null, 2);
-		computerCreated = computerService.createComputer(computerToCreate);
+		computerCreated = computerService.create(computerToCreate);
 		Assert.assertFalse(computerCreated.isEmpty());
 		
-		Assert.assertTrue( computerService.deleteComputer(computerCreated.getId()) );
-		Assert.assertTrue( computerService.getComputer(computerCreated.getId()).isEmpty() );
+		Assert.assertTrue( computerService.delete(computerCreated.getId()) );
+		Assert.assertTrue( computerService.get(computerCreated.getId()).isEmpty() );
 	}
 
 	@Test
@@ -115,7 +117,7 @@ public class TestComputerDAO {
 		
 		computerToCreate = new Computer("wrong computer", introducedTime, discontinuedTime, 2);
 		
-		Assert.assertTrue( computerService.createComputer(computerToCreate).isEmpty() );
+		Assert.assertTrue( computerService.create(computerToCreate).isEmpty() );
 	}
 
 	@Test
@@ -131,7 +133,7 @@ public class TestComputerDAO {
 		
 		computerToCreate = new Computer("wrong computer", introducedTime, discontinuedTime, 2);
 		
-		computerCreated = computerService.createComputer(computerToCreate);
+		computerCreated = computerService.create(computerToCreate);
 		Assert.assertTrue(computerCreated.isEmpty());
 	}
 }

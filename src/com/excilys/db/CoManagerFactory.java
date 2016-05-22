@@ -9,6 +9,11 @@ import com.excilys.exceptions.DriverException;
 *
 */
 public class CoManagerFactory {
+	private static boolean MODE_TEST = false;
+	
+	private CoManagerFactory() {
+	}
+	
 	/**
 	 * Get CoManager to connect to the DB, can be switched between test DB and prod DB
 	 * 
@@ -16,7 +21,18 @@ public class CoManagerFactory {
 	 * @throws DriverException 
 	 */
 	public static CoManager getCoManager() throws DriverException {
-		return CoManager.getInstance();
-//		return CoManagerTest.getInstance();
+		if (CoManagerFactory.MODE_TEST == true) {
+			return CoManagerTest.getInstance();
+		} else {
+			return CoManager.getInstance();
+		}
+	}
+	
+	public static void enableTest() {
+		CoManagerFactory.MODE_TEST = true;
+	}
+	
+	public static void disableTest() {
+		CoManagerFactory.MODE_TEST = false;
 	}
 }

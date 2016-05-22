@@ -14,6 +14,8 @@ import com.excilys.exceptions.DriverException;
  */
 public interface DAO<T> {	
 	public List<T> findAll() throws DAOException, ConnectionException, DriverException;
+
+	public List<T> findAllFromTo(int offset, int limit) throws DAOException, ConnectionException, DriverException;
 	
 	public T findById(Long id) throws DAOException, ConnectionException, DriverException;
 	

@@ -30,7 +30,7 @@ public class ComputerCreateCommand implements Command {
 		computer.setCompanyId( Command.convertStringToLong( input.nextLine() ) );
 		
 		try {
-			success = ComputerService.getInstance().createComputer( computer );
+			success = ComputerService.getInstance().create( computer );
 		} catch (DAOException | ConnectionException | DriverException e) {
 			System.out.println("DB error!");
 			return;

@@ -42,10 +42,12 @@ public class CompanyDAO implements DAO<Company> {
 		return instance;
 	}
 
+	@Override
 	public List<Company> findAll() throws DriverException, ConnectionException, DAOException {
 		Connection connection = null;
 		Statement stmt = null;
-		String sql = "SELECT id,name FROM company";
+		String sql = "SELECT id,name "
+				+ "FROM company";
 		ResultSet rs = null;
 		List<Company> companies = new ArrayList<>();
 
@@ -69,10 +71,46 @@ public class CompanyDAO implements DAO<Company> {
 		return companies;
 	}
 
+	@Override
+	public List<Company> findAllFromTo(int offset, int limit) throws DAOException, ConnectionException, DriverException {
+		Connection connection = null;
+		PreparedStatement pstmt = null;
+		String sql = "SELECT id,name "
+				+ "FROM company "
+				+ "LIMIT ?, ?";
+		ResultSet rs = null;
+		List<Company> companies = new ArrayList<>();
+
+		connection = CoManagerFactory.getCoManager().getConnection();
+
+		try {
+			pstmt = connection.prepareStatement(sql);
+			pstmt.setInt(1, offset);
+			pstmt.setInt(2, limit);
+			System.out.println(pstmt.toString());
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				companies.add(new Company(rs.getLong("id"), rs.getString("name")));
+			}
+		} catch (SQLException e) {
+			logger.error("company find by id SQL error!", e);
+
+			throw new DAOException(e);
+		} finally {
+			CoManagerFactory.getCoManager().cleanup(connection, pstmt, rs);
+		}
+
+		return companies;
+	}
+
+	@Override
 	public Company findById(Long id) throws ConnectionException, DriverException, DAOException {
 		Connection connection = null;
 		PreparedStatement pstmt = null;
-		String sql = "SELECT id,name,introduced,discontinued,company_id FROM computer WHERE id=?";
+		String sql = "SELECT id,name,introduced,discontinued,company_id "
+				+ "FROM computer "
+				+ "WHERE id=?";
 		ResultSet rs = null;
 		Company company = null;
 
@@ -97,14 +135,17 @@ public class CompanyDAO implements DAO<Company> {
 		return company;
 	}
 
+	@Override
 	public void create(Company obj) {
 		// TODO Auto-generated method stub
 	}
 
+	@Override
 	public void updateById(Company obj) {
 		// TODO Auto-generated method stub
 	}
 
+	@Override
 	public void delete(Long id) {
 		// TODO Auto-generated method stub
 	}

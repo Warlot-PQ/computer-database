@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.excilys.beans.Company;
+import com.excilys.db.CoManagerFactory;
 import com.excilys.service.CompanyService;
 
 public class TestCompanyDAO {
@@ -18,6 +19,7 @@ public class TestCompanyDAO {
 	
 	@Before
 	public void setUp() throws Exception {
+		CoManagerFactory.enableTest();
 		companyService = new CompanyService();
 	}
 
@@ -32,7 +34,7 @@ public class TestCompanyDAO {
 		companiesExpected.add(new Company(1L, "Apple Inc"));
 		companiesExpected.add(new Company(2L, "Microsoft"));
 		
-		List<Company> companies = companyService.allCompany();
+		List<Company> companies = companyService.all();
 		
 		Assert.assertThat(companies, is(companiesExpected));
 	}

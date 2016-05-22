@@ -25,7 +25,7 @@ public class ComputerListOneCommand implements Command {
 		if (computerIdInt == null) return;
 		
 		try {
-			computer = ComputerService.getInstance().getComputer(computerIdInt);
+			computer = ComputerService.getInstance().get(computerIdInt);
 		} catch (DAOException | ConnectionException | DriverException e) {
 			System.out.println("DB error!");
 			return;

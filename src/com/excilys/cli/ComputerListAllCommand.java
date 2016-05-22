@@ -16,17 +16,23 @@ public class ComputerListAllCommand implements Command {
 		List<Computer> computers = new ArrayList<>();
 				
 		try {
-			computers = ComputerService.getInstance().allComputer();
+			computers = ComputerService.getInstance().getAll();
 		} catch (DAOException | ConnectionException | DriverException e) {
 			System.out.println("DB error!");
 			return;
 		}
-
+		
+		Page<Computer> p = new Page<Computer>(ComputerService.getInstance());
+		try {
+			computers = p.nextPage();
+		} catch (DAOException | ConnectionException | DriverException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		for (Computer computer : computers) {
 			System.out.println(computer.toString());
 		}
-		
-		//new Page<Computer>(computers).startPagination();
 	}
 	
 }

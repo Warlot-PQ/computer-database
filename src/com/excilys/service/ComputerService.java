@@ -3,6 +3,7 @@ package com.excilys.service;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.excilys.beans.Company;
 import com.excilys.beans.Computer;
 import com.excilys.exceptions.ConnectionException;
 import com.excilys.exceptions.DAOException;
@@ -14,7 +15,7 @@ import com.excilys.exceptions.DriverException;
  * @author pqwarlot
  *
  */
-public class ComputerService {
+public class ComputerService implements Service<Computer> {
 	private static ComputerService instance = null;
 	private DAO<Computer> computerDAO = ComputerDAO.getInstance();
 	
@@ -43,10 +44,19 @@ public class ComputerService {
 	 * @throws DriverException 
 	 * @throws ConnectionException 
 	 */
-	public List<Computer> allComputer() throws DAOException, ConnectionException, DriverException {
+	@Override
+	public List<Computer> getAll() throws DAOException, ConnectionException, DriverException {
 		return computerDAO.findAll();
 	}
 
+	@Override
+	public List<Computer> getAllFromTo(int offset, int limit) throws DAOException, ConnectionException, DriverException {
+		if (offset < 0 || limit < 0) {
+			return null;
+		}
+		return computerDAO.findAllFromTo(offset, limit);
+	}
+	
 	/**
 	 * Get informations from a specific computer
 	 * 
@@ -57,7 +67,8 @@ public class ComputerService {
 	 * @throws DriverException 
 	 * @throws ConnectionException 
 	 */
-	public Computer getComputer(Long id) throws DAOException, ConnectionException, DriverException {
+	@Override
+	public Computer get(Long id) throws DAOException, ConnectionException, DriverException {
 		if (id == null) {
 			return null;
 		}
@@ -77,7 +88,8 @@ public class ComputerService {
 	 * @throws DriverException 
 	 * @throws ConnectionException 
 	 */
-	public boolean createComputer(Computer computer) throws DAOException, ConnectionException, DriverException {
+	@Override
+	public boolean create(Computer computer) throws DAOException, ConnectionException, DriverException {
 		if (checkIntroducedAndDiscontinuedDate(computer.getIntroduced(), computer.getDiscontinued()) == false){
 			return false;
 		}
@@ -95,7 +107,8 @@ public class ComputerService {
 	 * @throws DriverException 
 	 * @throws ConnectionException 
 	 */
-	public boolean updateComputer(Computer computer) throws DAOException, ConnectionException, DriverException {
+	@Override
+	public boolean update(Computer computer) throws DAOException, ConnectionException, DriverException {
 		if (checkIntroducedAndDiscontinuedDate(computer.getIntroduced(), computer.getDiscontinued()) == false){
 			return false;
 		}
@@ -113,7 +126,8 @@ public class ComputerService {
 	 * @throws DriverException 
 	 * @throws ConnectionException 
 	 */
-	public boolean deleteComputer(Long id) throws DAOException, ConnectionException, DriverException {
+	@Override
+	public boolean delete(Long id) throws DAOException, ConnectionException, DriverException {
 		if (id == null) {
 			return false;
 		}
