@@ -16,7 +16,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.excilys.beans.ComputerExt;
+import com.excilys.beans.ComputerDTO;
 import com.excilys.db.CoManagerFactory;
 import com.excilys.exceptions.ConnectionException;
 import com.excilys.exceptions.DAOException;
@@ -45,37 +45,37 @@ public class TestComputerService {
 
 	@Test
 	public void testReadAll() throws ParseException, DAOException, ConnectionException, DriverException {
-		List<ComputerExt> computersExpected = new ArrayList<>();
-		computersExpected.add(new ComputerExt(1L, "MacBook Pro 15.4 inch", null, null, 1L, "Apple Inc"));
-		computersExpected.add(new ComputerExt(2L, "CM-2a", null, null, 2L, "Microsoft"));
-		computersExpected.add(new ComputerExt(3L, "CM-200", null, null, 2L, "Microsoft"));
-		computersExpected.add(new ComputerExt(4L, "CM-5e", null, null, 2L, "Microsoft"));
-		computersExpected.add(new ComputerExt(5L, "CM-5", introduced, null, 2L, "Microsoft"));
-		computersExpected.add(new ComputerExt(6L, "MacBook Pro", discontinued, null, 1L, "Apple Inc"));
+		List<ComputerDTO> computersExpected = new ArrayList<>();
+		computersExpected.add(new ComputerDTO(1L, "MacBook Pro 15.4 inch", null, null, 1L, "Apple Inc"));
+		computersExpected.add(new ComputerDTO(2L, "CM-2a", null, null, 2L, "Microsoft"));
+		computersExpected.add(new ComputerDTO(3L, "CM-200", null, null, 2L, "Microsoft"));
+		computersExpected.add(new ComputerDTO(4L, "CM-5e", null, null, 2L, "Microsoft"));
+		computersExpected.add(new ComputerDTO(5L, "CM-5", introduced, null, 2L, "Microsoft"));
+		computersExpected.add(new ComputerDTO(6L, "MacBook Pro", discontinued, null, 1L, "Apple Inc"));
 
-		List<ComputerExt> computers = computerService.getAll();
+		List<ComputerDTO> computers = computerService.getAll();
 
 		Assert.assertThat(computers, is(computersExpected));
 	}
 
 	@Test
 	public void testReadFromTo() throws DAOException, ConnectionException, DriverException {
-		List<ComputerExt> computersExpected = new ArrayList<>();
-		computersExpected.add(new ComputerExt(2L, "CM-2a", null, null, 2L, "Microsoft"));
+		List<ComputerDTO> computersExpected = new ArrayList<>();
+		computersExpected.add(new ComputerDTO(2L, "CM-2a", null, null, 2L, "Microsoft"));
 
-		List<ComputerExt> computers = computerService.getAllFromTo(1, 1);
+		List<ComputerDTO> computers = computerService.getFromTo(1, 1);
 		Assert.assertThat(computers, is(computersExpected));
 
-		computers = computerService.getAllFromTo(-1, 1);
+		computers = computerService.getFromTo(-1, 1);
 		Assert.assertNull(computers);
 
-		computers = computerService.getAllFromTo(1, 0);
+		computers = computerService.getFromTo(1, 0);
 		Assert.assertNull(computers);
 	}
 
 	@Test
 	public void testReadOne() throws ParseException, DAOException, ConnectionException, DriverException {
-		ComputerExt computerToCreate = null;
+		ComputerDTO computerToCreate = null;
 
 		computerToCreate = computerService.get(5L);
 

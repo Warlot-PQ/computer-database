@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.excilys.beans.Computer;
-import com.excilys.beans.ComputerExt;
+import com.excilys.beans.ComputerDTO;
 import com.excilys.exceptions.ConnectionException;
 import com.excilys.exceptions.DAOException;
 import com.excilys.exceptions.DriverException;
@@ -15,9 +15,9 @@ import com.excilys.exceptions.DriverException;
  * @author pqwarlot
  *
  */
-public class ComputerService implements Service<Computer, ComputerExt> {
+public class ComputerService implements Service<Computer, ComputerDTO> {
 	private static ComputerService instance = null;
-	private DAO<Computer, ComputerExt> computerDAO = ComputerDAO.getInstance();
+	private DAO<Computer, ComputerDTO> computerDAO = ComputerDAO.getInstance();
 	
 	public static ComputerService getInstance() {
 		if (instance == null) {
@@ -45,16 +45,16 @@ public class ComputerService implements Service<Computer, ComputerExt> {
 	 * @throws ConnectionException 
 	 */
 	@Override
-	public List<ComputerExt> getAll() throws DAOException, ConnectionException, DriverException {
+	public List<ComputerDTO> getAll() throws DAOException, ConnectionException, DriverException {
 		return computerDAO.findAll();
 	}
 
 	@Override
-	public List<ComputerExt> getAllFromTo(int offset, int limit) throws DAOException, ConnectionException, DriverException {
+	public List<ComputerDTO> getFromTo(int offset, int limit) throws DAOException, ConnectionException, DriverException {
 		if (offset < 0 || limit <= 0) {
 			return null;
 		}
-		return computerDAO.findAllFromTo(offset, limit);
+		return computerDAO.findFromTo(offset, limit);
 	}
 	
 	/**
@@ -68,7 +68,7 @@ public class ComputerService implements Service<Computer, ComputerExt> {
 	 * @throws ConnectionException 
 	 */
 	@Override
-	public ComputerExt get(Long id) throws DAOException, ConnectionException, DriverException {
+	public ComputerDTO get(Long id) throws DAOException, ConnectionException, DriverException {
 		if (id == null) {
 			return null;
 		}
@@ -156,5 +156,10 @@ public class ComputerService implements Service<Computer, ComputerExt> {
 			}
 		} 
 		return true;
+	}
+
+	@Override
+	public int count() throws DAOException, ConnectionException, DriverException {
+		return computerDAO.getRowNumber();
 	}
 }

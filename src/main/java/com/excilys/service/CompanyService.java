@@ -3,7 +3,7 @@ package com.excilys.service;
 import java.util.List;
 
 import com.excilys.beans.Company;
-import com.excilys.beans.CompanyExt;
+import com.excilys.beans.CompanyDTO;
 import com.excilys.exceptions.ConnectionException;
 import com.excilys.exceptions.DAOException;
 import com.excilys.exceptions.DriverException;
@@ -13,9 +13,9 @@ import com.excilys.exceptions.DriverException;
  * @author pqwarlot
  *
  */
-public class CompanyService implements Service<Company, CompanyExt> {
+public class CompanyService implements Service<Company, CompanyDTO> {
 	private static CompanyService instance = null;
-	private DAO<Company, CompanyExt> companyDAO = CompanyDAO.getInstance();
+	private DAO<Company, CompanyDTO> companyDAO = CompanyDAO.getInstance();
 	
 	public static CompanyService getInstance() {
 		if (instance == null) {
@@ -42,16 +42,16 @@ public class CompanyService implements Service<Company, CompanyExt> {
 	 * @throws DAOException 
 	 */
 	@Override
-	public List<CompanyExt> getAll() throws DAOException, ConnectionException, DriverException {
+	public List<CompanyDTO> getAll() throws DAOException, ConnectionException, DriverException {
 		return companyDAO.findAll();
 	}
-	
+
 	@Override
-	public List<CompanyExt> getAllFromTo(int offset, int limit) throws DAOException, ConnectionException, DriverException {
+	public List<CompanyDTO> getFromTo(int offset, int limit) throws DAOException, ConnectionException, DriverException {
 		if (offset < 0 || limit <= 0) {
 			return null;
 		}
-		return companyDAO.findAllFromTo(offset, limit);
+		return companyDAO.findFromTo(offset, limit);
 	}
 	
 	/**
@@ -62,7 +62,7 @@ public class CompanyService implements Service<Company, CompanyExt> {
 	 * @throws DAOException 
 	 */
 	@Override
-	public CompanyExt get(Long id) throws DAOException, ConnectionException, DriverException {
+	public CompanyDTO get(Long id) throws DAOException, ConnectionException, DriverException {
 		if (id == null) {
 			return null;
 		}
@@ -88,5 +88,10 @@ public class CompanyService implements Service<Company, CompanyExt> {
 	public boolean delete(Long id) throws DAOException, ConnectionException, DriverException {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public int count() throws DAOException, ConnectionException, DriverException {
+		return companyDAO.getRowNumber();
 	}
 }

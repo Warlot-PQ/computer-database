@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.excilys.beans.Computer;
-import com.excilys.beans.ComputerExt;
+import com.excilys.beans.ComputerDTO;
 import com.excilys.exceptions.ConnectionException;
 import com.excilys.exceptions.DAOException;
 import com.excilys.exceptions.DriverException;
@@ -14,7 +14,7 @@ public class ComputerListAllCommand implements Command {
 
 	@Override
 	public void execute() {
-		List<ComputerExt> computers = new ArrayList<>();
+		List<ComputerDTO> computers = new ArrayList<>();
 				
 		try {
 			computers = ComputerService.getInstance().getAll();
@@ -23,7 +23,7 @@ public class ComputerListAllCommand implements Command {
 			return;
 		}
 		
-		Page<Computer, ComputerExt> p = new Page<>(ComputerService.getInstance());
+		Page<Computer, ComputerDTO> p = new Page<>(ComputerService.getInstance());
 		try {
 			computers = p.nextPage();
 		} catch (DAOException | ConnectionException | DriverException e) {
@@ -31,7 +31,7 @@ public class ComputerListAllCommand implements Command {
 			e.printStackTrace();
 		}
 		
-		for (ComputerExt computer : computers) {
+		for (ComputerDTO computer : computers) {
 			System.out.println(computer.toString());
 		}
 	}

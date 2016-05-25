@@ -2,7 +2,7 @@ package com.excilys.cli;
 
 import java.util.Scanner;
 
-import com.excilys.beans.ComputerExt;
+import com.excilys.beans.ComputerDTO;
 import com.excilys.exceptions.ConnectionException;
 import com.excilys.exceptions.DAOException;
 import com.excilys.exceptions.DriverException;
@@ -17,7 +17,7 @@ public class ComputerDeleteCommand implements Command {
 		String comupterId = null;
 		Long computerIdInt = null;
 		boolean success = false;
-		ComputerExt computer = null;
+		ComputerDTO computer = null;
 		
 		System.out.printf("Enter the machine id to delete:%n>");
 		comupterId = input.nextLine();

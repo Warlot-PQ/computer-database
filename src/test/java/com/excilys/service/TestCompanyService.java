@@ -12,7 +12,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.excilys.beans.CompanyExt;
+import com.excilys.beans.CompanyDTO;
 import com.excilys.db.CoManagerFactory;
 import com.excilys.exceptions.ConnectionException;
 import com.excilys.exceptions.DAOException;
@@ -34,35 +34,35 @@ public class TestCompanyService {
 
 	@Test
 	public void testReadAll() throws DAOException, ConnectionException, DriverException {
-		List<CompanyExt> companiesExpected = new ArrayList<>();
-		companiesExpected.add(new CompanyExt(1L, "Apple Inc"));
-		companiesExpected.add(new CompanyExt(2L, "Microsoft"));
+		List<CompanyDTO> companiesExpected = new ArrayList<>();
+		companiesExpected.add(new CompanyDTO(1L, "Apple Inc"));
+		companiesExpected.add(new CompanyDTO(2L, "Microsoft"));
 
-		List<CompanyExt> companies = companyService.getAll();
+		List<CompanyDTO> companies = companyService.getAll();
 
 		Assert.assertThat(companies, is(companiesExpected));
 	}
 
 	@Test
 	public void testReadFromTo() throws DAOException, ConnectionException, DriverException {
-		List<CompanyExt> companiesExpected = new ArrayList<>();
-		companiesExpected.add(new CompanyExt(2L, "Microsoft"));
+		List<CompanyDTO> companiesExpected = new ArrayList<>();
+		companiesExpected.add(new CompanyDTO(2L, "Microsoft"));
 
-		List<CompanyExt> companies = companyService.getAllFromTo(1, 1);
+		List<CompanyDTO> companies = companyService.getFromTo(1, 1);
 		Assert.assertThat(companies, is(companiesExpected));
 
-		companies = companyService.getAllFromTo(-1, 1);
+		companies = companyService.getFromTo(-1, 1);
 		Assert.assertNull(companies);
 
-		companies = companyService.getAllFromTo(1, 0);
+		companies = companyService.getFromTo(1, 0);
 		Assert.assertNull(companies);
 	}
 
 	@Test
 	public void testReadOne() throws DAOException, ConnectionException, DriverException {
-		CompanyExt companyExpected = new CompanyExt(2L, "Microsoft");
+		CompanyDTO companyExpected = new CompanyDTO(2L, "Microsoft");
 		
-		CompanyExt company = companyService.get(2L);
+		CompanyDTO company = companyService.get(2L);
 		Assert.assertEquals(companyExpected, company);
 
 		company = companyService.get(3L);

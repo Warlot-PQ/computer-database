@@ -5,11 +5,11 @@ package com.excilys.beans;
  * @author pqwarlot
  *
  */
-public class CompanyExt {
+public class CompanyDTO {
 	private Long id;
 	private String name;
 		
-	public CompanyExt(Long id, String name) {
+	public CompanyDTO(Long id, String name) {
 		this.id = id;
 		this.name = name;
 	}
@@ -54,7 +54,7 @@ public class CompanyExt {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		CompanyExt other = (CompanyExt) obj;
+		CompanyDTO other = (CompanyDTO) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

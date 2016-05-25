@@ -12,7 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.excilys.beans.Company;
-import com.excilys.beans.CompanyExt;
+import com.excilys.beans.CompanyDTO;
 import com.excilys.db.CoManagerFactory;
 import com.excilys.exceptions.ConnectionException;
 import com.excilys.exceptions.DAOException;
@@ -24,7 +24,7 @@ import com.excilys.exceptions.DriverException;
  * @author pqwarlot
  *
  */
-public class CompanyDAO implements DAO<Company, CompanyExt> {
+public class CompanyDAO implements DAO<Company, CompanyDTO> {
 	private static CompanyDAO instance;
 	private static Logger logger = null;
 
@@ -44,12 +44,12 @@ public class CompanyDAO implements DAO<Company, CompanyExt> {
 	}
 
 	@Override
-	public List<CompanyExt> findAll() throws DriverException, ConnectionException, DAOException {
+	public List<CompanyDTO> findAll() throws DriverException, ConnectionException, DAOException {
 		Connection connection = null;
 		Statement stmt = null;
 		String sql = "SELECT id,name " + "FROM company";
 		ResultSet rs = null;
-		List<CompanyExt> companies = new ArrayList<>();
+		List<CompanyDTO> companies = new ArrayList<>();
 
 		connection = CoManagerFactory.getCoManager().getConnection();
 
@@ -58,7 +58,7 @@ public class CompanyDAO implements DAO<Company, CompanyExt> {
 			rs = stmt.executeQuery(sql);
 
 			while (rs.next()) {
-				companies.add(new CompanyExt(rs.getLong("id"), rs.getString("name")));
+				companies.add(new CompanyDTO(rs.getLong("id"), rs.getString("name")));
 			}
 		} catch (SQLException e) {
 			logger.error("campany fin all SQL error!", e);
@@ -72,13 +72,14 @@ public class CompanyDAO implements DAO<Company, CompanyExt> {
 	}
 
 	@Override
-	public List<CompanyExt> findAllFromTo(int offset, int limit)
-			throws DAOException, ConnectionException, DriverException {
+	public List<CompanyDTO> findFromTo(int offset, int limit) throws DAOException, ConnectionException, DriverException {
 		Connection connection = null;
 		PreparedStatement pstmt = null;
-		String sql = "SELECT id,name " + "FROM company " + "LIMIT ?, ?";
+		String sql = "SELECT id,name "
+				+ "FROM company "
+				+ "LIMIT ?, ?";
 		ResultSet rs = null;
-		List<CompanyExt> companies = new ArrayList<>();
+		List<CompanyDTO> companies = new ArrayList<>();
 
 		connection = CoManagerFactory.getCoManager().getConnection();
 
@@ -86,10 +87,11 @@ public class CompanyDAO implements DAO<Company, CompanyExt> {
 			pstmt = connection.prepareStatement(sql);
 			pstmt.setInt(1, offset);
 			pstmt.setInt(2, limit);
+			System.out.println(pstmt.toString());
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				companies.add(new CompanyExt(rs.getLong("id"), rs.getString("name")));
+				companies.add(new CompanyDTO(rs.getLong("id"), rs.getString("name")));
 			}
 		} catch (SQLException e) {
 			logger.error("company find by id SQL error!", e);
@@ -101,14 +103,14 @@ public class CompanyDAO implements DAO<Company, CompanyExt> {
 
 		return companies;
 	}
-
+	
 	@Override
-	public CompanyExt findById(Long id) throws ConnectionException, DriverException, DAOException {
+	public CompanyDTO findById(Long id) throws ConnectionException, DriverException, DAOException {
 		Connection connection = null;
 		PreparedStatement pstmt = null;
 		String sql = "SELECT id,name " + "FROM company " + "WHERE id=?";
 		ResultSet rs = null;
-		CompanyExt company = null;
+		CompanyDTO company = null;
 
 		connection = CoManagerFactory.getCoManager().getConnection();
 
@@ -118,7 +120,7 @@ public class CompanyDAO implements DAO<Company, CompanyExt> {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				company = new CompanyExt(rs.getLong("id"), rs.getString("name"));
+				company = new CompanyDTO(rs.getLong("id"), rs.getString("name"));
 			}
 		} catch (SQLException e) {
 			logger.error("company find by id SQL error!", e);
@@ -144,5 +146,35 @@ public class CompanyDAO implements DAO<Company, CompanyExt> {
 	@Override
 	public void delete(Long id) {
 		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public int getRowNumber() throws DAOException, ConnectionException, DriverException {
+		Connection connection = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT COUNT(id) AS TOTAL FROM company";
+		int number = 0;
+
+		connection = CoManagerFactory.getCoManager().getConnection();
+
+		try {
+			stmt = connection.createStatement();
+			rs = stmt.executeQuery(sql);
+
+			while (rs.next()) {
+				number = rs.getInt("TOTAL");
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("company update error!");
+			logger.error("company update by id SQL error!", e);
+
+			throw new DAOException(e);
+		} finally {
+			CoManagerFactory.getCoManager().cleanup(connection, stmt, rs);
+		}
+		
+		return number;
 	}
 }

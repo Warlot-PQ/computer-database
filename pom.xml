@@ -26,33 +26,31 @@
       <groupId>org.apache.maven.plugins</groupId>
       <artifactId>maven-checkstyle-plugin</artifactId>
       <version>2.17</version>
-      <executions>
-        <execution>
-          <id>validate</id>
-          <phase>validate</phase>
-          <configuration>
-            <configLocation>checkstyle.xml</configLocation>
-            <encoding>UTF-8</encoding>
-            <consoleOutput>true</consoleOutput>
-            <failsOnError>true</failsOnError>
-            <linkXRef>false</linkXRef>
-          </configuration>
-          <goals>
-            <goal>check</goal>
-          </goals>
-        </execution>
-      </executions>
     </plugin>
     </plugins>
   </build>
   
   <dependencies>
+  
+	<dependency>
+		<groupId>javax.servlet</groupId>
+		<artifactId>javax.servlet-api</artifactId>
+		<version>4.0.0-b01</version>
+	</dependency>
+
+	<dependency>
+	    <groupId>javax.servlet.jsp</groupId>
+	    <artifactId>javax.servlet.jsp-api</artifactId>
+	    <version>2.2.1</version>
+	</dependency>
+	
    <!-- MySql 5.X Connector -->   
     <dependency>
         <groupId>mysql</groupId>
 	   <artifactId>mysql-connector-java</artifactId>
 	   <version>5.1.39</version>
     </dependency>
+    
     <!-- jUnit 4.X -->
     <dependency>
       <groupId>junit</groupId>
@@ -66,15 +64,23 @@
     	<artifactId>logback-classic</artifactId>
     	<version>1.1.7</version>
     </dependency>
+    
     <dependency>
     	<groupId>ch.qos.logback</groupId>
     	<artifactId>logback-core</artifactId>
     	<version>1.1.7</version>
     </dependency>
+    
     <dependency>
-    	<groupId>org.slf4j</groupId>
-    	<artifactId>slf4j-api</artifactId>
-    	<version>1.7.21</version>
+    	<groupId>org.apache.directory.studio</groupId>
+    	<artifactId>org.slf4j.api</artifactId>
+    	<version>1.7.2</version>
+    </dependency>
+
+    <dependency>
+    	<groupId>javax.servlet</groupId>
+    	<artifactId>jstl</artifactId>
+    	<version>1.2</version>
     </dependency>
   </dependencies>
   

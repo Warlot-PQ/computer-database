@@ -12,7 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.excilys.beans.Computer;
-import com.excilys.beans.ComputerExt;
+import com.excilys.beans.ComputerDTO;
 import com.excilys.db.CoManagerFactory;
 import com.excilys.exceptions.ConnectionException;
 import com.excilys.exceptions.DAOException;
@@ -24,7 +24,7 @@ import com.excilys.exceptions.DriverException;
  * @author pqwarlot
  *
  */
-public class ComputerDAO implements DAO<Computer, ComputerExt> {
+public class ComputerDAO implements DAO<Computer, ComputerDTO> {
 	private static ComputerDAO instance;
 	private static Logger logger = null;
 
@@ -44,7 +44,7 @@ public class ComputerDAO implements DAO<Computer, ComputerExt> {
 	}
 
 	@Override
-	public List<ComputerExt> findAll() throws DAOException, ConnectionException, DriverException {
+	public List<ComputerDTO> findAll() throws DAOException, ConnectionException, DriverException {
 		Connection connection = null;
 		Statement stmt = null;
 		String sql = "SELECT computer.id,computer.name,computer.introduced,"
@@ -52,7 +52,7 @@ public class ComputerDAO implements DAO<Computer, ComputerExt> {
 				+ "LEFT OUTER JOIN company "
 				+ "ON computer.company_id=company.id";
 		ResultSet rs = null;
-		List<ComputerExt> computers = new ArrayList<>();
+		List<ComputerDTO> computers = new ArrayList<>();
 
 		connection = CoManagerFactory.getCoManager().getConnection();
 
@@ -61,7 +61,7 @@ public class ComputerDAO implements DAO<Computer, ComputerExt> {
 			rs = stmt.executeQuery(sql);
 
 			while (rs.next()) {
-				computers.add(new ComputerExt(rs.getLong("id"), rs.getString("name"),
+				computers.add(new ComputerDTO(rs.getLong("id"), rs.getString("name"),
 						Mapper.sqlDateToJavaLocalDate(rs.getDate("introduced")),
 						Mapper.sqlDateToJavaLocalDate(rs.getDate("discontinued")), rs.getLong("company_id"),
 						rs.getString("company_name")));
@@ -78,7 +78,7 @@ public class ComputerDAO implements DAO<Computer, ComputerExt> {
 	}
 	
 	@Override
-	public List<ComputerExt> findAllFromTo(int offset, int limit) throws DAOException, ConnectionException, DriverException {
+	public List<ComputerDTO> findFromTo(int offset, int limit) throws DAOException, ConnectionException, DriverException {
 		Connection connection = null;
 		PreparedStatement pstmt = null;
 		String sql = "SELECT computer.id,computer.name,computer.introduced,"
@@ -88,7 +88,7 @@ public class ComputerDAO implements DAO<Computer, ComputerExt> {
 				+ "ON computer.company_id=company.id "
 				+ "LIMIT ?, ?";
 		ResultSet rs = null;
-		List<ComputerExt> computers = new ArrayList<>();
+		List<ComputerDTO> computers = new ArrayList<>();
 
 		connection = CoManagerFactory.getCoManager().getConnection();
 
@@ -98,7 +98,7 @@ public class ComputerDAO implements DAO<Computer, ComputerExt> {
 			pstmt.setInt(2, limit);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				computers.add(new ComputerExt(rs.getLong("id"), rs.getString("name"),
+				computers.add(new ComputerDTO(rs.getLong("id"), rs.getString("name"),
 						Mapper.sqlDateToJavaLocalDate(rs.getDate("introduced")),
 						Mapper.sqlDateToJavaLocalDate(rs.getDate("discontinued")), rs.getLong("company_id"),
 						rs.getString("company_name")));
@@ -115,7 +115,7 @@ public class ComputerDAO implements DAO<Computer, ComputerExt> {
 	}
 	
 	@Override
-	public ComputerExt findById(Long id) throws DAOException, ConnectionException, DriverException {
+	public ComputerDTO findById(Long id) throws DAOException, ConnectionException, DriverException {
 		Connection connection = null;
 		PreparedStatement pstmt = null;
 		String sql = "SELECT computer.id,computer.name,computer.introduced,"
@@ -124,7 +124,7 @@ public class ComputerDAO implements DAO<Computer, ComputerExt> {
 				+ "LEFT OUTER JOIN company "
 				+ "ON computer.company_id=company.id" + " WHERE computer.id=?";
 		ResultSet rs = null;
-		ComputerExt computer = null;
+		ComputerDTO computer = null;
 
 		connection = CoManagerFactory.getCoManager().getConnection();
 
@@ -134,7 +134,7 @@ public class ComputerDAO implements DAO<Computer, ComputerExt> {
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
-				computer = new ComputerExt(rs.getLong("id"), rs.getString("name"),
+				computer = new ComputerDTO(rs.getLong("id"), rs.getString("name"),
 						Mapper.sqlDateToJavaLocalDate(rs.getDate("introduced")),
 						Mapper.sqlDateToJavaLocalDate(rs.getDate("discontinued")), rs.getLong("company_id"),
 						rs.getString("company_name"));
@@ -232,5 +232,35 @@ public class ComputerDAO implements DAO<Computer, ComputerExt> {
 		} finally {
 			CoManagerFactory.getCoManager().cleanup(connection, pstmt, generatedKeys);
 		}
+	}
+
+	@Override
+	public int getRowNumber() throws DAOException, ConnectionException, DriverException {
+		Connection connection = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT COUNT(id) AS TOTAL FROM computer";
+		int number = 0;
+
+		connection = CoManagerFactory.getCoManager().getConnection();
+
+		try {
+			stmt = connection.createStatement();
+			rs = stmt.executeQuery(sql);
+
+			while (rs.next()) {
+				number = rs.getInt("TOTAL");
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("computer update error!");
+			logger.error("computer update by id SQL error!", e);
+
+			throw new DAOException(e);
+		} finally {
+			CoManagerFactory.getCoManager().cleanup(connection, stmt, rs);
+		}
+		
+		return number;
 	}
 }

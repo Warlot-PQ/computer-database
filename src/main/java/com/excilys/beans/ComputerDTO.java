@@ -2,7 +2,7 @@ package com.excilys.beans;
 
 import java.time.LocalDate;
 
-public class ComputerExt {
+public class ComputerDTO {
 	private Long id;
 	private String name;
 	private LocalDate introduced;
@@ -10,7 +10,7 @@ public class ComputerExt {
 	private Long companyId;
 	private String companyName;
 	
-	public ComputerExt(Long id, String name, LocalDate introduced, LocalDate discontinued, Long companyId, String companyName) {
+	public ComputerDTO(Long id, String name, LocalDate introduced, LocalDate discontinued, Long companyId, String companyName) {
 		this.id = id;
 		this.name = name;
 		this.introduced = introduced;
@@ -95,7 +95,7 @@ public class ComputerExt {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ComputerExt other = (ComputerExt) obj;
+		ComputerDTO other = (ComputerDTO) obj;
 		if (companyId == null) {
 			if (other.companyId != null)
 				return false;

@@ -2,7 +2,7 @@ package com.excilys.cli;
 
 import java.util.Scanner;
 
-import com.excilys.beans.ComputerExt;
+import com.excilys.beans.ComputerDTO;
 import com.excilys.exceptions.ConnectionException;
 import com.excilys.exceptions.DAOException;
 import com.excilys.exceptions.DriverException;
@@ -16,7 +16,7 @@ public class ComputerListOneCommand implements Command {
 		Scanner input = new Scanner(System.in);
 		String computerId = null;
 		Long computerIdInt = null;
-		ComputerExt computer = null;
+		ComputerDTO computer = null;
 		
 		System.out.printf("Enter the computer id wanted:%n>");
 		computerId = input.nextLine();

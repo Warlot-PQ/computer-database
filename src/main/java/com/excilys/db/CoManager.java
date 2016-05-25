@@ -42,7 +42,7 @@ public class CoManager {
 	public Connection getConnection() throws ConnectionException {
 		Connection connection = null;
 		try {
-			connection = (Connection) DriverManager.getConnection(properties.getString("JDBC_URL"), properties.getString("DB_LOGIN"), properties.getString("DB_PASSWORD"));
+			connection = DriverManager.getConnection(properties.getString("JDBC_URL"), properties.getString("DB_LOGIN"), properties.getString("DB_PASSWORD"));
 			
 		} catch (SQLException e) {
 			logger.error("DB connection exception!", e);

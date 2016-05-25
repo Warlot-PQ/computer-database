@@ -3,7 +3,7 @@ package com.excilys.cli;
 import java.util.Scanner;
 
 import com.excilys.beans.Computer;
-import com.excilys.beans.ComputerExt;
+import com.excilys.beans.ComputerDTO;
 import com.excilys.exceptions.ConnectionException;
 import com.excilys.exceptions.DAOException;
 import com.excilys.exceptions.DriverException;
@@ -17,7 +17,7 @@ public class ComputerUpdateCommand implements Command {
 		Scanner input = new Scanner(System.in);
 		Long computerIdToUpdate = null;
 		Computer computerToUpdate = null;
-		ComputerExt computerDTOToUpdate = null;
+		ComputerDTO computerDTOToUpdate = null;
 		boolean success = false;
 		
 		System.out.printf("Enter the machine id:%n>");

@@ -10,20 +10,26 @@ import com.excilys.service.Service;
  * Handle pagination for a list of entities
  * @author pqwarlot
  *
- * @param <T> Computer or Company object
+ * @param T Computer or Company class
+ * @param E ComputerExt or CompanyExt class
  */
 public class Page<T, E> { // Service must implement fetch(from, to)
-	private static int eltByPage = 25;
+	private int eltByPage = 25;
 	private int currentOffset = -eltByPage;
 	private Service<T, E> service;
 
 	public Page(Service<T, E> service) {
+		this(service, 30);
+	}
+	
+	public Page(Service<T, E> service, int eltByPage) {
 		this.service = service;
+		this.eltByPage = eltByPage;
 	}
 	
 	public List<E> nextPage() throws DAOException, ConnectionException, DriverException {
 		currentOffset += eltByPage;
-		return service.getAllFromTo(currentOffset, eltByPage);
+		return service.getFromTo(currentOffset, eltByPage);
 	}
 	
 	/**
@@ -38,14 +44,22 @@ public class Page<T, E> { // Service must implement fetch(from, to)
 			return null;
 		}		
 		currentOffset -= eltByPage;
-		return service.getAllFromTo(currentOffset, eltByPage);
+		return service.getFromTo(currentOffset, eltByPage);
 	}
 	
 	public List<E> refresh() throws DAOException, ConnectionException, DriverException {
-		return service.getAllFromTo(currentOffset, eltByPage);
+		return service.getFromTo(currentOffset, eltByPage);
+	}
+
+	public List<E> getPage(int pageNumber) throws DAOException, ConnectionException, DriverException {
+		return service.getFromTo((pageNumber -1) * eltByPage, eltByPage);
 	}
 	
 	public int getCurrentPage() {
 		return currentOffset / eltByPage;
+	}
+	
+	public int getTotalPages() throws DAOException, ConnectionException, DriverException {
+		return (int) Math.ceil(service.count() / (double) eltByPage);
 	}
 }
