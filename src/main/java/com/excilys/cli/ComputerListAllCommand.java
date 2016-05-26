@@ -15,25 +15,24 @@ public class ComputerListAllCommand implements Command {
 	@Override
 	public void execute() {
 		List<ComputerDTO> computers = new ArrayList<>();
-				
+
 		try {
 			computers = ComputerService.getInstance().getAll();
 		} catch (DAOException | ConnectionException | DriverException e) {
 			System.out.println("DB error!");
 			return;
 		}
-		
+
 		Page<Computer, ComputerDTO> p = new Page<>(ComputerService.getInstance());
 		try {
 			computers = p.nextPage();
 		} catch (DAOException | ConnectionException | DriverException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		for (ComputerDTO computer : computers) {
 			System.out.println(computer.toString());
 		}
 	}
-	
+
 }

@@ -8,6 +8,7 @@ import com.excilys.exceptions.ConnectionException;
 import com.excilys.exceptions.DAOException;
 import com.excilys.exceptions.DriverException;
 import com.excilys.service.ComputerService;
+import com.excilys.servlet.MapperUtils;
 
 public class ComputerUpdateCommand implements Command {
 
@@ -18,14 +19,15 @@ public class ComputerUpdateCommand implements Command {
 		Long computerIdToUpdate = null;
 		Computer computerToUpdate = null;
 		ComputerDTO computerDTOToUpdate = null;
-		boolean success = false;
-		
+
 		System.out.printf("Enter the machine id:%n>");
-		computerIdToUpdate = Mapper.convertStringToLong( input.nextLine() );
-		if (computerIdToUpdate == null) return;
+		computerIdToUpdate = MapperUtils.convertStringToLong(input.nextLine());
+		if (computerIdToUpdate == null) {
+			return;
+		}
 
 		// Fetch the computer to update
-		
+
 		System.out.println("You have chosen to update the following computer:");
 		try {
 			computerDTOToUpdate = ComputerService.getInstance().get(computerIdToUpdate);
@@ -38,38 +40,33 @@ public class ComputerUpdateCommand implements Command {
 			System.out.println("No computer found!");
 			return;
 		} else {
-			System.out.println( computerToUpdate.toString() );
+			System.out.println(computerToUpdate.toString());
 		}
-		
+
 		// Change computer to update field
-		
+
 		System.out.printf("Enter the computer name:%n>");
-		computerToUpdate.setName( input.nextLine() );
+		computerToUpdate.setName(input.nextLine());
 
 		System.out.printf("Enter the computer introduced date: format YYYY-MM-DD HH:MM:SS (enter to skip)%n>");
-		computerToUpdate.setIntroduced( Mapper.convertStringToLocalDateTime( input.nextLine() ) );
-				
+		computerToUpdate.setIntroduced(MapperUtils.convertStringToLocalDateTime(input.nextLine()));
+
 		System.out.printf("Enter the computer discontinued date: format YYYY-MM-DD HH:MM:SS (enter to skip)%n>");
-		computerToUpdate.setDiscontinued( Mapper.convertStringToLocalDateTime( input.nextLine() ) );
-		
+		computerToUpdate.setDiscontinued(MapperUtils.convertStringToLocalDateTime(input.nextLine()));
+
 		System.out.printf("Enter the computer company id:%n>");
-		computerToUpdate.setCompanyId( Mapper.convertStringToLong( input.nextLine() ) );
-		
-		
+		computerToUpdate.setCompanyId(MapperUtils.convertStringToLong(input.nextLine()));
+
 		// Report changes to the DB
-		
+
 		try {
-			success = ComputerService.getInstance().update(computerToUpdate);
+			ComputerService.getInstance().update(computerToUpdate);
 		} catch (DAOException | ConnectionException | DriverException e) {
 			System.out.println("BD error!");
 			return;
 		}
-		
-		if (success == true) {
-			System.out.println("Computer updated with success.");
-		} else {
-			System.out.println("Computer not updated from the database!");
-		}
+
+		System.out.println("Computer updated with success.");
 	}
 
 }

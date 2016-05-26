@@ -17,7 +17,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import com.excilys.beans.ComputerDTO;
-import com.excilys.db.CoManagerFactory;
 import com.excilys.exceptions.ConnectionException;
 import com.excilys.exceptions.DAOException;
 import com.excilys.exceptions.DriverException;
@@ -29,7 +28,6 @@ public class TestComputerService {
 
 	@Before
 	public void setUp() throws Exception {
-		CoManagerFactory.enableTest();
 		computerService = ComputerService.getInstance();
 
 		introduced = new Timestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("1991-01-01 00:00:00").getTime())
@@ -79,12 +77,12 @@ public class TestComputerService {
 
 		computerToCreate = computerService.get(5L);
 
-		Assert.assertEquals(computerToCreate.getId().longValue(), 5L);
-		Assert.assertEquals(computerToCreate.getName(), "CM-5");
-		Assert.assertEquals(computerToCreate.getIntroduced(), introduced);
+		Assert.assertEquals(5L, computerToCreate.getId().longValue());
+		Assert.assertEquals("CM-5", computerToCreate.getName());
+		Assert.assertEquals(introduced, computerToCreate.getIntroduced());
 		Assert.assertNull(computerToCreate.getDiscontinued());
-		Assert.assertEquals(computerToCreate.getCompanyId().longValue(), 2L);
-		Assert.assertEquals(computerToCreate.getCompanyName(), "Microsoft");
+		Assert.assertEquals(2L, computerToCreate.getCompanyId().longValue());
+		Assert.assertEquals("Microsoft", computerToCreate.getCompanyName());
 	}
 
 	@Test
@@ -97,6 +95,13 @@ public class TestComputerService {
 	@Ignore("Not implemented yet!")
 	public void testUpdate() throws ParseException {
 		fail("not implemented!");
+	}
+	
+	@Test
+	public void testCount() throws DAOException, ConnectionException, DriverException {
+		int rowsNumber = computerService.count();
+		
+		Assert.assertEquals(6, rowsNumber);
 	}
 
 }

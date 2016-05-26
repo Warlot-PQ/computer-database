@@ -9,13 +9,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.excilys.beans.CompanyDTO;
 import com.excilys.beans.Computer;
 import com.excilys.beans.ComputerDTO;
 import com.excilys.cli.Page;
 import com.excilys.exceptions.ConnectionException;
 import com.excilys.exceptions.DAOException;
 import com.excilys.exceptions.DriverException;
+import com.excilys.service.CompanyService;
 import com.excilys.service.ComputerService;
+import com.excilys.validation.ComputerValidator;
+import com.excilys.validation.Validation;
 
 /**
  * Servlet implementation class Router
@@ -23,65 +27,104 @@ import com.excilys.service.ComputerService;
 @WebServlet("/Router")
 public class Router extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public Router() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public Router() {
+		super();
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String page = "";
 		String actionParam = request.getParameter("action");
 		if (actionParam == null) {
 			actionParam = "dashboard";
 		}
-		
-		switch(actionParam) {
-			case "dashboard":
-				//TODO check param before dispatching
-				setDashboard(request, response, 
-						request.getParameter("page"), 
-						request.getParameter("limit"));
-				page = "views/dashboard.jsp";
-				break;
-			case "addComputer":
-				page = "views/addComputer.jsp";
-				break;
-			default:
-				setDashboard(request, response, "1", "10");
-				page = "views/dashboard.jsp";
+
+		switch (actionParam) {
+		case "dashboard":
+			setDashboardJSP(request, response, request.getParameter("page"), request.getParameter("limit"));
+			page = "views/dashboard.jsp";
+			break;
+		case "addComputer":
+			setAddComputerJSP(request, response);
+			request.setAttribute("displayErrorMsg", false);
+			page = "views/addComputer.jsp";
+			break;
+		default:
+			setDashboardJSP(request, response, "1", "10");
+			page = "views/dashboard.jsp";
 		}
 		showPage(request, response, page);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String page = "";
+		String actionParam = request.getParameter("action");
+
+		switch (actionParam) {
+		case "addComputer":
+			saveComputer(request, response);
+			setAddComputerJSP(request, response);
+			request.setAttribute("displayErrorMsg", true);
+			page = "views/addComputer.jsp";
+			break;
+		default:
+			doGet(request, response);
+			return;
+		}
+
+		showPage(request, response, page);
 	}
-	
-	public void setDashboard(HttpServletRequest request, HttpServletResponse response, String pageParam, String limitParam) throws ServletException, IOException {
+
+	public void saveComputer(HttpServletRequest request, HttpServletResponse response) {
+		Computer c1 = new Computer(request.getParameter("computerName"),
+				MapperUtils.convertStringToLocalDateTime(request.getParameter("introduced")),
+				MapperUtils.convertStringToLocalDateTime(request.getParameter("discontinued")),
+				MapperUtils.convertStringToLong(request.getParameter("companyId")));
+
+		Validation validate = new ComputerValidator(c1).check();
+
+		try {
+			ComputerService.getInstance().create(c1);
+		} catch (DAOException | ConnectionException | DriverException e) {
+			validate.setError(true);
+			validate.setMsg("connat add computer to the database");
+			e.printStackTrace();
+		}
+
+		request.setAttribute("saveError", validate.isError());
+		request.setAttribute("saveMsg", validate.getMsg());
+	}
+
+	public void setDashboardJSP(HttpServletRequest request, HttpServletResponse response, String pageParam,
+			String limitParam) throws ServletException, IOException {
 		List<ComputerDTO> computers = null;
 		int currentPage = getParamToInt(pageParam);
 		int currentLimit = getParamToInt(limitParam);
-		if (currentLimit == 1) { currentLimit *= 20; } // set to 20 if cannot convert to int
+		if (currentLimit == 1) {
+			currentLimit *= 20;
+		} // set to 20 if cannot convert to int
 		int currentComputersFrom = (currentPage - 1) * currentLimit;
 		int currentComputersTo = 1;
 		int totalPages = 1;
 		int totalComputers = 1;
 		boolean loadError = false;
 		Page<Computer, ComputerDTO> page = new Page<>(ComputerService.getInstance(), currentLimit);
-		
+
 		try {
 			computers = page.getPage(currentPage);
 			totalPages = page.getTotalPages();
@@ -90,10 +133,10 @@ public class Router extends HttpServlet {
 			e.printStackTrace();
 			loadError = true;
 		}
-		
+
 		currentComputersTo = (currentPage == totalPages) ? totalComputers % currentLimit : currentLimit;
 		currentComputersTo += currentComputersFrom;
-		
+
 		request.setAttribute("loadError", loadError);
 		request.setAttribute("computers", computers);
 		request.setAttribute("currentPage", currentPage);
@@ -103,14 +146,30 @@ public class Router extends HttpServlet {
 		request.setAttribute("totalPages", totalPages);
 		request.setAttribute("totalComputers", totalComputers);
 	}
-	
-	public void showPage(HttpServletRequest request, HttpServletResponse response, String page) throws ServletException, IOException {
+
+	public void setAddComputerJSP(HttpServletRequest request, HttpServletResponse response) {
+		List<CompanyDTO> companies = null;
+		boolean loadError = false;
+
+		try {
+			companies = CompanyService.getInstance().getAll();
+		} catch (DAOException | ConnectionException | DriverException e) {
+			e.printStackTrace();
+			loadError = true;
+		}
+
+		request.setAttribute("loadError", loadError);
+		request.setAttribute("companies", companies);
+	}
+
+	public void showPage(HttpServletRequest request, HttpServletResponse response, String page)
+			throws ServletException, IOException {
 		request.getRequestDispatcher(page).forward(request, response);
 	}
 
 	private int getParamToInt(String pageParam) {
 		int number = 1;
-		
+
 		if (pageParam != null && pageParam.trim().equals("") == false) {
 			try {
 				number = Integer.valueOf(pageParam);
@@ -121,7 +180,7 @@ public class Router extends HttpServlet {
 		} else if (pageParam != null && pageParam.equals("") == true) {
 			number = 1;
 		}
-		
+
 		return number;
 	}
 }

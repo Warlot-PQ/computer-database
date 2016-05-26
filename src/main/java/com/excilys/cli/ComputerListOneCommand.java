@@ -7,6 +7,7 @@ import com.excilys.exceptions.ConnectionException;
 import com.excilys.exceptions.DAOException;
 import com.excilys.exceptions.DriverException;
 import com.excilys.service.ComputerService;
+import com.excilys.servlet.MapperUtils;
 
 public class ComputerListOneCommand implements Command {
 
@@ -17,20 +18,22 @@ public class ComputerListOneCommand implements Command {
 		String computerId = null;
 		Long computerIdInt = null;
 		ComputerDTO computer = null;
-		
+
 		System.out.printf("Enter the computer id wanted:%n>");
 		computerId = input.nextLine();
-		
-		computerIdInt = Mapper.convertStringToLong(computerId);
-		if (computerIdInt == null) return;
-		
+
+		computerIdInt = MapperUtils.convertStringToLong(computerId);
+		if (computerIdInt == null) {
+			return;
+		}
+
 		try {
 			computer = ComputerService.getInstance().get(computerIdInt);
 		} catch (DAOException | ConnectionException | DriverException e) {
 			System.out.println("DB error!");
 			return;
 		}
-		
+
 		if (computer == null) {
 			System.out.println("No computer found.");
 		} else {

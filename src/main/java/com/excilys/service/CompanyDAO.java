@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 
 import com.excilys.beans.Company;
 import com.excilys.beans.CompanyDTO;
-import com.excilys.db.CoManagerFactory;
+import com.excilys.db.CoManager;
 import com.excilys.exceptions.ConnectionException;
 import com.excilys.exceptions.DAOException;
 import com.excilys.exceptions.DriverException;
@@ -51,10 +51,13 @@ public class CompanyDAO implements DAO<Company, CompanyDTO> {
 		ResultSet rs = null;
 		List<CompanyDTO> companies = new ArrayList<>();
 
-		connection = CoManagerFactory.getCoManager().getConnection();
+		connection = CoManager.getInstance().getConnection();
 
 		try {
 			stmt = connection.createStatement();
+
+			logger.debug(sql);
+
 			rs = stmt.executeQuery(sql);
 
 			while (rs.next()) {
@@ -65,29 +68,31 @@ public class CompanyDAO implements DAO<Company, CompanyDTO> {
 
 			throw new DAOException(e);
 		} finally {
-			CoManagerFactory.getCoManager().cleanup(connection, stmt, rs);
+			CoManager.getInstance().cleanup(connection, stmt, rs);
 		}
 
 		return companies;
 	}
 
 	@Override
-	public List<CompanyDTO> findFromTo(int offset, int limit) throws DAOException, ConnectionException, DriverException {
+	public List<CompanyDTO> findFromTo(int offset, int limit)
+			throws DAOException, ConnectionException, DriverException {
 		Connection connection = null;
 		PreparedStatement pstmt = null;
-		String sql = "SELECT id,name "
-				+ "FROM company "
-				+ "LIMIT ?, ?";
+		String sql = "SELECT id,name " + "FROM company " + "LIMIT ?, ?";
 		ResultSet rs = null;
 		List<CompanyDTO> companies = new ArrayList<>();
 
-		connection = CoManagerFactory.getCoManager().getConnection();
+		connection = CoManager.getInstance().getConnection();
 
 		try {
 			pstmt = connection.prepareStatement(sql);
 			pstmt.setInt(1, offset);
 			pstmt.setInt(2, limit);
 			System.out.println(pstmt.toString());
+
+			logger.debug(pstmt.toString());
+
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -98,12 +103,12 @@ public class CompanyDAO implements DAO<Company, CompanyDTO> {
 
 			throw new DAOException(e);
 		} finally {
-			CoManagerFactory.getCoManager().cleanup(connection, pstmt, rs);
+			CoManager.getInstance().cleanup(connection, pstmt, rs);
 		}
 
 		return companies;
 	}
-	
+
 	@Override
 	public CompanyDTO findById(Long id) throws ConnectionException, DriverException, DAOException {
 		Connection connection = null;
@@ -112,11 +117,14 @@ public class CompanyDAO implements DAO<Company, CompanyDTO> {
 		ResultSet rs = null;
 		CompanyDTO company = null;
 
-		connection = CoManagerFactory.getCoManager().getConnection();
+		connection = CoManager.getInstance().getConnection();
 
 		try {
 			pstmt = connection.prepareStatement(sql);
 			pstmt.setLong(1, id);
+
+			logger.debug(pstmt.toString());
+
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -127,7 +135,7 @@ public class CompanyDAO implements DAO<Company, CompanyDTO> {
 
 			throw new DAOException(e);
 		} finally {
-			CoManagerFactory.getCoManager().cleanup(connection, pstmt, rs);
+			CoManager.getInstance().cleanup(connection, pstmt, rs);
 		}
 
 		return company;
@@ -156,25 +164,28 @@ public class CompanyDAO implements DAO<Company, CompanyDTO> {
 		String sql = "SELECT COUNT(id) AS TOTAL FROM company";
 		int number = 0;
 
-		connection = CoManagerFactory.getCoManager().getConnection();
+		connection = CoManager.getInstance().getConnection();
 
 		try {
 			stmt = connection.createStatement();
+
+			logger.debug(sql);
+
 			rs = stmt.executeQuery(sql);
 
 			while (rs.next()) {
 				number = rs.getInt("TOTAL");
 			}
-			
+
 		} catch (SQLException e) {
 			System.out.println("company update error!");
 			logger.error("company update by id SQL error!", e);
 
 			throw new DAOException(e);
 		} finally {
-			CoManagerFactory.getCoManager().cleanup(connection, stmt, rs);
+			CoManager.getInstance().cleanup(connection, stmt, rs);
 		}
-		
+
 		return number;
 	}
 }

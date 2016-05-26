@@ -1,14 +1,16 @@
 package com.excilys.beans;
 
 /**
- * Extend DB representation to contain more data (e.g. could be all computer from this company)
+ * Extend DB representation to contain more data (e.g. could be all computer
+ * from this company)
+ * 
  * @author pqwarlot
  *
  */
 public class CompanyDTO {
 	private Long id;
 	private String name;
-		
+
 	public CompanyDTO(Long id, String name) {
 		this.id = id;
 		this.name = name;
@@ -17,7 +19,7 @@ public class CompanyDTO {
 	public Long getId() {
 		return id;
 	}
-	
+
 	public String getIdStr() {
 		return (this.id == null) ? "" : String.valueOf(id);
 	}
@@ -25,13 +27,11 @@ public class CompanyDTO {
 	public String getName() {
 		return name;
 	}
-	
+
 	public Company toCompanyBean() {
-		return new Company(
-				getId(),
-				getName());
+		return new Company(getId(), getName());
 	}
-	
+
 	@Override
 	public String toString() {
 		return "CompanyDTO [id=" + id + ", name=" + name + "]";
@@ -48,23 +48,30 @@ public class CompanyDTO {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		CompanyDTO other = (CompanyDTO) obj;
 		if (id == null) {
-			if (other.id != null)
+			if (other.id != null) {
 				return false;
-		} else if (!id.equals(other.id))
+			}
+		} else if (!id.equals(other.id)) {
 			return false;
+		}
 		if (name == null) {
-			if (other.name != null)
+			if (other.name != null) {
 				return false;
-		} else if (!name.equals(other.name))
+			}
+		} else if (!name.equals(other.name)) {
 			return false;
+		}
 		return true;
 	}
 }

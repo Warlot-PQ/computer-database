@@ -26,11 +26,10 @@ public class CompanyListAllCommand implements Command {
 		try {
 			companies = p.nextPage();
 		} catch (DAOException | ConnectionException | DriverException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		for (CompanyDTO company: companies) {
+
+		for (CompanyDTO company : companies) {
 			System.out.println(company.toString());
 		}
 	}

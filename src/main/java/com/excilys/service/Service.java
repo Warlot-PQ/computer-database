@@ -8,16 +8,16 @@ import com.excilys.exceptions.DriverException;
 
 public interface Service<T, E> {
 	public List<E> getAll() throws DAOException, ConnectionException, DriverException;
-	
+
 	public List<E> getFromTo(int offset, int limit) throws DAOException, ConnectionException, DriverException;
-	
+
 	public E get(Long id) throws DAOException, ConnectionException, DriverException;
-	
-	public boolean create(T obj) throws DAOException, ConnectionException, DriverException;
-	
-	public boolean update(T obj) throws DAOException, ConnectionException, DriverException;
-	
-	public boolean delete(Long id) throws DAOException, ConnectionException, DriverException;
-	
+
+	public void create(T obj) throws DAOException, ConnectionException, DriverException;
+
+	public void update(T obj) throws DAOException, ConnectionException, DriverException;
+
+	public void delete(Long id) throws DAOException, ConnectionException, DriverException;
+
 	public int count() throws DAOException, ConnectionException, DriverException;
 }

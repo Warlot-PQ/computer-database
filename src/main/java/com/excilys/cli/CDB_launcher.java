@@ -12,9 +12,9 @@ public class CDB_launcher {
 	public static void main(String[] args) {
 		CommandFactory cf = CommandFactory.init();
 		String firstArg = null;
-		
+
 		System.out.println("Welcome to CDB program :)");
-		
+
 		if (args.length > 0) {
 			firstArg = args[0];
 
@@ -23,12 +23,12 @@ public class CDB_launcher {
 		} else {
 			@SuppressWarnings("resource")
 			Scanner input = new Scanner(System.in);
-			
-			// Infinite loop until the user enter "exit" 
+
+			// Infinite loop until the user enter "exit"
 			while (true) {
 				System.out.printf("%nPlease enter your command: (enter anything for help)%n>");
 				firstArg = input.nextLine();
-				
+
 				cf.executeCommand(firstArg);
 			}
 		}

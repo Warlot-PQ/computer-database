@@ -22,19 +22,19 @@ import com.excilys.exceptions.DriverException;
 public class CoManager {
 	protected static CoManager instance = null;
 	private static Logger logger = null;
-	
+
 	protected ResourceBundle properties;
-	protected static String resourceBundle = "com/excilys/db/config";
-	
+	protected static String resourceBundle = "config";
+
 	protected CoManager() throws DriverException {
 		logger = LoggerFactory.getLogger(this.getClass());
 		properties = ResourceBundle.getBundle(resourceBundle);
-		
+
 		try {
 			Class.forName(properties.getString("DB_DRIVER"));
 		} catch (ClassNotFoundException e) {
 			logger.error("Driver load error!", e);
-			
+
 			throw new DriverException(e);
 		}
 	}
@@ -42,16 +42,17 @@ public class CoManager {
 	public Connection getConnection() throws ConnectionException {
 		Connection connection = null;
 		try {
-			connection = DriverManager.getConnection(properties.getString("JDBC_URL"), properties.getString("DB_LOGIN"), properties.getString("DB_PASSWORD"));
-			
+			connection = DriverManager.getConnection(properties.getString("JDBC_URL"), properties.getString("DB_LOGIN"),
+					properties.getString("DB_PASSWORD"));
+
 		} catch (SQLException e) {
 			logger.error("DB connection exception!", e);
-			
+
 			throw new ConnectionException(e);
 		}
 		return connection;
 	}
-	
+
 	public static CoManager getInstance() throws DriverException {
 		if (instance == null) {
 			synchronized (CoManager.class) {
@@ -62,15 +63,15 @@ public class CoManager {
 		}
 		return instance;
 	}
-	
+
 	public void cleanup(Connection connection, Statement stat, ResultSet rs) {
-		if (rs !=null) {
+		if (rs != null) {
 			try {
 				rs.close();
 			} catch (SQLException e) {
 			}
 		}
-		if (stat!=null) {
+		if (stat != null) {
 			try {
 				stat.close();
 			} catch (SQLException e) {

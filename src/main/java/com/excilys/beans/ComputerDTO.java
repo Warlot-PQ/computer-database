@@ -9,8 +9,9 @@ public class ComputerDTO {
 	private LocalDate discontinued;
 	private Long companyId;
 	private String companyName;
-	
-	public ComputerDTO(Long id, String name, LocalDate introduced, LocalDate discontinued, Long companyId, String companyName) {
+
+	public ComputerDTO(Long id, String name, LocalDate introduced, LocalDate discontinued, Long companyId,
+			String companyName) {
 		this.id = id;
 		this.name = name;
 		this.introduced = introduced;
@@ -18,7 +19,7 @@ public class ComputerDTO {
 		this.companyId = companyId;
 		this.companyName = companyName;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -60,12 +61,7 @@ public class ComputerDTO {
 	}
 
 	public Computer toComputerBean() {
-		return new Computer(
-				getId(),
-				getName(),
-				getIntroduced(),
-				getDiscontinued(),
-				getCompanyId());
+		return new Computer(getId(), getName(), getIntroduced(), getDiscontinued(), getCompanyId());
 	}
 
 	@Override
@@ -73,7 +69,7 @@ public class ComputerDTO {
 		return "ComputerDTO [id=" + id + ", name=" + name + ", introduced=" + introduced + ", discontinued="
 				+ discontinued + ", companyId=" + companyId + ", companyName=" + companyName + "]";
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -89,43 +85,58 @@ public class ComputerDTO {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		ComputerDTO other = (ComputerDTO) obj;
 		if (companyId == null) {
-			if (other.companyId != null)
+			if (other.companyId != null) {
 				return false;
-		} else if (!companyId.equals(other.companyId))
+			}
+		} else if (!companyId.equals(other.companyId)) {
 			return false;
+		}
 		if (companyName == null) {
-			if (other.companyName != null)
+			if (other.companyName != null) {
 				return false;
-		} else if (!companyName.equals(other.companyName))
+			}
+		} else if (!companyName.equals(other.companyName)) {
 			return false;
+		}
 		if (discontinued == null) {
-			if (other.discontinued != null)
+			if (other.discontinued != null) {
 				return false;
-		} else if (!discontinued.equals(other.discontinued))
+			}
+		} else if (!discontinued.equals(other.discontinued)) {
 			return false;
+		}
 		if (id == null) {
-			if (other.id != null)
+			if (other.id != null) {
 				return false;
-		} else if (!id.equals(other.id))
+			}
+		} else if (!id.equals(other.id)) {
 			return false;
+		}
 		if (introduced == null) {
-			if (other.introduced != null)
+			if (other.introduced != null) {
 				return false;
-		} else if (!introduced.equals(other.introduced))
+			}
+		} else if (!introduced.equals(other.introduced)) {
 			return false;
+		}
 		if (name == null) {
-			if (other.name != null)
+			if (other.name != null) {
 				return false;
-		} else if (!name.equals(other.name))
+			}
+		} else if (!name.equals(other.name)) {
 			return false;
+		}
 		return true;
 	}
 }

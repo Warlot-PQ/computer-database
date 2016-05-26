@@ -13,7 +13,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import com.excilys.beans.CompanyDTO;
-import com.excilys.db.CoManagerFactory;
 import com.excilys.exceptions.ConnectionException;
 import com.excilys.exceptions.DAOException;
 import com.excilys.exceptions.DriverException;
@@ -23,7 +22,6 @@ public class TestCompanyService {
 
 	@Before
 	public void setUp() throws Exception {
-		CoManagerFactory.enableTest();
 		companyService = CompanyService.getInstance();
 	}
 
@@ -61,7 +59,7 @@ public class TestCompanyService {
 	@Test
 	public void testReadOne() throws DAOException, ConnectionException, DriverException {
 		CompanyDTO companyExpected = new CompanyDTO(2L, "Microsoft");
-		
+
 		CompanyDTO company = companyService.get(2L);
 		Assert.assertEquals(companyExpected, company);
 
@@ -74,16 +72,23 @@ public class TestCompanyService {
 		company = companyService.get(null);
 		Assert.assertNull(company);
 	}
-	
+
 	@Test
 	@Ignore("Feature not implemented yet!")
 	public void testCreateAndDelete() {
 		fail("not implemented!");
 	}
-	
+
 	@Test
 	@Ignore("Feature not implemented yet!")
 	public void testUpdate() {
 		fail("not implemented!");
+	}
+	
+	@Test
+	public void testCount() throws DAOException, ConnectionException, DriverException {
+		int rowsNumber = companyService.count();
+		
+		Assert.assertEquals(2, rowsNumber);
 	}
 }

@@ -23,7 +23,7 @@ public class Computer {
 	public Computer() {
 		this(null, null, null, null, null);
 	}
-	
+
 	/**
 	 * Construct a computer object without id
 	 * 
@@ -62,7 +62,7 @@ public class Computer {
 		this.companyId = company_id;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return this.id;
 	}
 
@@ -114,13 +114,9 @@ public class Computer {
 
 	@Override
 	public String toString() {
-		String s = String.format("id: %d name: %s introduced: %s discontinued: %s company id: %d company name: %s", 
-				getId(),
-				getName(), 
-				(getIntroduced() == null) ? getIntroduced() : getIntroduced().toString(), 
-				(getDiscontinued() == null) ? getDiscontinued() : getDiscontinued().toString(),
-				getCompanyId()
-				);
+		String s = String.format("id: %d " + "name: %s " + "introduced: %s " + "discontinued: %s " + "company id: %d ",
+				getId(), getName(), (getIntroduced() == null) ? getIntroduced() : getIntroduced().toString(),
+				(getDiscontinued() == null) ? getDiscontinued() : getDiscontinued().toString(), getCompanyId());
 
 		return s;
 	}
@@ -139,38 +135,51 @@ public class Computer {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		Computer other = (Computer) obj;
 		if (companyId == null) {
-			if (other.companyId != null)
+			if (other.companyId != null) {
 				return false;
-		} else if (!companyId.equals(other.companyId))
+			}
+		} else if (!companyId.equals(other.companyId)) {
 			return false;
+		}
 		if (discontinued == null) {
-			if (other.discontinued != null)
+			if (other.discontinued != null) {
 				return false;
-		} else if (!discontinued.equals(other.discontinued))
+			}
+		} else if (!discontinued.equals(other.discontinued)) {
 			return false;
+		}
 		if (id == null) {
-			if (other.id != null)
+			if (other.id != null) {
 				return false;
-		} else if (!id.equals(other.id))
+			}
+		} else if (!id.equals(other.id)) {
 			return false;
+		}
 		if (introduced == null) {
-			if (other.introduced != null)
+			if (other.introduced != null) {
 				return false;
-		} else if (!introduced.equals(other.introduced))
+			}
+		} else if (!introduced.equals(other.introduced)) {
 			return false;
+		}
 		if (name == null) {
-			if (other.name != null)
+			if (other.name != null) {
 				return false;
-		} else if (!name.equals(other.name))
+			}
+		} else if (!name.equals(other.name)) {
 			return false;
+		}
 		return true;
 	}
 }

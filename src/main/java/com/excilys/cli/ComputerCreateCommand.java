@@ -7,6 +7,7 @@ import com.excilys.exceptions.ConnectionException;
 import com.excilys.exceptions.DAOException;
 import com.excilys.exceptions.DriverException;
 import com.excilys.service.ComputerService;
+import com.excilys.servlet.MapperUtils;
 
 public class ComputerCreateCommand implements Command {
 
@@ -15,32 +16,27 @@ public class ComputerCreateCommand implements Command {
 		@SuppressWarnings("resource")
 		Scanner input = new Scanner(System.in);
 		Computer computer = new Computer();
-		boolean success = false;
-		
+
 		System.out.printf("Enter the computer name:%n>");
-		computer.setName( input.nextLine() );
-		
+		computer.setName(input.nextLine());
+
 		System.out.printf("Enter the computer introduced date: format YYYY-MM-DD (enter to skip)%n>");
-		computer.setIntroduced( Mapper.convertStringToLocalDateTime( input.nextLine() ) );
-		
+		computer.setIntroduced(MapperUtils.convertStringToLocalDateTime(input.nextLine()));
+
 		System.out.printf("Enter the computer discontinued date: format YYYY-MM-DD (enter to skip)%n>");
-		computer.setDiscontinued( Mapper.convertStringToLocalDateTime( input.nextLine() ) );
-	
+		computer.setDiscontinued(MapperUtils.convertStringToLocalDateTime(input.nextLine()));
+
 		System.out.printf("Enter the company id:%n>");
-		computer.setCompanyId( Mapper.convertStringToLong( input.nextLine() ) );
-		
+		computer.setCompanyId(MapperUtils.convertStringToLong(input.nextLine()));
+
 		try {
-			success = ComputerService.getInstance().create( computer );
+			ComputerService.getInstance().create(computer);
 		} catch (DAOException | ConnectionException | DriverException e) {
 			System.out.println("DB error!");
 			return;
 		}
 
-		if (success == true) {
-			System.out.println("Computer added with success.");
-		} else {
-			System.out.println("Computer not added to the database!");
-		}
+		System.out.println("Computer added with success.");
 	}
 
 }
