@@ -52,7 +52,7 @@ public class AddComputerSeleniumTest {
 		driver.findElement(By.cssSelector("input.btn.btn-primary")).click();
 
 		WebElement errorDivElt = driver.findElement(By.id("errorMsg"));
-		Assert.assertEquals(errorDivElt.getText(), "Success computer added to the DB");
+		Assert.assertEquals("Success computer added to the DB", errorDivElt.getText());
 		
 		driver.findElement(By.linkText("Application - Computer Database")).click();
 	}
@@ -72,7 +72,7 @@ public class AddComputerSeleniumTest {
 		driver.findElement(By.cssSelector("input.btn.btn-primary")).click();
 
 		WebElement errorDivElt = driver.findElement(By.id("errorMsg"));
-		Assert.assertEquals(errorDivElt.getText(), "Error! introduced date must be less than discontinued date");
+		Assert.assertEquals("Error! introduced date must be less than discontinued date!", errorDivElt.getText());
 
 		driver.findElement(By.linkText("Application - Computer Database")).click();
 	}

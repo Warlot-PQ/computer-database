@@ -1,4 +1,5 @@
 package com.excilys.servlet;
+import static org.apache.commons.lang3.StringEscapeUtils.escapeHtml4;
 
 import java.io.IOException;
 import java.util.List;
@@ -43,24 +44,24 @@ public class Router extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String page = "";
-		String actionParam = request.getParameter("action");
+		String actionParam = escapeHtml4(request.getParameter("action"));
 		if (actionParam == null) {
 			actionParam = "dashboard";
 		}
 
 		switch (actionParam) {
 		case "dashboard":
-			setDashboardJSP(request, response, request.getParameter("page"), request.getParameter("limit"));
-			page = "views/dashboard.jsp";
+			setDashboardJSP(request, response, escapeHtml4(request.getParameter("page")), escapeHtml4(request.getParameter("limit")));
+			page = "dashboard.jsp";
 			break;
 		case "addComputer":
 			setAddComputerJSP(request, response);
 			request.setAttribute("displayErrorMsg", false);
-			page = "views/addComputer.jsp";
+			page = "addComputer.jsp";
 			break;
 		default:
 			setDashboardJSP(request, response, "1", "10");
-			page = "views/dashboard.jsp";
+			page = "dashboard.jsp";
 		}
 		showPage(request, response, page);
 	}
@@ -73,14 +74,14 @@ public class Router extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String page = "";
-		String actionParam = request.getParameter("action");
+		String actionParam = escapeHtml4(request.getParameter("action"));
 
 		switch (actionParam) {
 		case "addComputer":
 			saveComputer(request, response);
 			setAddComputerJSP(request, response);
 			request.setAttribute("displayErrorMsg", true);
-			page = "views/addComputer.jsp";
+			page = "addComputer.jsp";
 			break;
 		default:
 			doGet(request, response);
@@ -91,10 +92,10 @@ public class Router extends HttpServlet {
 	}
 
 	public void saveComputer(HttpServletRequest request, HttpServletResponse response) {
-		Computer c1 = new Computer(request.getParameter("computerName"),
-				MapperUtils.convertStringToLocalDateTime(request.getParameter("introduced")),
-				MapperUtils.convertStringToLocalDateTime(request.getParameter("discontinued")),
-				MapperUtils.convertStringToLong(request.getParameter("companyId")));
+		Computer c1 = new Computer(escapeHtml4(request.getParameter("computerName")),
+				MapperUtils.convertStringToLocalDateTime(escapeHtml4(request.getParameter("introduced"))),
+				MapperUtils.convertStringToLocalDateTime(escapeHtml4(request.getParameter("discontinued"))),
+				MapperUtils.convertStringToLong(escapeHtml4(request.getParameter("companyId"))));
 
 		Validation validate = new ComputerValidator(c1).check();
 
@@ -164,7 +165,7 @@ public class Router extends HttpServlet {
 
 	public void showPage(HttpServletRequest request, HttpServletResponse response, String page)
 			throws ServletException, IOException {
-		request.getRequestDispatcher(page).forward(request, response);
+		request.getRequestDispatcher("WEB-INF/views/" + page).forward(request, response);
 	}
 
 	private int getParamToInt(String pageParam) {

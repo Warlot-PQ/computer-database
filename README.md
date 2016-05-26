@@ -28,7 +28,9 @@ selenium.java --- UI integration testing
 
 javax.servlet.api --- Servlet API
 
-javax.servlet-jsp.api --- JSP API.
+javax.servlet-jsp.api --- JSP API
+
+commons-lang3 --- escape HTML code.
 
 ## Plugin used
 

@@ -8,20 +8,15 @@
 <%@ attribute name="enable" rtexprvalue="true" required="false" %> 
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <%-- Body tag content --%>
 <jsp:doBody var="bodyRes" />
-
 <%-- Convert special characters to character entities --%>
 <c:set var="escapedBody" value="${fn:escapeXml(bodyRes)}" />
-
 <c:set var="projectPath" value="${pageContext.request.contextPath}" />
-
 <c:set var="href" value="#" />
 <c:if test="${enable ne false}">
 	<c:set var="href" value="${projectPath}/Router?action=dashboard&page=${page}&limit=${limit}" />
 </c:if>
-
 <a class="${classes}" href="${href}" ${att}>
 	${bodyRes}	
 </a>

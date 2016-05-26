@@ -17,16 +17,11 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
  */
 public class Link extends SimpleTagSupport {
 	StringWriter sw = new StringWriter();
-	private String target;
 	private int page;
 	private int limit;
 
 	public Link() {
 
-	}
-
-	public void setTarget(String target) {
-		this.target = target;
 	}
 
 	public void setPage(int page) {
