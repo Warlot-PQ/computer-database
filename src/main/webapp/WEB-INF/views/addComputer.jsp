@@ -66,7 +66,7 @@
 	<script src="${pageContext.request.contextPath}/js/addComputer.js"></script>
 	<script>
 		$(function() {
-		  $( "#introduced" ).datepicker({ dateFormat: 'dd-mm-yy' }).val();;
+		  $( "#introduced" ).datepicker({ dateFormat: 'dd-mm-yy' }).val();
 		  $( "#discontinued" ).datepicker({ dateFormat: 'dd-mm-yy' }).val();
 		});
 	</script>

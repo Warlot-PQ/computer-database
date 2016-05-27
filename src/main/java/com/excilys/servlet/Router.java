@@ -122,7 +122,7 @@ public class Router extends HttpServlet {
 		int currentComputersFrom = (currentPage - 1) * currentLimit;
 		int currentComputersTo = 1;
 		int totalPages = 1;
-		int totalComputers = 1;
+		int totalComputers = 0;
 		boolean loadError = false;
 		Page<Computer, ComputerDTO> page = new Page<>(ComputerService.getInstance(), currentLimit);
 

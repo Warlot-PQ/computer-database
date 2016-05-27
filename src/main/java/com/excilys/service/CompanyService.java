@@ -14,9 +14,10 @@ import com.excilys.exceptions.DriverException;
  * @author pqwarlot
  *
  */
-public class CompanyService implements Service<Company, CompanyDTO> {
+public class CompanyService implements ServiceCompany {
 	private static CompanyService instance = null;
-	private DAO<Company, CompanyDTO> companyDAO = CompanyDAO.getInstance();
+	private DAOCompany companyDAO = CompanyDAO.getInstance();
+	private DAOComputer computerDAO = ComputerDAO.getInstance();
 
 	public static CompanyService getInstance() {
 		if (instance == null) {
@@ -81,12 +82,13 @@ public class CompanyService implements Service<Company, CompanyDTO> {
 	}
 
 	@Override
-	public void update(Company obj) throws DAOException, ConnectionException, DriverException {
-		// TODO Auto-generated method stub
+	public void delete(Long id) throws DAOException, ConnectionException, DriverException {
+		computerDAO.deleteByCompany(id);
+		companyDAO.delete(id);
 	}
 
 	@Override
-	public void delete(Long id) throws DAOException, ConnectionException, DriverException {
+	public void update(Company obj) throws DAOException, ConnectionException, DriverException {
 		// TODO Auto-generated method stub
 	}
 

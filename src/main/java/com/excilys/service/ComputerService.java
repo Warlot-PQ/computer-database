@@ -14,9 +14,9 @@ import com.excilys.exceptions.DriverException;
  * @author pqwarlot
  *
  */
-public class ComputerService implements Service<Computer, ComputerDTO> {
+public class ComputerService implements ServiceComputer {
 	private static ComputerService instance = null;
-	private DAO<Computer, ComputerDTO> computerDAO = ComputerDAO.getInstance();
+	private DAOComputer computerDAO = ComputerDAO.getInstance();
 
 	public static ComputerService getInstance() {
 		if (instance == null) {
@@ -130,5 +130,11 @@ public class ComputerService implements Service<Computer, ComputerDTO> {
 	@Override
 	public int count() throws DAOException, ConnectionException, DriverException {
 		return computerDAO.getRowNumber();
+	}
+
+	@Override
+	public void deleteByCompany(Long id) throws DAOException, ConnectionException, DriverException {
+		// TODO Auto-generated method stub
+		
 	}
 }

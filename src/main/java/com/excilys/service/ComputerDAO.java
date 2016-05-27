@@ -24,7 +24,7 @@ import com.excilys.exceptions.DriverException;
  * @author pqwarlot
  *
  */
-public class ComputerDAO implements DAO<Computer, ComputerDTO> {
+public class ComputerDAO implements DAOComputer {
 	private static ComputerDAO instance;
 	private static Logger logger = null;
 
@@ -32,7 +32,7 @@ public class ComputerDAO implements DAO<Computer, ComputerDTO> {
 		logger = LoggerFactory.getLogger(this.getClass());
 	}
 
-	protected static ComputerDAO getInstance() {
+	protected static DAOComputer getInstance() {
 		if (instance == null) {
 			synchronized (ComputerDAO.class) {
 				if (instance == null) {
@@ -272,5 +272,29 @@ public class ComputerDAO implements DAO<Computer, ComputerDTO> {
 		}
 
 		return number;
+	}
+	
+	@Override
+	public void deleteByCompany(Long id) throws DAOException, ConnectionException, DriverException {
+		Connection connection = null;
+		PreparedStatement pstmt = null;
+		String sql = "DELETE FROM computer WHERE company_id=?";
+
+		connection = CoManager.getInstance().getConnection();
+		
+		try {
+			pstmt = connection.prepareStatement(sql);
+			pstmt.setLong(1, id);
+
+			logger.debug(pstmt.toString());
+
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			logger.error("computer delete SQL error!", e);
+
+			throw new DAOException(e);
+		} finally {
+			CoManager.getInstance().cleanup(connection, pstmt, null);
+		}
 	}
 }

@@ -6,6 +6,13 @@ import com.excilys.exceptions.ConnectionException;
 import com.excilys.exceptions.DAOException;
 import com.excilys.exceptions.DriverException;
 
+/**
+ * Generic services to all entities
+ * @author pqwarlot
+ *
+ * @param <T>
+ * @param <E>
+ */
 public interface Service<T, E> {
 	public List<E> getAll() throws DAOException, ConnectionException, DriverException;
 

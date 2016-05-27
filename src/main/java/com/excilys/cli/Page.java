@@ -17,7 +17,7 @@ import com.excilys.service.Service;
  * @param E
  *            ComputerExt or CompanyExt class
  */
-public class Page<T, E> { // Service must implement fetch(from, to)
+public class Page<T, E> {
 	private int eltByPage = 25;
 	private int currentOffset = -eltByPage;
 	private Service<T, E> service;

@@ -24,7 +24,7 @@ import com.excilys.exceptions.DriverException;
  * @author pqwarlot
  *
  */
-public class CompanyDAO implements DAO<Company, CompanyDTO> {
+public class CompanyDAO implements DAOCompany {
 	private static CompanyDAO instance;
 	private static Logger logger = null;
 
@@ -152,8 +152,27 @@ public class CompanyDAO implements DAO<Company, CompanyDTO> {
 	}
 
 	@Override
-	public void delete(Long id) {
-		// TODO Auto-generated method stub
+	public void delete(Long id) throws ConnectionException, DriverException, DAOException {
+		Connection connection = null;
+		PreparedStatement pstmt = null;
+		String sql = "DELETE FROM company WHERE id=?";
+
+		connection = CoManager.getInstance().getConnection();
+
+		try {
+			pstmt = connection.prepareStatement(sql);
+			pstmt.setLong(1, id);
+
+			logger.debug(pstmt.toString());
+
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			logger.error("company delete SQL error!", e);
+
+			throw new DAOException(e);
+		} finally {
+			CoManager.getInstance().cleanup(connection, pstmt, null);
+		}
 	}
 
 	@Override
