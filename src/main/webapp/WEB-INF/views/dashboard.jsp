@@ -24,6 +24,10 @@
 		</div>
 	</header>
 
+	<div id="errorMsg" class="alert alert-warning text-center" style="${displayErrorMsg eq 'true' ? 'display: block;' : 'display: none;'}">
+	  <strong>${saveError eq 'true' ? 'Error!' : 'Success'}</strong> ${delMsg}
+	</div>
+
 	<section id="main">
 		<div class="container">
 			<h1 id="homeTitle">${currentComputersFrom}-${currentComputersTo} / ${totalComputers} Computers found</h1>
@@ -45,7 +49,7 @@
 			</div>
 		</div>
 
-		<form id="deleteForm" action="#" method="POST">
+		<form id="deleteForm" action="${pageContext.request.contextPath}/Router?action=deletion&page=${currentPage}&limit=${currentLimit}" method="POST">
 			<input type="hidden" name="selection" value="">
 		</form>
 
@@ -77,7 +81,7 @@
 					<jslt:forEach var="computer" items="${computers}">
 						<tr>
 							<td class="editMode"><input type="checkbox" name="cb"
-								class="cb" value="0"></td>
+								class="cb" value="${computer.id}"></td>
 							<td><a href="editComputer.html" onclick="">${computer.name}</a>
 							</td>
 							<td>${computer.getIntroducedStr()}</td>

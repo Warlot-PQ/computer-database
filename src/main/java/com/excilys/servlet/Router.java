@@ -53,6 +53,7 @@ public class Router extends HttpServlet {
 		case "dashboard":
 			setDashboardJSP(request, response, escapeHtml4(request.getParameter("page")), escapeHtml4(request.getParameter("limit")));
 			page = "dashboard.jsp";
+			request.setAttribute("displayErrorMsg", false);
 			break;
 		case "addComputer":
 			setAddComputerJSP(request, response);
@@ -61,6 +62,7 @@ public class Router extends HttpServlet {
 			break;
 		default:
 			setDashboardJSP(request, response, "1", "10");
+			request.setAttribute("displayErrorMsg", false);
 			page = "dashboard.jsp";
 		}
 		showPage(request, response, page);
@@ -75,13 +77,19 @@ public class Router extends HttpServlet {
 			throws ServletException, IOException {
 		String page = "";
 		String actionParam = escapeHtml4(request.getParameter("action"));
-
+		
 		switch (actionParam) {
 		case "addComputer":
 			saveComputer(request, response);
 			setAddComputerJSP(request, response);
 			request.setAttribute("displayErrorMsg", true);
 			page = "addComputer.jsp";
+			break;
+		case "deletion":
+			deleteComputer(request, response, escapeHtml4(request.getParameter("selection")));
+			setDashboardJSP(request, response, escapeHtml4(request.getParameter("page")), escapeHtml4(request.getParameter("limit")));
+			request.setAttribute("displayErrorMsg", true);
+			page = "dashboard.jsp";
 			break;
 		default:
 			doGet(request, response);
@@ -163,6 +171,32 @@ public class Router extends HttpServlet {
 		request.setAttribute("companies", companies);
 	}
 
+	public void deleteComputer(HttpServletRequest request, HttpServletResponse response, String computersToDelete) {
+		String[] computersId = computersToDelete.split(",");
+		Validation validate = new Validation(false, "deletion successful");
+		
+		if (computersId.length == 0) {
+			validate.setError(true);
+			validate.setMsg("Deletion error, nothing to delete!");
+		}
+		
+		for (String computerId: computersId) {
+			Long id = MapperUtils.convertStringToLong(computerId);
+			if (id != null) {
+				try {
+					ComputerService.getInstance().delete(id);
+				} catch (DAOException | ConnectionException | DriverException e) {
+					validate.setError(true);
+					validate.setMsg("Deletion error, something when wrong!");
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		request.setAttribute("delMsg", validate.getMsg());
+		request.setAttribute("displayErrorMsg", validate.isError());
+	}
+	
 	public void showPage(HttpServletRequest request, HttpServletResponse response, String page)
 			throws ServletException, IOException {
 		request.getRequestDispatcher("WEB-INF/views/" + page).forward(request, response);
