@@ -4,7 +4,6 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.fail;
 
 import java.sql.Timestamp;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -14,12 +13,17 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
-import com.excilys.beans.ComputerDTO;
-import com.excilys.exceptions.ConnectionException;
-import com.excilys.exceptions.DAOException;
-import com.excilys.exceptions.DriverException;
+import com.excilys.ResetDB;
+import com.excilys.bean.ComputerDTO;
+import com.excilys.exception.ConnectionException;
+import com.excilys.exception.DAOException;
+import com.excilys.exception.DriverException;
+import com.excilys.service.mapper.MapperDTO;
+import com.steadystate.css.parser.ParseException;
 
 public class TestComputerService {
 	private ComputerService computerService = null;
@@ -28,6 +32,7 @@ public class TestComputerService {
 
 	@Before
 	public void setUp() throws Exception {
+		ResetDB.setup();
 		computerService = ComputerService.getInstance();
 
 		introduced = new Timestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("1991-01-01 00:00:00").getTime())
@@ -44,45 +49,43 @@ public class TestComputerService {
 	@Test
 	public void testReadAll() throws ParseException, DAOException, ConnectionException, DriverException {
 		List<ComputerDTO> computersExpected = new ArrayList<>();
-		computersExpected.add(new ComputerDTO(1L, "MacBook Pro 15.4 inch", null, null, 1L, "Apple Inc"));
-		computersExpected.add(new ComputerDTO(2L, "CM-2a", null, null, 2L, "Microsoft"));
-		computersExpected.add(new ComputerDTO(3L, "CM-200", null, null, 2L, "Microsoft"));
-		computersExpected.add(new ComputerDTO(4L, "CM-5e", null, null, 2L, "Microsoft"));
-		computersExpected.add(new ComputerDTO(5L, "CM-5", introduced, null, 2L, "Microsoft"));
-		computersExpected.add(new ComputerDTO(6L, "MacBook Pro", discontinued, null, 1L, "Apple Inc"));
+		computersExpected.add(new ComputerDTO("1", "MacBook Pro 15.4 inch", null, null, "1", "Apple Inc"));
+		computersExpected.add(new ComputerDTO("2", "CM-2a", null, null, "2", "Microsoft"));
+		computersExpected.add(new ComputerDTO("3", "CM-200",null, null, "2", "Microsoft"));
+		computersExpected.add(new ComputerDTO("4", "CM-5e", null, null, "2", "Microsoft"));
+		computersExpected.add(new ComputerDTO("5", "CM-5", MapperDTO.dateEnToFr(introduced.toString()), null, "2", "Microsoft"));
+		computersExpected.add(new ComputerDTO("6", "MacBook Pro", MapperDTO.dateEnToFr(discontinued.toString()), null, "1", "Apple Inc"));
 
 		List<ComputerDTO> computers = computerService.getAll();
 
 		Assert.assertThat(computers, is(computersExpected));
 	}
-
+	
+	@Rule
+	public final ExpectedException exception = ExpectedException.none();
+	
 	@Test
 	public void testReadFromTo() throws DAOException, ConnectionException, DriverException {
 		List<ComputerDTO> computersExpected = new ArrayList<>();
-		computersExpected.add(new ComputerDTO(2L, "CM-2a", null, null, 2L, "Microsoft"));
+		computersExpected.add(new ComputerDTO("1", "MacBook Pro 15.4 inch", null, null, "1", "Apple Inc"));
 
-		List<ComputerDTO> computers = computerService.getFromTo(1, 1);
-		Assert.assertThat(computers, is(computersExpected));
+		List<ComputerDTO> computers = computerService.getAll(PageRequest.create().page(1).eltByPage(1).build());
+		Assert.assertEquals(computers, computersExpected);
 
-		computers = computerService.getFromTo(-1, 1);
-		Assert.assertNull(computers);
-
-		computers = computerService.getFromTo(1, 0);
-		Assert.assertNull(computers);
+		computers = computerService.getAll(PageRequest.create().page(1).eltByPage(0).build());
+		Assert.assertThat(computers.isEmpty(), is(true));
 	}
 
 	@Test
 	public void testReadOne() throws ParseException, DAOException, ConnectionException, DriverException {
-		ComputerDTO computerToCreate = null;
+		ComputerDTO computerExpected = computerService.get(5L);
 
-		computerToCreate = computerService.get(5L);
-
-		Assert.assertEquals(5L, computerToCreate.getId().longValue());
-		Assert.assertEquals("CM-5", computerToCreate.getName());
-		Assert.assertEquals(introduced, computerToCreate.getIntroduced());
-		Assert.assertNull(computerToCreate.getDiscontinued());
-		Assert.assertEquals(2L, computerToCreate.getCompanyId().longValue());
-		Assert.assertEquals("Microsoft", computerToCreate.getCompanyName());
+		Assert.assertEquals("5", computerExpected.getId());
+		Assert.assertEquals("CM-5", computerExpected.getName());
+		Assert.assertEquals(MapperDTO.dateEnToFr(introduced.toString()), computerExpected.getIntroduced());
+		Assert.assertNull(computerExpected.getDiscontinued());
+		Assert.assertEquals("2", computerExpected.getCompanyId());
+		Assert.assertEquals("Microsoft", computerExpected.getCompanyName());
 	}
 
 	@Test

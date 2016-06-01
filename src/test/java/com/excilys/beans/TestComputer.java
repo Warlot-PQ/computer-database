@@ -10,6 +10,8 @@ import org.junit.After;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import com.excilys.bean.Computer;
+
 public class TestComputer {
 	private Computer computer;
 

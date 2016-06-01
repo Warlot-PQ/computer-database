@@ -1,4 +1,4 @@
-package com.excilys.beans;
+package com.excilys.bean;
 
 /**
  * Company entity DB representation

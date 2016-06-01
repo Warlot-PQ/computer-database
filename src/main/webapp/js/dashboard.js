@@ -21,7 +21,6 @@ $(function() {
             $("#deleteSelected").disable();
         }
     });
-
 });
 
 
@@ -91,3 +90,16 @@ $(document).keydown(function(e) {
     }
 });
 
+function validateSearch() {
+    var computerNameSearched = $("#searchbox").val();
+
+    $("#errorMsg").hide();
+
+    if (computerNameSearched.trim() == "") {
+        $("#errorMsg").html("<strong>Error!</strong> search name cannot be empty!!");
+        $("#errorMsg").show();
+        return false;
+    }
+
+    return true;
+}

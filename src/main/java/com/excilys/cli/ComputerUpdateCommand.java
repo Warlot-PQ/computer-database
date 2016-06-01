@@ -2,13 +2,10 @@ package com.excilys.cli;
 
 import java.util.Scanner;
 
-import com.excilys.beans.Computer;
-import com.excilys.beans.ComputerDTO;
-import com.excilys.exceptions.ConnectionException;
-import com.excilys.exceptions.DAOException;
-import com.excilys.exceptions.DriverException;
+import com.excilys.bean.Computer;
+import com.excilys.bean.ComputerDTO;
 import com.excilys.service.ComputerService;
-import com.excilys.servlet.MapperUtils;
+import com.excilys.validation.MapperUtils;
 
 public class ComputerUpdateCommand implements Command {
 
@@ -29,12 +26,7 @@ public class ComputerUpdateCommand implements Command {
 		// Fetch the computer to update
 
 		System.out.println("You have chosen to update the following computer:");
-		try {
-			computerDTOToUpdate = ComputerService.getInstance().get(computerIdToUpdate);
-		} catch (DAOException | ConnectionException | DriverException e) {
-			System.out.println("BD error!");
-			return;
-		}
+		computerDTOToUpdate = ComputerService.getInstance().get(computerIdToUpdate);
 
 		if (computerToUpdate == null) {
 			System.out.println("No computer found!");
@@ -49,22 +41,16 @@ public class ComputerUpdateCommand implements Command {
 		computerToUpdate.setName(input.nextLine());
 
 		System.out.printf("Enter the computer introduced date: format YYYY-MM-DD HH:MM:SS (enter to skip)%n>");
-		computerToUpdate.setIntroduced(MapperUtils.convertStringToLocalDateTime(input.nextLine()));
+		computerToUpdate.setIntroduced(MapperUtils.convertStringToLocalDate(input.nextLine()));
 
 		System.out.printf("Enter the computer discontinued date: format YYYY-MM-DD HH:MM:SS (enter to skip)%n>");
-		computerToUpdate.setDiscontinued(MapperUtils.convertStringToLocalDateTime(input.nextLine()));
+		computerToUpdate.setDiscontinued(MapperUtils.convertStringToLocalDate(input.nextLine()));
 
 		System.out.printf("Enter the computer company id:%n>");
 		computerToUpdate.setCompanyId(MapperUtils.convertStringToLong(input.nextLine()));
 
 		// Report changes to the DB
-
-		try {
-			ComputerService.getInstance().update(computerToUpdate);
-		} catch (DAOException | ConnectionException | DriverException e) {
-			System.out.println("BD error!");
-			return;
-		}
+		ComputerService.getInstance().update(computerToUpdate);
 
 		System.out.println("Computer updated with success.");
 	}

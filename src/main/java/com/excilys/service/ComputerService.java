@@ -1,12 +1,16 @@
 package com.excilys.service;
-
+import java.sql.Connection;
 import java.util.List;
 
-import com.excilys.beans.Computer;
-import com.excilys.beans.ComputerDTO;
-import com.excilys.exceptions.ConnectionException;
-import com.excilys.exceptions.DAOException;
-import com.excilys.exceptions.DriverException;
+import com.excilys.Pagination.Page;
+import com.excilys.bean.Computer;
+import com.excilys.bean.ComputerDTO;
+import com.excilys.db.CoManager;
+import com.excilys.exception.ConnectionException;
+import com.excilys.exception.DAOException;
+import com.excilys.exception.DriverException;
+import com.excilys.service.interfaces.DAOComputer;
+import com.excilys.service.interfaces.ServiceComputer;
 
 /**
  * Service to manipulate Campany table.
@@ -35,6 +39,11 @@ public class ComputerService implements ServiceComputer {
 	private ComputerService() {
 	}
 
+	@Override
+	public List<ComputerDTO> getAll() {
+		return computerDAO.findAll(PageRequest.create().build(), null);
+	}
+	
 	/**
 	 * Get all computers informations
 	 * 
@@ -44,19 +53,10 @@ public class ComputerService implements ServiceComputer {
 	 * @throws ConnectionException
 	 */
 	@Override
-	public List<ComputerDTO> getAll() throws DAOException, ConnectionException, DriverException {
-		return computerDAO.findAll();
+	public List<ComputerDTO> getAll(PageRequest pageRequest) {
+		return computerDAO.findAll(pageRequest, null);
 	}
-
-	@Override
-	public List<ComputerDTO> getFromTo(int offset, int limit)
-			throws DAOException, ConnectionException, DriverException {
-		if (offset < 0 || limit <= 0) {
-			return null;
-		}
-		return computerDAO.findFromTo(offset, limit);
-	}
-
+	
 	/**
 	 * Get informations from a specific computer
 	 * 
@@ -68,14 +68,12 @@ public class ComputerService implements ServiceComputer {
 	 * @throws ConnectionException
 	 */
 	@Override
-	public ComputerDTO get(Long id) throws DAOException, ConnectionException, DriverException {
-		if (id == null) {
-			return null;
+	public ComputerDTO get(Long id) {
+		List<ComputerDTO> computers = computerDAO.findAll(PageRequest.create().computerId(id).build(), null);
+		if (computers.size() > 0) {
+			return computers.get(0);
 		}
-		if (id <= 0) {
-			return null;
-		}
-		return computerDAO.findById(id);
+		return null;
 	}
 
 	/**
@@ -91,7 +89,7 @@ public class ComputerService implements ServiceComputer {
 	 * @throws ConnectionException
 	 */
 	@Override
-	public void create(Computer computer) throws DAOException, ConnectionException, DriverException {
+	public void create(Computer computer) {
 		computerDAO.create(computer);
 	}
 
@@ -108,7 +106,7 @@ public class ComputerService implements ServiceComputer {
 	 * @throws ConnectionException
 	 */
 	@Override
-	public void update(Computer computer) throws DAOException, ConnectionException, DriverException {
+	public void update(Computer computer) {
 		computerDAO.updateById(computer);
 	}
 
@@ -123,18 +121,38 @@ public class ComputerService implements ServiceComputer {
 	 * @throws ConnectionException
 	 */
 	@Override
-	public void delete(Long id) throws DAOException, ConnectionException, DriverException {
+	public void delete(Long id) {
 		computerDAO.delete(id);
 	}
 
 	@Override
-	public int count() throws DAOException, ConnectionException, DriverException {
-		return computerDAO.getRowNumber();
+	public int count() {
+		return computerDAO.getRowNumber(PageRequest.create().build(), null);
+	}
+//	
+//	private int count(PageRequest pageRequest) {
+//		return computerDAO.getRowNumber(pageRequest, null);
+//	}
+//	
+	@Override
+	public void deleteByCompany(Long id) {
+		throw new UnsupportedClassVersionError();
 	}
 
 	@Override
-	public void deleteByCompany(Long id) throws DAOException, ConnectionException, DriverException {
-		// TODO Auto-generated method stub
+	public Page<ComputerDTO> getPage(PageRequest pageRequest) {
+		List<ComputerDTO> computers = null;
+		int computersNumber = 0;
 		
+		Connection con = CoManager.getInstance().getConnection();
+		CoManager.beginTransaction(con);
+		
+		computersNumber = computerDAO.getRowNumber(pageRequest, con);
+		computers = computerDAO.findAll(pageRequest, con);
+		
+		CoManager.endTransaction(con);
+		CoManager.cleanup(con, null, null);
+
+		return new Page<ComputerDTO>(computers, computersNumber, pageRequest.getPage().intValue(), pageRequest.getEltByPage().intValue());
 	}
 }

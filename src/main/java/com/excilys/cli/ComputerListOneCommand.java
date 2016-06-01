@@ -2,12 +2,9 @@ package com.excilys.cli;
 
 import java.util.Scanner;
 
-import com.excilys.beans.ComputerDTO;
-import com.excilys.exceptions.ConnectionException;
-import com.excilys.exceptions.DAOException;
-import com.excilys.exceptions.DriverException;
+import com.excilys.bean.ComputerDTO;
 import com.excilys.service.ComputerService;
-import com.excilys.servlet.MapperUtils;
+import com.excilys.validation.MapperUtils;
 
 public class ComputerListOneCommand implements Command {
 
@@ -26,13 +23,8 @@ public class ComputerListOneCommand implements Command {
 		if (computerIdInt == null) {
 			return;
 		}
-
-		try {
-			computer = ComputerService.getInstance().get(computerIdInt);
-		} catch (DAOException | ConnectionException | DriverException e) {
-			System.out.println("DB error!");
-			return;
-		}
+		
+		computer = ComputerService.getInstance().get(computerIdInt);
 
 		if (computer == null) {
 			System.out.println("No computer found.");

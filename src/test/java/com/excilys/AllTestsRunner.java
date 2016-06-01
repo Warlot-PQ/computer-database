@@ -9,6 +9,7 @@ import com.excilys.service.TestCompanyService;
 import com.excilys.service.TestComputerService;
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses({ TestComputer.class, TestCompany.class, TestComputerService.class, TestCompanyService.class })
-public final class AllTestsSuite {
+@Suite.SuiteClasses({ TestComputer.class, TestCompany.class, 
+	TestComputerService.class, TestCompanyService.class })
+public final class AllTestsRunner {
 }
