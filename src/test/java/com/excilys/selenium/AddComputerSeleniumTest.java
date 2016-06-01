@@ -3,6 +3,7 @@ package com.excilys.selenium;
 import static org.junit.Assert.fail;
 
 import java.util.NoSuchElementException;
+import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
@@ -25,6 +26,8 @@ public class AddComputerSeleniumTest {
 	private boolean acceptNextAlert = true;
 	private StringBuffer verificationErrors = new StringBuffer();
 
+	private ResourceBundle properties = ResourceBundle.getBundle("selenium");
+	
 	@Before
 	public void setUp() throws Exception {
 		DesiredCapabilities capabilities = DesiredCapabilities.chrome();
@@ -34,19 +37,19 @@ public class AddComputerSeleniumTest {
 
 		System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver");
 		this.driver = new ChromeDriver();
-		baseUrl = "http://localhost:8080/";
+		baseUrl = properties.getString("URL");
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	}
 
 	@Test
 	public void testAddGoodComputer() throws Exception {
-		driver.get(baseUrl + "/computer-database/Router");
+		driver.get(baseUrl + "/computer-database/Dashboard");
 		driver.findElement(By.id("addComputer")).click();
 		driver.findElement(By.id("computerName")).sendKeys("test 123");
 		driver.findElement(By.id("introduced")).clear();
-		driver.findElement(By.id("introduced")).sendKeys("16-05-2016");
+		driver.findElement(By.id("introduced")).sendKeys("16/05/2016");
 		driver.findElement(By.id("discontinued")).clear();
-		driver.findElement(By.id("discontinued")).sendKeys("31-05-2016");
+		driver.findElement(By.id("discontinued")).sendKeys("31/05/2016");
 		driver.findElement(By.id("companyId")).click();
 		new Select(driver.findElement(By.id("companyId"))).selectByVisibleText("RCA");
 		driver.findElement(By.cssSelector("input.btn.btn-primary")).click();
@@ -60,13 +63,13 @@ public class AddComputerSeleniumTest {
 
 	@Test
 	public void testAddWrongComputer() throws Exception {
-		driver.get(baseUrl + "/computer-database/Router");
+		driver.get(baseUrl + "/computer-database/Dashboard");
 		driver.findElement(By.id("addComputer")).click();
 		driver.findElement(By.id("computerName")).sendKeys("test 123");
 		driver.findElement(By.id("introduced")).clear();
-		driver.findElement(By.id("introduced")).sendKeys("31-05-2016");
+		driver.findElement(By.id("introduced")).sendKeys("31/05/2016");
 		driver.findElement(By.id("discontinued")).clear();
-		driver.findElement(By.id("discontinued")).sendKeys("16-05-2016");
+		driver.findElement(By.id("discontinued")).sendKeys("16/05/2016");
 		driver.findElement(By.id("companyId")).click();
 		new Select(driver.findElement(By.id("companyId"))).selectByVisibleText("RCA");
 		driver.findElement(By.cssSelector("input.btn.btn-primary")).click();

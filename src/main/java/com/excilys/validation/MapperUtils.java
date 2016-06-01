@@ -1,4 +1,4 @@
-package com.excilys.servlet;
+package com.excilys.validation;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -37,18 +37,17 @@ public class MapperUtils {
 	 *            string to convert
 	 * @return timestamp object if success, null otherwise
 	 */
-	public static LocalDate convertStringToLocalDateTime(String msg) {
+	public static LocalDate convertStringToLocalDate(String msg) {
 		LocalDate localDate = null;
 
 		if (msg != null && msg.equals("") == false) {
 			try {
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 				localDate = LocalDate.parse(msg, formatter);
 			} catch (IllegalArgumentException | DateTimeParseException e) {
 				System.out.println("Incorrect format!");
 				localDate = null;
 			}
-			;
 		}
 
 		return localDate;

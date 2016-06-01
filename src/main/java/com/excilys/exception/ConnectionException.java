@@ -1,4 +1,4 @@
-package com.excilys.exceptions;
+package com.excilys.exception;
 
 public class ConnectionException extends Exception {
 	public ConnectionException(Exception e) {

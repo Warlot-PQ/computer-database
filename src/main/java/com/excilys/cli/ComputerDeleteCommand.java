@@ -2,12 +2,9 @@ package com.excilys.cli;
 
 import java.util.Scanner;
 
-import com.excilys.beans.ComputerDTO;
-import com.excilys.exceptions.ConnectionException;
-import com.excilys.exceptions.DAOException;
-import com.excilys.exceptions.DriverException;
+import com.excilys.bean.ComputerDTO;
 import com.excilys.service.ComputerService;
-import com.excilys.servlet.MapperUtils;
+import com.excilys.validation.MapperUtils;
 
 public class ComputerDeleteCommand implements Command {
 
@@ -28,12 +25,7 @@ public class ComputerDeleteCommand implements Command {
 			return;
 		}
 
-		try {
-			computer = ComputerService.getInstance().get(computerIdInt);
-		} catch (DAOException | ConnectionException | DriverException e) {
-			System.out.println("DB error!");
-			return;
-		}
+		computer = ComputerService.getInstance().get(computerIdInt);
 
 		if (computer == null) {
 			System.out.println("No computer matching this id.");
@@ -43,12 +35,7 @@ public class ComputerDeleteCommand implements Command {
 			System.out.println(computer.toString());
 		}
 
-		try {
-			ComputerService.getInstance().delete(computerIdInt);
-		} catch (DAOException | ConnectionException | DriverException e) {
-			System.out.println("DB error!");
-			return;
-		}
+		ComputerService.getInstance().delete(computerIdInt);
 
 		System.out.println("Computer deleted with success.");
 	}

@@ -1,6 +1,18 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="jslt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%-- <%@ taglib uri="http://excilys.com/computer-database/jsp/myLib" prefix="myLib" %> --%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="myLib" %>
+
+<c:set var="computers" value="${page.getItems()}" />
+<c:set var="currentComputersFrom" value="${page.getFirstItemNumber()}" />
+<c:set var="currentComputersTo" value="${page.getLastItemNumber()}" />
+<c:set var="totalComputers" value="${page.getTotalItems()}" />
+<c:set var="currentPage" value="${page.currentPage}" />
+<c:set var="currentLimit" value="${page.getItemsByPage()}" />
+<c:set var="currentOrderBy" value="${orderBy}" />
+<c:set var="currentOrderAlphaNumerical" value="${orderAlphaNumerical}" />
+<c:set var="totalPages" value="${page.getTotalPages()}" />
 
 <!DOCTYPE html>
 <html>
@@ -19,13 +31,18 @@
 <body>
 	<header class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
-			<a class="navbar-brand" href="${pageContext.request.contextPath}/Router?action=dashboard"> Application -
+	${current}-${end}
+			<a class="navbar-brand" href="Dashboard"> Application -
 				Computer Database </a>
 		</div>
 	</header>
 
-	<div id="errorMsg" class="alert alert-warning text-center" style="${displayErrorMsg eq 'true' ? 'display: block;' : 'display: none;'}">
-	  <strong>${saveError eq 'true' ? 'Error!' : 'Success'}</strong> ${delMsg}
+	<div id="errorMsg" class="alert alert-warning text-center" style="${validation.isStateDisplayed() eq 'true' ? 'display: block;' : 'display: none;'}">
+		<c:if test="${validation.getMessages().isEmpty() ne true}">
+	  		<jslt:forEach var="message" items="${validation.getMessages()}">
+	  			<p>${message}</p>
+	  		</jslt:forEach>
+		</c:if>	  
 	</div>
 
 	<section id="main">
@@ -33,7 +50,7 @@
 			<h1 id="homeTitle">${currentComputersFrom}-${currentComputersTo} / ${totalComputers} Computers found</h1>
 			<div id="actions" class="form-horizontal">
 				<div class="pull-left">
-					<form id="searchForm" action="#" method="GET" class="form-inline">
+					<form id="searchForm" action="Dashboard"onsubmit="return validateSearch()"  method="GET" class="form-inline">
 
 						<input type="search" id="searchbox" name="search"
 							class="form-control" placeholder="Search name" /> <input
@@ -42,14 +59,14 @@
 					</form>
 				</div>
 				<div class="pull-right">
-					<a class="btn btn-success" id="addComputer" href="${pageContext.request.contextPath}/Router?action=addComputer">Add
+					<a class="btn btn-success" id="addComputer" href="AddComputer">Add
 						Computer</a> <a class="btn btn-default" id="editComputer" href="#"
 						onclick="$.fn.toggleEditMode();">Edit</a>
 				</div>
 			</div>
 		</div>
 
-		<form id="deleteForm" action="${pageContext.request.contextPath}/Router?action=deletion&page=${currentPage}&limit=${currentLimit}" method="POST">
+		<form id="deleteForm" action="Dashboard?page=${currentPage}&limit=${currentLimit}" method="POST">
 			<input type="hidden" name="selection" value="">
 		</form>
 
@@ -67,13 +84,27 @@
 									class="fa fa-trash-o fa-lg"></i>
 							</a>
 						</span></th>
-						<th>Computer name</th>
-						<th>Introduced date</th>
+						<th>
+							Computer name
+							<myLib:link page="${currentPage}" limit="${currentLimit}" search="${computerSearch}" orderBy="name" orderAlphaNum="true" classes="glyphicon glyphicon-chevron-up"></myLib:link>
+							<myLib:link page="${currentPage}" limit="${currentLimit}" search="${computerSearch}" orderBy="name" orderAlphaNum="false" classes="glyphicon glyphicon-chevron-down"></myLib:link>
+						</th><th>
+							Introduced date
+							<myLib:link page="${currentPage}" limit="${currentLimit}" search="${computerSearch}" orderBy="introduced" orderAlphaNum="true" classes="glyphicon glyphicon-chevron-up"></myLib:link>
+							<myLib:link page="${currentPage}" limit="${currentLimit}" search="${computerSearch}" orderBy="introduced" orderAlphaNum="false" classes="glyphicon glyphicon-chevron-down"></myLib:link>
+						</th>
 						<!-- Table header for Discontinued Date -->
-						<th>Discontinued date</th>
+						<th>
+							Discontinued date
+							<myLib:link page="${currentPage}" limit="${currentLimit}" search="${computerSearch}" orderBy="discontinued" orderAlphaNum="true" classes="glyphicon glyphicon-chevron-up"></myLib:link>
+							<myLib:link page="${currentPage}" limit="${currentLimit}" search="${computerSearch}" orderBy="discontinued" orderAlphaNum="false" classes="glyphicon glyphicon-chevron-down"></myLib:link>
+						</th>
 						<!-- Table header for Company -->
-						<th>Company</th>
-
+						<th>
+							Company
+							<myLib:link page="${currentPage}" limit="${currentLimit}" search="${computerSearch}" orderBy="company" orderAlphaNum="true" classes="glyphicon glyphicon-chevron-up"></myLib:link>
+							<myLib:link page="${currentPage}" limit="${currentLimit}" search="${computerSearch}" orderBy="company" orderAlphaNum="false" classes="glyphicon glyphicon-chevron-down"></myLib:link>
+						</th>
 					</tr>
 				</thead>
 				<!-- Browse attribute computers -->
@@ -82,10 +113,10 @@
 						<tr>
 							<td class="editMode"><input type="checkbox" name="cb"
 								class="cb" value="${computer.id}"></td>
-							<td><a href="editComputer.html" onclick="">${computer.name}</a>
+							<td><a href="EditComputer?id=${computer.id}" onclick="">${computer.name}</a>
 							</td>
-							<td>${computer.getIntroducedStr()}</td>
-							<td>${computer.getDiscontinuedStr()}</td>
+							<td>${computer.getIntroduced()}</td>
+							<td>${computer.getDiscontinued()}</td>
 							<td>${computer.getCompanyName()}</td>
 
 						</tr>
@@ -97,18 +128,18 @@
 
 	<footer class="navbar-fixed-bottom">
 		<div class="container text-center">
-				
-			<myLib:pagination start="1" current="${currentPage}" end="${totalPages}" limit="${currentLimit}"/>
+
+			<myLib:pagination start="1" current="${currentPage}" end="${totalPages}" limit="${currentLimit}" search="${computerSearch}" orderBy="${currentOrderBy}" orderAlphaNum="${currentOrderAlphaNumerical}" />
 		
 			<div class="btn-group btn-group-sm pull-right" role="group">
 			
-				<myLib:link page="1" limit="10" classes="btn btn-default">
+				<myLib:link page="1" limit="10" search="${computerSearch}" orderBy="${currentOrderBy}" orderAlphaNum="${currentOrderAlphaNumerical}" classes="btn btn-default">
 					10
 				</myLib:link>
-				<myLib:link page="1" limit="50" classes="btn btn-default">
-					50
+				<myLib:link page="1" limit="50" search="${computerSearch}" orderBy="${currentOrderBy}" orderAlphaNum="${currentOrderAlphaNumerical}" classes="btn btn-default">
+					50 
 				</myLib:link>
-				<myLib:link page="1" limit="100" classes="btn btn-default">
+				<myLib:link page="1" limit="100" search="${computerSearch}" orderBy="${currentOrderBy}" orderAlphaNum="${currentOrderAlphaNumerical}" classes="btn btn-default">
 					100
 				</myLib:link>
 				

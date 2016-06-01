@@ -2,12 +2,9 @@ package com.excilys.cli;
 
 import java.util.Scanner;
 
-import com.excilys.beans.Computer;
-import com.excilys.exceptions.ConnectionException;
-import com.excilys.exceptions.DAOException;
-import com.excilys.exceptions.DriverException;
+import com.excilys.bean.Computer;
 import com.excilys.service.ComputerService;
-import com.excilys.servlet.MapperUtils;
+import com.excilys.validation.MapperUtils;
 
 public class ComputerCreateCommand implements Command {
 
@@ -21,20 +18,15 @@ public class ComputerCreateCommand implements Command {
 		computer.setName(input.nextLine());
 
 		System.out.printf("Enter the computer introduced date: format YYYY-MM-DD (enter to skip)%n>");
-		computer.setIntroduced(MapperUtils.convertStringToLocalDateTime(input.nextLine()));
+		computer.setIntroduced(MapperUtils.convertStringToLocalDate(input.nextLine()));
 
 		System.out.printf("Enter the computer discontinued date: format YYYY-MM-DD (enter to skip)%n>");
-		computer.setDiscontinued(MapperUtils.convertStringToLocalDateTime(input.nextLine()));
+		computer.setDiscontinued(MapperUtils.convertStringToLocalDate(input.nextLine()));
 
 		System.out.printf("Enter the company id:%n>");
 		computer.setCompanyId(MapperUtils.convertStringToLong(input.nextLine()));
 
-		try {
-			ComputerService.getInstance().create(computer);
-		} catch (DAOException | ConnectionException | DriverException e) {
-			System.out.println("DB error!");
-			return;
-		}
+		ComputerService.getInstance().create(computer);
 
 		System.out.println("Computer added with success.");
 	}

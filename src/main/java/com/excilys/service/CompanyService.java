@@ -1,12 +1,16 @@
 package com.excilys.service;
 
+import java.sql.Connection;
 import java.util.List;
 
-import com.excilys.beans.Company;
-import com.excilys.beans.CompanyDTO;
-import com.excilys.exceptions.ConnectionException;
-import com.excilys.exceptions.DAOException;
-import com.excilys.exceptions.DriverException;
+import com.excilys.bean.CompanyDTO;
+import com.excilys.db.CoManager;
+import com.excilys.exception.ConnectionException;
+import com.excilys.exception.DAOException;
+import com.excilys.exception.DriverException;
+import com.excilys.service.interfaces.DAOCompany;
+import com.excilys.service.interfaces.DAOComputer;
+import com.excilys.service.interfaces.ServiceCompany;
 
 /**
  * Service to manipulate Computer table
@@ -30,9 +34,6 @@ public class CompanyService implements ServiceCompany {
 		return instance;
 	}
 
-	/**
-	 * Contruct a ComputerService object to access ComputerDAO
-	 */
 	private CompanyService() {
 	}
 
@@ -45,12 +46,12 @@ public class CompanyService implements ServiceCompany {
 	 * @throws DAOException
 	 */
 	@Override
-	public List<CompanyDTO> getAll() throws DAOException, ConnectionException, DriverException {
+	public List<CompanyDTO> getAll() {
 		return companyDAO.findAll();
 	}
 
 	@Override
-	public List<CompanyDTO> getFromTo(int offset, int limit) throws DAOException, ConnectionException, DriverException {
+	public List<CompanyDTO> getFromTo(int offset, int limit) {
 		if (offset < 0 || limit <= 0) {
 			return null;
 		}
@@ -66,7 +67,7 @@ public class CompanyService implements ServiceCompany {
 	 * @throws DAOException
 	 */
 	@Override
-	public CompanyDTO get(Long id) throws DAOException, ConnectionException, DriverException {
+	public CompanyDTO get(Long id) {
 		if (id == null) {
 			return null;
 		}
@@ -77,23 +78,19 @@ public class CompanyService implements ServiceCompany {
 	}
 
 	@Override
-	public void create(Company obj) throws DAOException, ConnectionException, DriverException {
-		// TODO Auto-generated method stub
+	public void delete(Long id) {
+		Connection con = CoManager.getInstance().getConnection();
+		CoManager.beginTransaction(con);
+		
+		computerDAO.deleteByCompany(id, con);
+		companyDAO.delete(id, con);
+		
+		CoManager.endTransaction(con);
+		CoManager.cleanup(con, null, null);
 	}
 
 	@Override
-	public void delete(Long id) throws DAOException, ConnectionException, DriverException {
-		computerDAO.deleteByCompany(id);
-		companyDAO.delete(id);
-	}
-
-	@Override
-	public void update(Company obj) throws DAOException, ConnectionException, DriverException {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public int count() throws DAOException, ConnectionException, DriverException {
+	public int count() {
 		return companyDAO.getRowNumber();
 	}
 }
