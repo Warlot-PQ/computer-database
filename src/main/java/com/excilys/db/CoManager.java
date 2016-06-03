@@ -18,99 +18,74 @@ import com.zaxxer.hikari.HikariDataSource;
  *
  */
 public class CoManager {
-	private static Logger logger = null;
-	private static HikariDataSource ds = null;
-	protected static CoManager instance = new CoManager();
+	private static Logger LOGGER = null;
+	private static HikariDataSource HIKARI_DS = null;
+	protected static CoManager INSTANCE = new CoManager();
 	
 	private CoManager() {
 		HikariConfig config= new HikariConfig("/hikari.properties");
+		config.setMaximumPoolSize(50);
 		config.addDataSourceProperty("cachePrepStmts", "true");
 		config.addDataSourceProperty("prepStmtCacheSize", "250");
 		config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
-		ds = new HikariDataSource(config);
+		HIKARI_DS = new HikariDataSource(config);
 		
-		logger = LoggerFactory.getLogger(this.getClass());
+		LOGGER = LoggerFactory.getLogger(this.getClass());
 	}
 
 	/**
 	 * Get an HikariCp Connection object.
-	 * @return
+	 * @return Connection object
 	 */
-	public Connection getConnection() {
+	protected Connection getConnection() {
 		Connection connection = null;
 		try {
-			connection = ds.getConnection();
+			connection = HIKARI_DS.getConnection();
+			LOGGER.debug("Connection asked");
 		} catch (SQLException e) {
-			logger.error("DB connection error!", e);
+			LOGGER.error("DB connection error!", e);
 			System.exit(-1);
 		}
 		return connection;
 	}
 
 	public static CoManager getInstance() {
-		if (instance == null) {
-			synchronized (CoManager.class) {
-				if (instance == null) {
-					instance = new CoManager();
-				}
-			}
-		}
-		return instance;
+		return INSTANCE;
 	}
 
+
+	public static void cleanup(Connection connection) {
+		if (connection != null) {
+			try {
+				connection.close();
+				LOGGER.debug("Connection closed");
+			} catch (SQLException e) {
+				LOGGER.error("Cannot close Connection", e);
+			}
+		}
+	}
+	
 	/**
 	 * Close given parameters.
-	 * @param connection Connection object to close
 	 * @param stat Statement object to close
 	 * @param rs ResultSet object to close
 	 */
-	public static void cleanup(Connection connection, Statement stat, ResultSet rs) {
+	public static void cleanup(Statement stat, ResultSet rs) {
 		if (rs != null) {
 			try {
 				rs.close();
+				LOGGER.debug("ResultSet closed");
 			} catch (SQLException e) {
-				logger.error("Cannot close Connection", e);
+				LOGGER.error("Cannot close ResultSet", e);
 			}
 		}
 		if (stat != null) {
 			try {
 				stat.close();
+				LOGGER.debug("Statement closed");
 			} catch (SQLException e) {
-				logger.error("Cannot close Statement", e);
+				LOGGER.error("Cannot close Statement", e);
 			}
-		}
-		if (connection != null) {
-			try {
-				connection.close();
-			} catch (SQLException e) {
-				logger.error("Cannot close ResultSet", e);
-			}
-		}
-	}
-	
-	/**
-	 * Start a transaction link to the given Connection object
-	 * @param con Connection object
-	 */
-	public static void beginTransaction(Connection con) {
-		try {
-			con.setAutoCommit(false);
-		} catch (SQLException e) {
-			logger.error("Begin transaction error", e);
-			System.exit(-1);
-		}
-	}
-	
-	/**
-	 * End the transaction link to the given Connection object
-	 * @param con Connection object
-	 */
-	public static void endTransaction(Connection con) {
-		try {
-			con.setAutoCommit(true);
-		} catch (SQLException e) {
-			logger.error("End transaction error", e);
-			System.exit(-1);
 		}
 	}
 }

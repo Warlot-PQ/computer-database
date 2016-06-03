@@ -1,11 +1,13 @@
 package com.excilys.service;
-import java.sql.Connection;
 import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.excilys.Pagination.Page;
 import com.excilys.bean.Computer;
 import com.excilys.bean.ComputerDTO;
-import com.excilys.db.CoManager;
+import com.excilys.db.ConnectionLocal;
 import com.excilys.exception.ConnectionException;
 import com.excilys.exception.DAOException;
 import com.excilys.exception.DriverException;
@@ -19,29 +21,34 @@ import com.excilys.service.interfaces.ServiceComputer;
  *
  */
 public class ComputerService implements ServiceComputer {
-	private static ComputerService instance = null;
-	private DAOComputer computerDAO = ComputerDAO.getInstance();
-
-	public static ComputerService getInstance() {
-		if (instance == null) {
-			synchronized (ComputerService.class) {
-				if (instance == null) {
-					instance = new ComputerService();
-				}
-			}
-		}
-		return instance;
-	}
+	private static Logger LOGGER = null;
+	private static ComputerService INSTANCE = new ComputerService();
+	private static DAOComputer COMPUTER_DAO = ComputerDAO.getInstance();
+	private static ConnectionLocal LOCAL_CONNECTION = ConnectionLocal.getInstance();
 
 	/**
 	 * Contruct a ComputerService object to access ComputerDAO
 	 */
 	private ComputerService() {
+		LOGGER = LoggerFactory.getLogger(this.getClass());
+	}
+
+	public static ComputerService getInstance() {
+		return INSTANCE;
 	}
 
 	@Override
 	public List<ComputerDTO> getAll() {
-		return computerDAO.findAll(PageRequest.create().build(), null);
+		List<ComputerDTO> computers = null;
+		LOCAL_CONNECTION.newConnection();
+		try {
+			computers = COMPUTER_DAO.findAll(PageRequest.create().build());
+		} catch (DAOException e) {
+			LOGGER.error("GetAll with request error", e);
+		} finally {
+			LOCAL_CONNECTION.cleanup();
+		}
+		return computers;
 	}
 	
 	/**
@@ -54,7 +61,16 @@ public class ComputerService implements ServiceComputer {
 	 */
 	@Override
 	public List<ComputerDTO> getAll(PageRequest pageRequest) {
-		return computerDAO.findAll(pageRequest, null);
+		List<ComputerDTO> computers = null;
+		LOCAL_CONNECTION.newConnection();
+		try {
+			computers = COMPUTER_DAO.findAll(pageRequest);
+		} catch (DAOException e) {
+			LOGGER.error("GetAll error", e);
+		} finally {
+			LOCAL_CONNECTION.cleanup();
+		}
+		return computers;
 	}
 	
 	/**
@@ -69,8 +85,16 @@ public class ComputerService implements ServiceComputer {
 	 */
 	@Override
 	public ComputerDTO get(Long id) {
-		List<ComputerDTO> computers = computerDAO.findAll(PageRequest.create().computerId(id).build(), null);
-		if (computers.size() > 0) {
+		List<ComputerDTO> computers = null;
+		LOCAL_CONNECTION.newConnection();
+		try {
+			computers = COMPUTER_DAO.findAll(PageRequest.create().computerId(id).build());
+		} catch (DAOException e) {
+			LOGGER.error("Get error", e);
+		} finally {
+			LOCAL_CONNECTION.cleanup();
+		}
+		if (computers != null && computers.size() > 0) {
 			return computers.get(0);
 		}
 		return null;
@@ -90,7 +114,14 @@ public class ComputerService implements ServiceComputer {
 	 */
 	@Override
 	public void create(Computer computer) {
-		computerDAO.create(computer);
+		LOCAL_CONNECTION.newConnection();
+		try {
+			COMPUTER_DAO.create(computer);
+		} catch (DAOException e) {
+			LOGGER.error("Create error", e);
+		} finally {
+			LOCAL_CONNECTION.cleanup();
+		}
 	}
 
 	/**
@@ -107,7 +138,14 @@ public class ComputerService implements ServiceComputer {
 	 */
 	@Override
 	public void update(Computer computer) {
-		computerDAO.updateById(computer);
+		LOCAL_CONNECTION.newConnection();
+		try {
+			COMPUTER_DAO.updateById(computer);
+		} catch (DAOException e) {
+			LOGGER.error("Update error", e);
+		} finally {
+			LOCAL_CONNECTION.cleanup();
+		}
 	}
 
 	/**
@@ -122,18 +160,31 @@ public class ComputerService implements ServiceComputer {
 	 */
 	@Override
 	public void delete(Long id) {
-		computerDAO.delete(id);
+		LOCAL_CONNECTION.newConnection();
+		try {
+			COMPUTER_DAO.delete(id);
+		} catch (DAOException e) {
+			LOGGER.error("Delete error", e);
+		} finally {
+			LOCAL_CONNECTION.cleanup();
+		}
 	}
 
 	@Override
 	public int count() {
-		return computerDAO.getRowNumber(PageRequest.create().build(), null);
+		int count = 0;
+		LOCAL_CONNECTION.newConnection();
+		try {
+			count = COMPUTER_DAO.countAll();
+		} catch (DAOException e) {
+			LOGGER.error("Count error", e);
+		}
+		finally {
+			LOCAL_CONNECTION.cleanup();
+		}
+		return count;
 	}
-//	
-//	private int count(PageRequest pageRequest) {
-//		return computerDAO.getRowNumber(pageRequest, null);
-//	}
-//	
+
 	@Override
 	public void deleteByCompany(Long id) {
 		throw new UnsupportedClassVersionError();
@@ -144,14 +195,22 @@ public class ComputerService implements ServiceComputer {
 		List<ComputerDTO> computers = null;
 		int computersNumber = 0;
 		
-		Connection con = CoManager.getInstance().getConnection();
-		CoManager.beginTransaction(con);
+		LOCAL_CONNECTION.beginTransaction();
 		
-		computersNumber = computerDAO.getRowNumber(pageRequest, con);
-		computers = computerDAO.findAll(pageRequest, con);
+		try {
+			if (pageRequest.getComputerSearchedName() == null || pageRequest.getComputerSearchedName().isEmpty()) {
+				computersNumber = COMPUTER_DAO.countAll();
+			} else {
+				computersNumber = COMPUTER_DAO.count(pageRequest);			
+			}
+			computers = COMPUTER_DAO.findAll(pageRequest);
+		} catch (DAOException e) {
+			LOGGER.error("DAO error", e);
+			LOCAL_CONNECTION.rollBack();
+			LOCAL_CONNECTION.endTransaction();
+		}
 		
-		CoManager.endTransaction(con);
-		CoManager.cleanup(con, null, null);
+		LOCAL_CONNECTION.endTransaction();
 
 		return new Page<ComputerDTO>(computers, computersNumber, pageRequest.getPage().intValue(), pageRequest.getEltByPage().intValue());
 	}

@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.excilys.bean.CompanyDTO;
 import com.excilys.bean.ComputerDTO;
 import com.excilys.service.CompanyService;
@@ -22,14 +25,16 @@ import com.excilys.validation.Validation;
  */
 @WebServlet("/EditComputer")
 public class EditComputer extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+	private static Logger LOGGER = null;  
+	private static ComputerService COMPUTER_SERVICE = ComputerService.getInstance();
+	private static CompanyService COMPANY_SERVICE = CompanyService.getInstance();
        
     /**
      * @see HttpServlet#HttpServlet()
      */
     public EditComputer() {
         super();
-        // TODO Auto-generated constructor stub
+		LOGGER = LoggerFactory.getLogger(this.getClass());
     }
 
 	/**
@@ -55,12 +60,12 @@ public class EditComputer extends HttpServlet {
 		Long id = requestParameter.getId();
 		
 		if (id == null) {
-			
+			LOGGER.debug("Id null found.");
 			return;
 		}
 		
-		ComputerDTO computer = ComputerService.getInstance().get(id);
-		List<CompanyDTO> companies = CompanyService.getInstance().getAll();
+		ComputerDTO computer = COMPUTER_SERVICE.get(id);
+		List<CompanyDTO> companies = COMPANY_SERVICE.getAll();
 
 		requestParameter.setComputerDTO(computer);
 		requestParameter.setCompanies(companies);
@@ -71,11 +76,13 @@ public class EditComputer extends HttpServlet {
 		RequestParameter requestParameter = new RequestParameter(request);
 		ComputerDTO c1 = new RequestParameter(request).getComputerDTOWithId();
 
-		Validation validation = new ComputerDTOValidator(c1).check().getValidation();
+		Validation validation = new ComputerDTOValidator(c1).checkAll().getValidation();
 
 		if (validation.getMessages().isEmpty()) {
-			ComputerService.getInstance().update(c1.toEntity());
+			COMPUTER_SERVICE.update(c1.toEntity());
 			validation.addMessages("Success computer updated to the DB");
+		} else {
+			LOGGER.debug("Invalide computer detected, update aborted.");
 		}
 		
 		validation.displayError();

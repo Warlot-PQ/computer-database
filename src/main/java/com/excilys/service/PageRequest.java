@@ -9,7 +9,7 @@ public class PageRequest {
 	private Integer page;
 	private Integer eltByPage;
 	private Long computerId;
-	private String computerName;
+	private String computerSearchedName;
 	private String orderBy;
 	private boolean orderAlphaNumerical;
 	
@@ -17,7 +17,7 @@ public class PageRequest {
 		this.page = pageRequestBuilder.page;
 		this.eltByPage = pageRequestBuilder.eltByPage;
 		this.computerId = pageRequestBuilder.computerId;
-		this.computerName = pageRequestBuilder.computerName;
+		this.computerSearchedName = pageRequestBuilder.computerName;
 		this.orderBy = pageRequestBuilder.orderBy;
 		this.orderAlphaNumerical = pageRequestBuilder.orderAlphaNumerical;
 	}
@@ -53,7 +53,7 @@ public class PageRequest {
 			return this;
 		}
 		
-		public Builder computerName(String computerName) {
+		public Builder computerSeachedName(String computerName) {
 			this.computerName = computerName;
 			return this;
 		}
@@ -101,12 +101,12 @@ public class PageRequest {
 		this.computerId = computerId;
 	}
 
-	public String getComputerName() {
-		return computerName;
+	public String getComputerSearchedName() {
+		return computerSearchedName;
 	}
 
-	public void setComputerName(String computerName) {
-		this.computerName = computerName;
+	public void setComputerSearchedName(String computerSearchedName) {
+		this.computerSearchedName = computerSearchedName;
 	}
 
 	public String getOrderBy() {

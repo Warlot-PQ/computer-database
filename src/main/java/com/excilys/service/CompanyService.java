@@ -1,10 +1,12 @@
 package com.excilys.service;
 
-import java.sql.Connection;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.excilys.bean.CompanyDTO;
-import com.excilys.db.CoManager;
+import com.excilys.db.ConnectionLocal;
 import com.excilys.exception.ConnectionException;
 import com.excilys.exception.DAOException;
 import com.excilys.exception.DriverException;
@@ -19,22 +21,18 @@ import com.excilys.service.interfaces.ServiceCompany;
  *
  */
 public class CompanyService implements ServiceCompany {
-	private static CompanyService instance = null;
-	private DAOCompany companyDAO = CompanyDAO.getInstance();
-	private DAOComputer computerDAO = ComputerDAO.getInstance();
-
-	public static CompanyService getInstance() {
-		if (instance == null) {
-			synchronized (CompanyService.class) {
-				if (instance == null) {
-					instance = new CompanyService();
-				}
-			}
-		}
-		return instance;
-	}
+	private static Logger LOGGER = null;
+	private static CompanyService INSTANCE = new CompanyService();
+	private static DAOCompany COMPANY_DAO = CompanyDAO.getInstance();
+	private static DAOComputer COMPUTER_DAO = ComputerDAO.getInstance();
+	private static ConnectionLocal LOCAL_CONNECTION = ConnectionLocal.getInstance();
 
 	private CompanyService() {
+		LOGGER = LoggerFactory.getLogger(this.getClass());
+	}
+
+	public static CompanyService getInstance() {
+		return INSTANCE;
 	}
 
 	/**
@@ -47,15 +45,33 @@ public class CompanyService implements ServiceCompany {
 	 */
 	@Override
 	public List<CompanyDTO> getAll() {
-		return companyDAO.findAll();
+		List<CompanyDTO> companies = null;
+		LOCAL_CONNECTION.newConnection();
+		try {
+			companies = COMPANY_DAO.findAll();
+		} catch (DAOException e) {
+			LOGGER.error("FindAll error", e);
+		} finally {
+			LOCAL_CONNECTION.cleanup();
+		}
+		return companies;
 	}
 
 	@Override
 	public List<CompanyDTO> getFromTo(int offset, int limit) {
+		List<CompanyDTO> companies = null;
+		LOCAL_CONNECTION.newConnection();
 		if (offset < 0 || limit <= 0) {
 			return null;
 		}
-		return companyDAO.findFromTo(offset, limit);
+		try {
+			companies = COMPANY_DAO.findFromTo(offset, limit);
+		} catch (DAOException e) {
+			LOGGER.error("getFromTo error", e);
+		} finally {
+			LOCAL_CONNECTION.cleanup();
+		}
+		return companies;
 	}
 
 	/**
@@ -74,23 +90,45 @@ public class CompanyService implements ServiceCompany {
 		if (id <= 0) {
 			return null;
 		}
-		return companyDAO.findById(id);
+		CompanyDTO company = null;
+		LOCAL_CONNECTION.newConnection();
+		try {
+			company = COMPANY_DAO.findById(id);
+		} catch (DAOException e) {
+			LOGGER.error("Get error", e);
+		} finally {
+			LOCAL_CONNECTION.cleanup();
+		}
+		return company;
 	}
 
 	@Override
 	public void delete(Long id) {
-		Connection con = CoManager.getInstance().getConnection();
-		CoManager.beginTransaction(con);
+		LOCAL_CONNECTION.beginTransaction();
 		
-		computerDAO.deleteByCompany(id, con);
-		companyDAO.delete(id, con);
+		try {
+			COMPUTER_DAO.deleteByCompany(id);
+			COMPANY_DAO.delete(id);
+		} catch (DAOException e) {
+			LOGGER.error("DAO error", e);
+			LOCAL_CONNECTION.rollBack();
+			LOCAL_CONNECTION.endTransaction();
+		}
 		
-		CoManager.endTransaction(con);
-		CoManager.cleanup(con, null, null);
+		LOCAL_CONNECTION.endTransaction();
 	}
 
 	@Override
 	public int count() {
-		return companyDAO.getRowNumber();
+		int count = 0;
+		LOCAL_CONNECTION.beginTransaction();
+		try {
+			count = COMPANY_DAO.getRowNumber();
+		} catch (DAOException e) {
+			LOGGER.error("Count error", e);
+		} finally {
+			LOCAL_CONNECTION.cleanup();
+		}
+		return count;
 	}
 }

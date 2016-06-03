@@ -19,9 +19,8 @@ import com.excilys.validation.MapperUtils;
  * Servlet implementation class Dashboard
  */
 @WebServlet("/Dashboard")
-public class Dashboard extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
+public class Dashboard extends HttpServlet {   
+	private static ComputerService COMPUTER_SERVICE = ComputerService.getInstance();
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -58,7 +57,7 @@ public class Dashboard extends HttpServlet {
 		RequestParameter requestParameter = new RequestParameter(request);
 		Page<ComputerDTO> page = null;
 		
-		page = ComputerService.getInstance().getPage(PageRequest.create()
+		page = COMPUTER_SERVICE.getPage(PageRequest.create()
 				.page(requestParameter.getCurrentPage())
 				.eltByPage(requestParameter.getLimit())
 				.orderBy(requestParameter.getOrderBy())
@@ -73,8 +72,8 @@ public class Dashboard extends HttpServlet {
 		RequestParameter requestParameter = new RequestParameter(request);
 		Page<ComputerDTO> page = null;
 		
-		page = ComputerService.getInstance().getPage(PageRequest.create()
-				.computerName(new RequestParameter(request).getSearchElt())
+		page = COMPUTER_SERVICE.getPage(PageRequest.create()
+				.computerSeachedName(new RequestParameter(request).getSearchElt())
 				.page(requestParameter.getCurrentPage())
 				.eltByPage(requestParameter.getLimit())
 				.orderBy(requestParameter.getOrderBy())
@@ -95,7 +94,7 @@ public class Dashboard extends HttpServlet {
 			for (String computerId: computersId) {
 				Long id = MapperUtils.convertStringToLong(computerId);
 				if (id != null) {
-					ComputerService.getInstance().delete(id);
+					COMPUTER_SERVICE.delete(id);
 				}
 			}
 		}

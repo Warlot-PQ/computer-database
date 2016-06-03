@@ -1,7 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="jslt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%-- <%@ taglib uri="http://excilys.com/computer-database/jsp/myLib" prefix="myLib" %> --%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="myLib" %>
 
 <c:set var="computers" value="${page.getItems()}" />

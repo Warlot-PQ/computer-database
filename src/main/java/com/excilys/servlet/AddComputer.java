@@ -21,9 +21,10 @@ import com.excilys.validation.Validation;
  * Servlet implementation class AddComputer
  */
 @WebServlet("/AddComputer")
-public class AddComputer extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
+public class AddComputer extends HttpServlet { 
+	private static ComputerService COMPUTER_SERVICE = ComputerService.getInstance();  
+	private static CompanyService COMPANY_SERVICE = CompanyService.getInstance();
+			
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -52,7 +53,7 @@ public class AddComputer extends HttpServlet {
 	}
 	
 	private void setAddComputerJSP(HttpServletRequest request, HttpServletResponse response) {
-		List<CompanyDTO> companies = CompanyService.getInstance().getAll();
+		List<CompanyDTO> companies = COMPANY_SERVICE.getAll();
 
 		new RequestParameter(request).setCompanies(companies);
 	}	
@@ -63,7 +64,7 @@ public class AddComputer extends HttpServlet {
 		Validation validation = new ComputerDTOValidator(c1).check().getValidation();
 
 		if (validation.getMessages().isEmpty()) {
-			ComputerService.getInstance().create(c1.toEntity());
+			COMPUTER_SERVICE.create(c1.toEntity());
 			validation.addMessages("Success computer added to the DB");
 		}
 		

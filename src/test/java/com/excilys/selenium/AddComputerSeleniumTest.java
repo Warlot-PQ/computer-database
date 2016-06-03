@@ -20,6 +20,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.Select;
 
+import com.excilys.ResetDB;
+
 public class AddComputerSeleniumTest {
 	private WebDriver driver;
 	private String baseUrl;
@@ -30,6 +32,7 @@ public class AddComputerSeleniumTest {
 	
 	@Before
 	public void setUp() throws Exception {
+		ResetDB.setup();
 		DesiredCapabilities capabilities = DesiredCapabilities.chrome();
 		capabilities.setCapability("version", "11");
 		capabilities.setCapability("platform", Platform.LINUX);
@@ -40,7 +43,11 @@ public class AddComputerSeleniumTest {
 		baseUrl = properties.getString("URL");
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	}
-
+	
+	/**
+	 * Test adding a valid computer and getting a success message
+	 * @throws Exception
+	 */
 	@Test
 	public void testAddGoodComputer() throws Exception {
 		driver.get(baseUrl + "/computer-database/Dashboard");
@@ -60,7 +67,10 @@ public class AddComputerSeleniumTest {
 		driver.findElement(By.linkText("Application - Computer Database")).click();
 	}
 
-
+	/**
+	 * Test adding a wrong (discontinued < introduced) computer and getting an error message
+	 * @throws Exception
+	 */
 	@Test
 	public void testAddWrongComputer() throws Exception {
 		driver.get(baseUrl + "/computer-database/Dashboard");
@@ -73,6 +83,52 @@ public class AddComputerSeleniumTest {
 		driver.findElement(By.id("companyId")).click();
 		new Select(driver.findElement(By.id("companyId"))).selectByVisibleText("RCA");
 		driver.findElement(By.cssSelector("input.btn.btn-primary")).click();
+
+		WebElement errorDivElt = driver.findElement(By.id("errorMsg"));
+		Assert.assertEquals("Error! introduced date must be less than discontinued date!", errorDivElt.getText());
+
+		driver.findElement(By.linkText("Application - Computer Database")).click();
+	}
+	
+	/**
+	 * Test editing a valid computer and getting a success message
+	 * @throws Exception
+	 */
+	@Test
+	public void testEditGoodComputer() throws Exception {
+	    driver.get(baseUrl + "/computer-database/Dashboard");
+	    driver.findElement(By.linkText("Apple")).click();
+	    driver.findElement(By.id("computerName")).clear();
+	    driver.findElement(By.id("computerName")).sendKeys("Apple");
+		driver.findElement(By.id("introduced")).clear();
+		driver.findElement(By.id("introduced")).sendKeys("31/05/2016");
+		driver.findElement(By.id("discontinued")).clear();
+		driver.findElement(By.id("discontinued")).sendKeys("16/06/2016");
+	    new Select(driver.findElement(By.id("companyId"))).selectByVisibleText("Thinking Machines");
+	    driver.findElement(By.cssSelector("input.btn.btn-primary")).click();
+
+		WebElement errorDivElt = driver.findElement(By.id("errorMsg"));
+		Assert.assertEquals("Success computer updated to the DB", errorDivElt.getText());
+
+		driver.findElement(By.linkText("Application - Computer Database")).click();
+	}
+	
+	/**
+	 * Test editing a wrong (discontinued < introduced) computer and getting a success message
+	 * @throws Exception
+	 */
+	@Test
+	public void testEditWrongComputer() throws Exception {
+	    driver.get(baseUrl + "/computer-database/Dashboard");
+	    driver.findElement(By.linkText("Apple")).click();
+	    driver.findElement(By.id("computerName")).clear();
+	    driver.findElement(By.id("computerName")).sendKeys("Apple");
+		driver.findElement(By.id("introduced")).clear();
+		driver.findElement(By.id("introduced")).sendKeys("31/05/2016");
+		driver.findElement(By.id("discontinued")).clear();
+		driver.findElement(By.id("discontinued")).sendKeys("16/04/2016");
+	    new Select(driver.findElement(By.id("companyId"))).selectByVisibleText("Thinking Machines");
+	    driver.findElement(By.cssSelector("input.btn.btn-primary")).click();
 
 		WebElement errorDivElt = driver.findElement(By.id("errorMsg"));
 		Assert.assertEquals("Error! introduced date must be less than discontinued date!", errorDivElt.getText());
