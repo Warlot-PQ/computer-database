@@ -20,7 +20,8 @@ import com.excilys.service.interfaces.DAOCompany;
 import com.excilys.service.mapper.MapperDTO;
 
 /**
- * DB manipulation on Company table
+ * DB manipulation on Company table.
+ * Singleton class.
  * 
  * @author pqwarlot
  *

@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 
 import com.excilys.bean.Computer;
 import com.excilys.bean.ComputerDTO;
-import com.excilys.cache.Cache;
 import com.excilys.db.CoManager;
 import com.excilys.db.ConnectionLocal;
 import com.excilys.exception.DAOException;
@@ -23,27 +22,27 @@ import com.excilys.service.mapper.MapperSQL;
 
 /**
  * DB manipulation on Computer table
+ * Singleton class.
  * 
  * @author pqwarlot
  *
  */
 public class ComputerDAO implements DAOComputer {
-	private static Logger LOGGER = null;
-	private static ComputerDAO INSTANCE = new ComputerDAO();
-	private static ConnectionLocal LOCAL_CONNECTION = ConnectionLocal.getInstance();
-	private static Cache CACHE = Cache.getInstance();
+	private static Logger logger = null;
+	private static ComputerDAO instance = new ComputerDAO();
+	private static ConnectionLocal localConnection = ConnectionLocal.getInstance();
 
 	private ComputerDAO() {
-		LOGGER = LoggerFactory.getLogger(this.getClass());
+		logger = LoggerFactory.getLogger(this.getClass());
 	}
 
 	protected static DAOComputer getInstance() {
-		return INSTANCE;
+		return instance;
 	}
 
 	@Override
 	public List<ComputerDTO> findAll(PageRequest pageRequest) throws DAOException {
-		Connection connection = LOCAL_CONNECTION.getConnection();
+		Connection connection = localConnection.getConnection();
 		PreparedStatement pstmt = null;
 //		String sql = null;
 		ResultSet rs = null;
@@ -53,7 +52,7 @@ public class ComputerDAO implements DAOComputer {
 			pstmt = new QueryCreator(pageRequest, connection, false).createPreparedQuery();
 //			sql = new QueryCreator(pageRequest, connection, false).createQuery();
 			
-			LOGGER.debug(pstmt.toString());
+			logger.debug(pstmt.toString());
 //			LOGGER.debug(sql);
 
 			rs = pstmt.executeQuery();
@@ -64,7 +63,7 @@ public class ComputerDAO implements DAOComputer {
 				computers.add(MapperDTO.createComputerDTO(rs));
 			}
 		} catch (SQLException e) {
-			LOGGER.error("computer find all SQL error!", e);
+			logger.error("computer find all SQL error!", e);
 
 			throw new DAOException(e);
 		} finally {
@@ -77,7 +76,7 @@ public class ComputerDAO implements DAOComputer {
 	
 	@Override
 	public void create(Computer computer) throws DAOException {
-		Connection connection = LOCAL_CONNECTION.getConnection();
+		Connection connection = localConnection.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet generatedKeys = null;
 		String sql = "INSERT INTO computer (name, discontinued, introduced, company_id) " + "VALUES ( ?, ?, ?, ?)";
@@ -89,17 +88,14 @@ public class ComputerDAO implements DAOComputer {
 			pstmt.setDate(3, MapperSQL.javaLocalDateToSqlDate(computer.getIntroduced()));
 			pstmt.setObject(4, computer.getCompanyId());
 
-			int computerAdded = pstmt.executeUpdate();
-			if (computerAdded > 0) {
-				CACHE.incrementCount(computerAdded);
-			}
+			pstmt.executeUpdate();
 
 			generatedKeys = pstmt.getGeneratedKeys();
 			if (generatedKeys.next()) {
 				computer.setId(generatedKeys.getInt(1));
 			}
 		} catch (SQLException e) {
-			LOGGER.error("computer create SQL error!", e);
+			logger.error("computer create SQL error!", e);
 
 			throw new DAOException(e);
 		} finally {
@@ -109,7 +105,7 @@ public class ComputerDAO implements DAOComputer {
 
 	@Override
 	public void delete(Long id) throws DAOException {
-		Connection connection = LOCAL_CONNECTION.getConnection();
+		Connection connection = localConnection.getConnection();
 		PreparedStatement pstmt = null;
 		String sql = "DELETE FROM computer WHERE id=?";
 
@@ -117,14 +113,11 @@ public class ComputerDAO implements DAOComputer {
 			pstmt = connection.prepareStatement(sql);
 			pstmt.setLong(1, id);
 
-			LOGGER.debug(pstmt.toString());
+			logger.debug(pstmt.toString());
 
-			int computerDeleted = pstmt.executeUpdate();
-			if (computerDeleted > 0) {
-				CACHE.decrementCount(computerDeleted);
-			}
+			pstmt.executeUpdate();
 		} catch (SQLException e) {
-			LOGGER.error("computer delete SQL error!", e);
+			logger.error("computer delete SQL error!", e);
 
 			throw new DAOException(e);
 		} finally {
@@ -134,7 +127,7 @@ public class ComputerDAO implements DAOComputer {
 
 	@Override
 	public void updateById(Computer computer) throws DAOException {
-		Connection connection = LOCAL_CONNECTION.getConnection();
+		Connection connection = localConnection.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet generatedKeys = null;
 		String sql = "UPDATE computer " + "SET name=?, discontinued=?, introduced=?, company_id=? " + "WHERE id=?";
@@ -147,11 +140,11 @@ public class ComputerDAO implements DAOComputer {
 			pstmt.setObject(4, computer.getCompanyId());
 			pstmt.setLong(5, computer.getId());
 
-			LOGGER.debug(pstmt.toString());
+			logger.debug(pstmt.toString());
 
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
-			LOGGER.error("computer update by id SQL error!", e);
+			logger.error("computer update by id SQL error!", e);
 
 			throw new DAOException(e);
 		} finally {
@@ -160,36 +153,24 @@ public class ComputerDAO implements DAOComputer {
 	}
 
 	@Override
-	public int countAll() throws DAOException {
-		Integer number = 0;
-		
-		if (CACHE.getCount() == null) {
-			number = count(PageRequest.create().build());
-			CACHE.setCount(number);
-		} else {
-			number = CACHE.getCount();
-		}
-		
-		return number;
-	}
-	
-	@Override
 	public int count(PageRequest pageRequest) throws DAOException {
-		Connection connection = LOCAL_CONNECTION.getConnection();
+		Connection connection = localConnection.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		int number = 0;
 		
 		try {
 			pstmt = new QueryCreator(pageRequest, connection, true).createPreparedQuery();
-			LOGGER.debug(pstmt.toString());
+
+			logger.debug(pstmt.toString());
+
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
 				number = rs.getInt("TOTAL");
 			}	
 		} catch (SQLException e) {
-			LOGGER.error("computer update by id SQL error!", e);
+			logger.error("computer update by id SQL error!", e);
 
 			throw new DAOException(e);
 		} finally {
@@ -200,27 +181,26 @@ public class ComputerDAO implements DAOComputer {
 	}
 	
 	@Override
-	public void deleteByCompany(Long id) throws DAOException {
-		Connection connection = LOCAL_CONNECTION.getConnection();
+	public int deleteByCompany(Long id) throws DAOException {
+		Connection connection = localConnection.getConnection();
 		PreparedStatement pstmt = null;
 		String sql = "DELETE FROM computer WHERE company_id=?";
+		int computerDeleted = 0;
 
 		try {
 			pstmt = connection.prepareStatement(sql);
 			pstmt.setLong(1, id);
 
-			LOGGER.debug(pstmt.toString());
+			logger.debug(pstmt.toString());
 
-			int computerDeleted = pstmt.executeUpdate();
-			if (computerDeleted > 0) {
-				CACHE.decrementCount(computerDeleted);
-			}
+			computerDeleted = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			LOGGER.error("computer delete SQL error!", e);
+			logger.error("computer delete SQL error!", e);
 
 			throw new DAOException(e);
 		} finally {
 			CoManager.cleanup(pstmt, null);
 		}
+		return computerDeleted;
 	}
 }

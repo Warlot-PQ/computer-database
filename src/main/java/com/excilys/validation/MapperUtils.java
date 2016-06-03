@@ -4,6 +4,11 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * static methods use to convert elements.
+ * @author pqwarlot
+ *
+ */
 public class MapperUtils {
 	/**
 	 * Convert string object to integer object

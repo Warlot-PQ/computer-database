@@ -12,7 +12,8 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
 /**
- * Connection DB factory, use singleton pattern
+ * Connection DB factory, use singleton pattern.
+ * Singleton class.
  * 
  * @author pqwarlot
  *
@@ -20,7 +21,7 @@ import com.zaxxer.hikari.HikariDataSource;
 public class CoManager {
 	private static Logger LOGGER = null;
 	private static HikariDataSource HIKARI_DS = null;
-	protected static CoManager INSTANCE = new CoManager();
+	protected static final CoManager INSTANCE = new CoManager();
 	
 	private CoManager() {
 		HikariConfig config= new HikariConfig("/hikari.properties");

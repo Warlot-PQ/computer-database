@@ -16,12 +16,25 @@ import com.excilys.service.PageRequest;
  *
  */
 public interface ServiceComputer {
+	/**
+	 * Get all computers
+	 * @return list of ComputerDTO
+	 */
 	public List<ComputerDTO> getAll();
 	
+	/**
+	 * Get all computers matching filter from the PageRequest object.
+	 * @param pageRequest Filter apply to the query.
+	 * @return list of ComputerDTO
+	 */
 	public List<ComputerDTO> getAll(PageRequest pageRequest);
 	
 	public ComputerDTO get(Long id);
 
+	/**
+	 * Create a computer
+	 * @param obj Computer object to create
+	 */
 	public void create(Computer obj);
 
 	/**
@@ -37,8 +50,8 @@ public interface ServiceComputer {
 	public void delete(Long id);
 
 	/**
-	 * Count the number of computer object available
-	 * @return computer number as int
+	 * Count the number of computer object available. Use cached value if possible.
+	 * @return number of total computers as int
 	 */
 	public int count();
 	

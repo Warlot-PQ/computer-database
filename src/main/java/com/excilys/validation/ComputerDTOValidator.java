@@ -4,6 +4,11 @@ import java.time.LocalDate;
 
 import com.excilys.bean.ComputerDTO;
 
+/**
+ * Validator class use to validate all fields of ComputerDTO object.
+ * @author pqwarlot
+ *
+ */
 public class ComputerDTOValidator {
 	private final static int MAX_ID_SIZE=20, MAX_NAME_SIZE = 255, MAX_INTRODUCED_SIZE = 10, MAX_DISCONTINUED_SIZE = 10, MAX_COMPANY_SIZE = 20;	
 	private final static String DATE_PATTERN_MATCHING = "^(?:(?:31(\\/)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)(\\/)(?:0?[1,3-9]|1[0-2])\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^(?:29(\\/)0?2\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\\d|2[0-8])(\\/)(?:(?:0?[1-9])|(?:1[0-2]))\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$";

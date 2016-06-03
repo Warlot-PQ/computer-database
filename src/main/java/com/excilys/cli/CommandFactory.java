@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.stream.Collectors;
 
 /**
- * CLI implementation
+ * CLI implementation with command pattern. Singleton class.
  * 
  * @author pqwarlot
  *
@@ -32,7 +32,7 @@ public class CommandFactory {
 		System.out.println("Enabled commands: " + commands.keySet().stream().collect(Collectors.joining(", ")));
 	}
 
-	/* Factory pattern */
+	/* Set up all commands available using a factory pattern */
 	public static CommandFactory init() {
 		CommandFactory cf = new CommandFactory();
 

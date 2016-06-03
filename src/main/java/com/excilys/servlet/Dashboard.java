@@ -98,7 +98,6 @@ public class Dashboard extends HttpServlet {
 				}
 			}
 		}
-		//TODO in JSP, if validation.list is empty -> no error. Display if validation.display == true
 	}
 	
 	private void showPage(HttpServletRequest request, HttpServletResponse response, String page)
