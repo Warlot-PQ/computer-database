@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represent message list error and a state (visible, hidden)
+ * Represent a message list error and a state (visible, hidden) for a DTO validation.
  * @author pqwarlot
  *
  */

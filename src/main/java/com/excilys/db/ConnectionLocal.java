@@ -9,6 +9,10 @@ import org.slf4j.LoggerFactory;
 /**
  * ThreadLocal containing a Connection object. Each thread can have it's own
  * connection.
+<<<<<<< HEAD
+=======
+ * Singleton class.
+>>>>>>> Improvment from Gattling tests.
  * 
  * @author pqwarlot
  *
@@ -16,9 +20,9 @@ import org.slf4j.LoggerFactory;
 public class ConnectionLocal {
 	private static Logger logger;
 	// Each thread as it's own instance of this static field
-	private static ThreadLocal<Connection> CONNECTION_TL = new ThreadLocal<Connection>();
-	private static ConnectionLocal INSTANCE = new ConnectionLocal();
-	private static CoManager CO_MANAGER = CoManager.getInstance();
+	private static final ThreadLocal<Connection> CONNECTION_TL = new ThreadLocal<Connection>();
+	private static final ConnectionLocal INSTANCE = new ConnectionLocal();
+	private static final CoManager CO_MANAGER = CoManager.getInstance();
 
 	private ConnectionLocal() {
 		logger = LoggerFactory.getLogger(this.getClass());

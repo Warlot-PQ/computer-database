@@ -3,12 +3,12 @@ package com.excilys.Pagination;
 import java.util.List;
 
 /**
- * Handle pagination for a list of entities
+ * Handle pagination for a list of entities.
  * 
  * @author pqwarlot
  *
  * @param T
- *            CompanyDTO or ComputerDTO
+ *            CompanyDTO or ComputerDTO class
  */
 public class Page<T> {
 	private List<T> items;
@@ -28,11 +28,11 @@ public class Page<T> {
 	public int getFirstItemNumber() {
 		return (page - 1) * itemsByPage;
 	}
-	
+
 	public int getLastItemNumber() {
 		return (getCurrentPage() == getTotalPages()) ? getTotalItems() : getFirstItemNumber() + getItemsByPage();
 	}
-	
+
 	public List<T> getItems() {
 		return items;
 	}
@@ -70,14 +70,15 @@ public class Page<T> {
 			// Less than one page
 			return totalPages;
 		}
-		// More than one page, correct last page empty if page before last fully filled.
+		// More than one page, correct last page empty if page before last fully
+		// filled.
 		return (getTotalItems() % getItemsByPage() == 0) ? totalPages - 1 : totalPages;
 	}
 
 	public void setTotalPages(int totalPages) {
 		this.totalPages = totalPages;
-	} 
-	
+	}
+
 	private int calculTotalPage(int totalEntities, int entitiesByPage) {
 		return (int) Math.ceil(totalEntities / (double) entitiesByPage);
 	}

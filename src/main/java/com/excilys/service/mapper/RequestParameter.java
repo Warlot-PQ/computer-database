@@ -15,6 +15,7 @@ import com.excilys.validation.Validation;
 
 /**
  * Get/set attribute from/to the HttpServletRequest, regroup all manipulation on HttpServletRequest object.
+ * Use builder pattern.
  * @author pqwarlot
  *
  */
@@ -28,14 +29,10 @@ public class RequestParameter {
 	}
 
 	public ComputerDTO getComputerDTOWithId(){
-	//TODO add trim
-		return new ComputerDTO(
-				escapeHtml4(request.getParameter("id")),
-				escapeHtml4(request.getParameter("computerName")),
-				escapeHtml4(request.getParameter("introduced")),
-				escapeHtml4(request.getParameter("discontinued")),
-				escapeHtml4(request.getParameter("companyId")),
-				"");	
+		String computerId = escapeHtml4(request.getParameter("id"));
+		ComputerDTO computerDTO = getComputerDTO();
+		computerDTO.setId((computerId == null) ? computerId : computerId.trim());
+		return computerDTO;
 	}
 	
 	/**
@@ -43,12 +40,16 @@ public class RequestParameter {
 	 * @return ComputerDTO mapped
 	 */
 	public ComputerDTO getComputerDTO(){
-		//TODO trim
+		String computerName = escapeHtml4(request.getParameter("computerName"));
+		String introduced = escapeHtml4(request.getParameter("introduced"));
+		String discontinued = escapeHtml4(request.getParameter("discontinued"));
+		String companyId = escapeHtml4(request.getParameter("companyId"));
+		
 		return new ComputerDTO(
-				escapeHtml4(request.getParameter("computerName")),
-				escapeHtml4(request.getParameter("introduced")),
-				escapeHtml4(request.getParameter("discontinued")),
-				escapeHtml4(request.getParameter("companyId")));	
+				(computerName == null) ? computerName : computerName.trim(),
+				(introduced == null) ? introduced : introduced.trim(),
+				(discontinued == null) ? discontinued : discontinued.trim(),
+				(companyId == null) ? companyId : companyId.trim());
 	}
 	
 	/**
@@ -87,7 +88,8 @@ public class RequestParameter {
 	 * @return escaped and trimmed selection parameter
 	 */
 	public String getSelection() {
-		return escapeHtml4(request.getParameter("selection").trim());
+		String selection = escapeHtml4(request.getParameter("selection"));
+		return (selection != null) ? selection.trim() : selection;
 	}
 	
 	/**

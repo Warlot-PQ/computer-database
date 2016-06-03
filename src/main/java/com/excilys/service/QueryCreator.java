@@ -35,6 +35,11 @@ public class QueryCreator {
 		this.count = count;
 	}
 	
+	/**
+	 * Create a prepared query.
+	 * @return PreparedStatement object
+	 * @throws SQLException SQL error
+	 */
 	public PreparedStatement createPreparedQuery() throws SQLException {
 		StringBuilder sql = new StringBuilder();
 		PreparedStatement pstmt = null;
@@ -98,6 +103,11 @@ public class QueryCreator {
 		return pstmt;
 	}
 	
+	/**
+	 * Create a SQL query.
+	 * @return SQL command
+	 * @throws SQLException SQL error
+	 */
 	public String createQuery() throws SQLException {
 		StringBuilder sql = new StringBuilder();
 		
@@ -139,10 +149,22 @@ public class QueryCreator {
 		return sql.toString();
 	}
 
+	/**
+	 * Calculate the first item index of a specific page.
+	 * @param currentPage page wanted
+	 * @param limit number of item in the page
+	 * @return f item index of the page
+	 */
 	private int getFirstItemNumberWanted(int currentPage, int limit) {
 		return (currentPage - 1) * limit;
 	}
 	
+	/**
+	 * Calculate the last item index of a specific page.
+	 * @param currentPage page wanted
+	 * @param limit number of item in the page
+	 * @return last item index of the page
+	 */
 	private int getLastItemNumberWanted(int currentPage, int limit) {
 		return getFirstItemNumberWanted(currentPage, limit) + limit;
 	}
