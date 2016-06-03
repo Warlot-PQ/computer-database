@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import com.excilys.bean.Company;
 import com.excilys.bean.CompanyDTO;
 import com.excilys.db.CoManager;
+import com.excilys.db.ConnectionLocal;
 import com.excilys.exception.DAOException;
 import com.excilys.service.interfaces.DAOCompany;
 import com.excilys.service.mapper.MapperDTO;
@@ -25,33 +26,25 @@ import com.excilys.service.mapper.MapperDTO;
  *
  */
 public class CompanyDAO implements DAOCompany {
-	private static CompanyDAO instance;
 	private static Logger logger = null;
+	private static CompanyDAO instance = new CompanyDAO();
+	private static ConnectionLocal LOCAL_CONNECTION = ConnectionLocal.getInstance();
 
 	private CompanyDAO() {
 		logger = LoggerFactory.getLogger(this.getClass());
 	}
 
 	protected static CompanyDAO getInstance() {
-		if (instance == null) {
-			synchronized (CompanyDAO.class) {
-				if (instance == null) {
-					instance = new CompanyDAO();
-				}
-			}
-		}
 		return instance;
 	}
 
 	@Override
-	public List<CompanyDTO> findAll() {
-		Connection connection = null;
+	public List<CompanyDTO> findAll() throws DAOException {
+		Connection connection = LOCAL_CONNECTION.getConnection();
 		Statement stmt = null;
 		String sql = "SELECT id,name " + "FROM company";
 		ResultSet rs = null;
 		List<CompanyDTO> companies = new ArrayList<>();
-
-		connection = CoManager.getInstance().getConnection();
 
 		try {
 			stmt = connection.createStatement();
@@ -66,21 +59,19 @@ public class CompanyDAO implements DAOCompany {
 
 			throw new DAOException(e);
 		} finally {
-			CoManager.cleanup(connection, stmt, rs);
+			CoManager.cleanup(stmt, rs);
 		}
 
 		return companies;
 	}
 
 	@Override
-	public List<CompanyDTO> findFromTo(int offset, int limit) {
-		Connection connection = null;
+	public List<CompanyDTO> findFromTo(int offset, int limit) throws DAOException {
+		Connection connection = LOCAL_CONNECTION.getConnection();
 		PreparedStatement pstmt = null;
 		String sql = "SELECT id,name " + "FROM company " + "LIMIT ?, ?";
 		ResultSet rs = null;
 		List<CompanyDTO> companies = new ArrayList<>();
-
-		connection = CoManager.getInstance().getConnection();
 
 		try {
 			pstmt = connection.prepareStatement(sql);
@@ -97,21 +88,19 @@ public class CompanyDAO implements DAOCompany {
 
 			throw new DAOException(e);
 		} finally {
-			CoManager.cleanup(connection, pstmt, rs);
+			CoManager.cleanup(pstmt, rs);
 		}
 
 		return companies;
 	}
 
 	@Override
-	public CompanyDTO findById(Long id) {
-		Connection connection = null;
+	public CompanyDTO findById(Long id) throws DAOException {
+		Connection connection = LOCAL_CONNECTION.getConnection();
 		PreparedStatement pstmt = null;
 		String sql = "SELECT id,name " + "FROM company " + "WHERE id=?";
 		ResultSet rs = null;
 		CompanyDTO company = null;
-
-		connection = CoManager.getInstance().getConnection();
 
 		try {
 			pstmt = connection.prepareStatement(sql);
@@ -127,32 +116,27 @@ public class CompanyDAO implements DAOCompany {
 
 			throw new DAOException(e);
 		} finally {
-			CoManager.cleanup(connection, pstmt, rs);
+			CoManager.cleanup(pstmt, rs);
 		}
 
 		return company;
 	}
 
 	@Override
-	public void create(Company obj) {
+	public void create(Company obj) throws DAOException {
 		throw new UnsupportedClassVersionError("Not implemeted yet");
 	}
 
 	@Override
-	public void updateById(Company obj) {
+	public void updateById(Company obj) throws DAOException {
 		throw new UnsupportedClassVersionError("Not implemeted yet");
 	}
 
 	@Override
-	public void delete(Long id, Connection connection) {
-		boolean internalConnection = false;
+	public void delete(Long id) throws DAOException {
+		Connection connection = LOCAL_CONNECTION.getConnection();
 		PreparedStatement pstmt = null;
 		String sql = "DELETE FROM company WHERE id=?";
-		
-		if (connection == null) {
-			connection = CoManager.getInstance().getConnection();
-			internalConnection = true;
-		}
 		
 		try {
 			pstmt = connection.prepareStatement(sql);
@@ -164,23 +148,17 @@ public class CompanyDAO implements DAOCompany {
 
 			throw new DAOException(e);
 		} finally {
-			if (internalConnection) {
-				CoManager.cleanup(connection, pstmt, null);
-			} else {
-				CoManager.cleanup(null, pstmt, null);				
-			}
+			CoManager.cleanup(pstmt, null);	
 		}
 	}
 
 	@Override
-	public int getRowNumber() {
-		Connection connection = null;
+	public int getRowNumber() throws DAOException {
+		Connection connection = LOCAL_CONNECTION.getConnection();
 		Statement stmt = null;
 		ResultSet rs = null;
 		String sql = "SELECT COUNT(id) AS TOTAL FROM company";
 		int number = 0;
-
-		connection = CoManager.getInstance().getConnection();
 
 		try {
 			stmt = connection.createStatement();
@@ -196,7 +174,7 @@ public class CompanyDAO implements DAOCompany {
 
 			throw new DAOException(e);
 		} finally {
-			CoManager.cleanup(connection, stmt, rs);
+			CoManager.cleanup(stmt, rs);
 		}
 
 		return number;

@@ -28,12 +28,13 @@ public class RequestParameter {
 	}
 
 	public ComputerDTO getComputerDTOWithId(){
+	//TODO add trim
 		return new ComputerDTO(
-				escapeHtml4(request.getParameter("id").trim()),
-				escapeHtml4(request.getParameter("computerName").trim()),
-				escapeHtml4(request.getParameter("introduced").trim()),
-				escapeHtml4(request.getParameter("discontinued").trim()),
-				escapeHtml4(request.getParameter("companyId").trim()),
+				escapeHtml4(request.getParameter("id")),
+				escapeHtml4(request.getParameter("computerName")),
+				escapeHtml4(request.getParameter("introduced")),
+				escapeHtml4(request.getParameter("discontinued")),
+				escapeHtml4(request.getParameter("companyId")),
 				"");	
 	}
 	
@@ -42,11 +43,12 @@ public class RequestParameter {
 	 * @return ComputerDTO mapped
 	 */
 	public ComputerDTO getComputerDTO(){
+		//TODO trim
 		return new ComputerDTO(
-				escapeHtml4(request.getParameter("computerName").trim()),
-				escapeHtml4(request.getParameter("introduced").trim()),
-				escapeHtml4(request.getParameter("discontinued").trim()),
-				escapeHtml4(request.getParameter("companyId").trim()));	
+				escapeHtml4(request.getParameter("computerName")),
+				escapeHtml4(request.getParameter("introduced")),
+				escapeHtml4(request.getParameter("discontinued")),
+				escapeHtml4(request.getParameter("companyId")));	
 	}
 	
 	/**
