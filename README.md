@@ -4,9 +4,28 @@
 
 https://github.com/loicortola/spec-cdb
 
-## Configuration
+## Todo before using project
 
-Set environment variable CATALINA_HOME (in /etc/profile) to Tomcat 8 directory (requiered by cargo-maven2-plugin to automaticaly launch the Tomcat server).
+Download Tomcat : at root project directory, enter mkdir apache-tomcat-8.0.33 && cd apache-tomcat-8.0.33 && wget http://wwwftp.ciril.fr/pub/apache/tomcat/tomcat-8/v8.0.35/bin/apache-tomcat-8.0.35.tar.gz && tar xvf apache-tomcat-8.0.35.tar.gz && mv apache-tomcat-8.0.35/* . && rm -R apache-tomcat-8.0.35
+
+In Docker/dockerJenkins/config.xml, replace --user-- and --password-- with true values.
+
+In Docker/setupDB.sh, src/main/resources/hikari.properties and src/test/resources/hikari.properties, set MySQL password.
+
+## Docker
+
+Config: Configure GitHub and Jenkins. Use pqwarlot/jenkins-cdb Docker Cloud image with dockerJenkins/config.xml test job (on docker branch) on Docker Cloud. Install rsync on the Jenkins container.
+
+Use bash script docker.sh to localy launch continous integration process. Use localhost:9080/computer-database/Dashboard to reach Tomcat server on docker contrainer.
+
+Work left : accept push only if all test working and push to master. Make Selenium use DB test only. Configure Jenkins to deploy Tomcat image containing war file. Place docker.sh on Jenkins container, not on the GitHub project.
+
+### Help
+
+docker build -t jenkins-cdb ./
+
+docker run -d --name jenkins -v /var/run/docker.sock:/var/run/docker.sock -p 8085:8080 -p 
+50000:50000 jenkins-cdb
 
 ## Librairy used
 

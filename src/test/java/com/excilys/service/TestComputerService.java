@@ -32,7 +32,7 @@ public class TestComputerService {
 
 	@Before
 	public void setUp() throws Exception {
-		ResetDB.setup();
+		ResetDB.setupTest();
 		computerService = ComputerService.getInstance();
 
 		introduced = new Timestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("1991-01-01 00:00:00").getTime())

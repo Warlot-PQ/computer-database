@@ -24,7 +24,7 @@ public class TestCompanyService {
 
 	@Before
 	public void setUp() throws Exception {
-		ResetDB.setup();
+		ResetDB.setupTest();
 		companyService = CompanyService.getInstance();
 	}
 

@@ -19,19 +19,24 @@ import com.zaxxer.hikari.HikariDataSource;
  *
  */
 public class CoManager {
-	private static Logger LOGGER = null;
-	private static HikariDataSource HIKARI_DS = null;
+	private static Logger logger = null;
+	private static HikariDataSource hikariDS = null;
 	protected static final CoManager INSTANCE = new CoManager();
 	
 	private CoManager() {
+		logger = LoggerFactory.getLogger(this.getClass());
+		
 		HikariConfig config= new HikariConfig("/hikari.properties");
 		config.setMaximumPoolSize(50);
 		config.addDataSourceProperty("cachePrepStmts", "true");
 		config.addDataSourceProperty("prepStmtCacheSize", "250");
 		config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
-		HIKARI_DS = new HikariDataSource(config);
-		
-		LOGGER = LoggerFactory.getLogger(this.getClass());
+		try {
+			hikariDS = new HikariDataSource(config);
+		} catch (Exception e) {
+			logger.error("HikariCp config error", e);
+			System.exit(-1);
+		}
 	}
 
 	/**
@@ -41,10 +46,10 @@ public class CoManager {
 	protected Connection getConnection() {
 		Connection connection = null;
 		try {
-			connection = HIKARI_DS.getConnection();
-			LOGGER.debug("Connection asked");
+			connection = hikariDS.getConnection();
+			logger.debug("Connection asked");
 		} catch (SQLException e) {
-			LOGGER.error("DB connection error!", e);
+			logger.error("DB connection error!", e);
 			System.exit(-1);
 		}
 		return connection;
@@ -59,9 +64,9 @@ public class CoManager {
 		if (connection != null) {
 			try {
 				connection.close();
-				LOGGER.debug("Connection closed");
+				logger.debug("Connection closed");
 			} catch (SQLException e) {
-				LOGGER.error("Cannot close Connection", e);
+				logger.error("Cannot close Connection", e);
 			}
 		}
 	}
@@ -75,17 +80,17 @@ public class CoManager {
 		if (rs != null) {
 			try {
 				rs.close();
-				LOGGER.debug("ResultSet closed");
+				logger.debug("ResultSet closed");
 			} catch (SQLException e) {
-				LOGGER.error("Cannot close ResultSet", e);
+				logger.error("Cannot close ResultSet", e);
 			}
 		}
 		if (stat != null) {
 			try {
 				stat.close();
-				LOGGER.debug("Statement closed");
+				logger.debug("Statement closed");
 			} catch (SQLException e) {
-				LOGGER.error("Cannot close Statement", e);
+				logger.error("Cannot close Statement", e);
 			}
 		}
 	}

@@ -12,7 +12,8 @@
   </appender>
     
   <appender name="FILEOUT" class="ch.qos.logback.core.FileAppender">
- 	<file>report.log</file>
+ 	<param name="File" value="logsCDB/report.log" />
+    <param name="append" value="true" />
   	<!-- encoders are assigned the type
          ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
     <encoder>
@@ -20,9 +21,10 @@
     </encoder>
   </appender>
 
-<!--   <logger name="com.excilys" level="ERROR" additivity="false">
-   <appender-ref ref="FILEOUT" />
-  </logger>  -->
+  <logger name="com.excilys">
+  	<level value="ERROR" />
+    <appender-ref ref="FILEOUT" />
+  </logger>
   
   <logger name="com.zaxxer.hikari">
   	<level value="ERROR" />
