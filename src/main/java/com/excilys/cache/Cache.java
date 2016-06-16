@@ -6,6 +6,7 @@ import java.util.concurrent.ConcurrentMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import com.excilys.bean.CompanyDTO;
 
@@ -18,19 +19,14 @@ import com.excilys.bean.CompanyDTO;
  * @author pqwarlot
  *
  */
+@Component
 public class Cache {
-	private static Logger LOGGER = null;
-	private static Cache INSTANCE = new Cache();
+	private static final Logger LOGGER = LoggerFactory.getLogger(Cache.class);
 	private static final ConcurrentMap<String, Object> MAP = new ConcurrentHashMap<>();
 	private static final String COUNT_COMPUER = "countComputer";
 	private static final String COMPANIES = "companies";
 
-	private Cache() {
-		LOGGER = LoggerFactory.getLogger(this.getClass());
-	}
-
-	public static Cache getInstance() {
-		return INSTANCE;
+	public Cache() {
 	}
 
 	public Integer getCountComputer() {

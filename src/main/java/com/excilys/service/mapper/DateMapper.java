@@ -3,7 +3,7 @@ package com.excilys.service.mapper;
 import java.sql.Date;
 import java.time.LocalDate;
 
-public class MapperSQL {
+public class DateMapper {
 	/**
 	 * Convert a SQL Date object to a Java LocalData object
 	 * @param date SQL Date object to convert

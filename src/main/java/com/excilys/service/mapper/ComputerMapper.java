@@ -3,18 +3,16 @@ package com.excilys.service.mapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.excilys.bean.CompanyDTO;
+import org.springframework.jdbc.core.RowMapper;
+
 import com.excilys.bean.ComputerDTO;
 
-/**
- * Create a ComputerDTO from a ResultSet or convert an En date to a Fr date
- * @author pqwarlot
- *
- */
-public class MapperDTO {
-	public static ComputerDTO createComputerDTO(ResultSet rs) throws SQLException {
-		String introduced = MapperSQL.sqlDateToString(rs.getDate("computer.introduced"));
-		String discontinued = MapperSQL.sqlDateToString(rs.getDate("computer.discontinued"));
+public class ComputerMapper implements RowMapper<ComputerDTO> {
+
+	@Override
+	public ComputerDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		String introduced = DateMapper.sqlDateToString(rs.getDate("computer.introduced"));
+		String discontinued = DateMapper.sqlDateToString(rs.getDate("computer.discontinued"));
 		
 		// Convert date En (DB) to Fr
 		if (introduced != null) {
@@ -23,7 +21,6 @@ public class MapperDTO {
 		if (discontinued != null) {
 			discontinued = dateEnToFr(discontinued);
 		}
-		
 		return new ComputerDTO(
 				rs.getString("computer.id"), 
 				rs.getString("computer.name"),
@@ -31,10 +28,6 @@ public class MapperDTO {
 				discontinued, 
 				rs.getString("computer.company_id"),
 				rs.getString("company_name"));
-	}
-	
-	public static CompanyDTO createCompanyDTO(ResultSet rs) throws SQLException {
-		return new CompanyDTO(rs.getString("id"), rs.getString("name"));
 	}
 	
 	public static String dateEnToFr(String date) {

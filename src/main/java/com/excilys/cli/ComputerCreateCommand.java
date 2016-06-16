@@ -2,11 +2,15 @@ package com.excilys.cli;
 
 import java.util.Scanner;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.excilys.bean.Computer;
-import com.excilys.service.ComputerService;
+import com.excilys.service.interfaces.ComputerService;
 import com.excilys.validation.MapperUtils;
 
 public class ComputerCreateCommand implements Command {
+	@Autowired
+	private ComputerService computerService;
 
 	@Override
 	public void execute() {
@@ -26,7 +30,7 @@ public class ComputerCreateCommand implements Command {
 		System.out.printf("Enter the company id:%n>");
 		computer.setCompanyId(MapperUtils.convertStringToLong(input.nextLine()));
 
-		ComputerService.getInstance().create(computer);
+		computerService.create(computer);
 
 		System.out.println("Computer added with success.");
 	}

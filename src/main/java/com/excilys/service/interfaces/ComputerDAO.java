@@ -4,25 +4,24 @@ import java.util.List;
 
 import com.excilys.bean.Computer;
 import com.excilys.bean.ComputerDTO;
-import com.excilys.exception.DAOException;
 import com.excilys.service.PageRequest;
 
-public interface DAOComputer {
-	public List<ComputerDTO> findAll(PageRequest pageRequest) throws DAOException;
+public interface ComputerDAO {
+	public List<ComputerDTO> findAll(PageRequest pageRequest);
 
 	/**
 	 * Create a computer
 	 * @param obj Computer object to create
 	 */
-	public void create(Computer obj) throws DAOException;
+	public void create(Computer obj);
 
-	public void updateById(Computer obj) throws DAOException;
+	public void updateById(Computer obj);
 
 	/**
 	 * Delete a computer
 	 * @param id Id of the computer to delete
 	 */
-	public void delete(Long id) throws DAOException;
+	public void delete(Long id);
 
 	/**
 	 * Get number of computers using A PageRequest object as filter.
@@ -30,7 +29,12 @@ public interface DAOComputer {
 	 * @param con Connection object to use (e.g. for a transaction). Null if a new connection is needed.
 	 * @return total number of computer
 	 */
-	public int count(PageRequest pageRequest) throws DAOException;
+	public int count(PageRequest pageRequest);
 	
-	public int deleteByCompany(Long id) throws DAOException;
+	/**
+	 * Delete a set of computers having the given company id
+	 * @param id company id of computers to delete
+	 * @return number of computer deleted
+	 */
+	public int deleteByCompany(Long id);
 }

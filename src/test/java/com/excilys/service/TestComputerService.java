@@ -16,24 +16,28 @@ import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.excilys.ResetDB;
 import com.excilys.bean.ComputerDTO;
 import com.excilys.exception.ConnectionException;
-import com.excilys.exception.DAOException;
 import com.excilys.exception.DriverException;
-import com.excilys.service.mapper.MapperDTO;
+import com.excilys.service.interfaces.ComputerService;
+import com.excilys.service.mapper.ComputerMapper;
+import com.excilys.spring.AppConfig;
 import com.steadystate.css.parser.ParseException;
 
 public class TestComputerService {
-	private ComputerService computerService = null;
+	private ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);	
+	private ComputerService computerService = applicationContext.getBean("computerService", ComputerService.class);
+
 	private LocalDate introduced;
 	private LocalDate discontinued;
 
 	@Before
 	public void setUp() throws Exception {
 		ResetDB.setupTest();
-		computerService = ComputerService.getInstance();
 
 		introduced = new Timestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("1991-01-01 00:00:00").getTime())
 				.toLocalDateTime().toLocalDate();
@@ -47,14 +51,14 @@ public class TestComputerService {
 	}
 
 	@Test
-	public void testReadAll() throws ParseException, DAOException, ConnectionException, DriverException {
+	public void testReadAll() throws ParseException, ConnectionException, DriverException {
 		List<ComputerDTO> computersExpected = new ArrayList<>();
 		computersExpected.add(new ComputerDTO("1", "MacBook Pro 15.4 inch", null, null, "1", "Apple Inc"));
 		computersExpected.add(new ComputerDTO("2", "CM-2a", null, null, "2", "Microsoft"));
 		computersExpected.add(new ComputerDTO("3", "CM-200",null, null, "2", "Microsoft"));
 		computersExpected.add(new ComputerDTO("4", "CM-5e", null, null, "2", "Microsoft"));
-		computersExpected.add(new ComputerDTO("5", "CM-5", MapperDTO.dateEnToFr(introduced.toString()), null, "2", "Microsoft"));
-		computersExpected.add(new ComputerDTO("6", "MacBook Pro", MapperDTO.dateEnToFr(discontinued.toString()), null, "1", "Apple Inc"));
+		computersExpected.add(new ComputerDTO("5", "CM-5", ComputerMapper.dateEnToFr(introduced.toString()), null, "2", "Microsoft"));
+		computersExpected.add(new ComputerDTO("6", "MacBook Pro", ComputerMapper.dateEnToFr(discontinued.toString()), null, "1", "Apple Inc"));
 
 		List<ComputerDTO> computers = computerService.getAll();
 
@@ -65,7 +69,7 @@ public class TestComputerService {
 	public final ExpectedException exception = ExpectedException.none();
 	
 	@Test
-	public void testReadFromTo() throws DAOException, ConnectionException, DriverException {
+	public void testReadFromTo() throws ConnectionException, DriverException {
 		List<ComputerDTO> computersExpected = new ArrayList<>();
 		computersExpected.add(new ComputerDTO("1", "MacBook Pro 15.4 inch", null, null, "1", "Apple Inc"));
 
@@ -77,12 +81,12 @@ public class TestComputerService {
 	}
 
 	@Test
-	public void testReadOne() throws ParseException, DAOException, ConnectionException, DriverException {
+	public void testReadOne() throws ParseException, ConnectionException, DriverException {
 		ComputerDTO computerExpected = computerService.get(5L);
 
 		Assert.assertEquals("5", computerExpected.getId());
 		Assert.assertEquals("CM-5", computerExpected.getName());
-		Assert.assertEquals(MapperDTO.dateEnToFr(introduced.toString()), computerExpected.getIntroduced());
+		Assert.assertEquals(ComputerMapper.dateEnToFr(introduced.toString()), computerExpected.getIntroduced());
 		Assert.assertNull(computerExpected.getDiscontinued());
 		Assert.assertEquals("2", computerExpected.getCompanyId());
 		Assert.assertEquals("Microsoft", computerExpected.getCompanyName());
@@ -101,7 +105,7 @@ public class TestComputerService {
 	}
 	
 	@Test
-	public void testCount() throws DAOException, ConnectionException, DriverException {
+	public void testCount() throws ConnectionException, DriverException {
 		int rowsNumber = computerService.count();
 		
 		Assert.assertEquals(6, rowsNumber);

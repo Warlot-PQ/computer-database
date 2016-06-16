@@ -2,12 +2,16 @@ package com.excilys.cli;
 
 import java.util.Scanner;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.excilys.bean.ComputerDTO;
-import com.excilys.service.ComputerService;
+import com.excilys.service.interfaces.ComputerService;
 import com.excilys.validation.MapperUtils;
 
 public class ComputerListOneCommand implements Command {
-
+	@Autowired
+	private ComputerService computerService;
+	
 	@Override
 	public void execute() {
 		@SuppressWarnings("resource")
@@ -24,7 +28,7 @@ public class ComputerListOneCommand implements Command {
 			return;
 		}
 		
-		computer = ComputerService.getInstance().get(computerIdInt);
+		computer = computerService.get(computerIdInt);
 
 		if (computer == null) {
 			System.out.println("No computer found.");

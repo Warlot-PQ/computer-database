@@ -9,20 +9,12 @@ import com.excilys.bean.CompanyDTO;
  * @author pqwarlot
  *
  */
-public interface ServiceCompany {
+public interface CompanyService {
 	/**
 	 * Get all company
 	 * @return a list of CompanyDTO object
 	 */
 	public List<CompanyDTO> getAll();
-
-	/**
-	 * Get all compagny within the given range
-	 * @param offset start range
-	 * @param limit end range
-	 * @return a list of CompanyDTO object
-	 */
-	public List<CompanyDTO> getFromTo(int offset, int limit);
 
 	/**
 	 * Get a specific company

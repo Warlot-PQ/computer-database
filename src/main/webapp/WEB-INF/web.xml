@@ -13,4 +13,27 @@
     <error-code>500</error-code>
     <location>/WEB-INF/views/500.jsp</location>
   </error-page>
+  
+  <!-- Configure ContextLoaderListener to use AnnotationConfigWebApplicationContext
+       instead of the default XmlWebApplicationContext -->
+  <context-param>
+      <param-name>contextClass</param-name>
+      <param-value>
+          org.springframework.web.context.support.AnnotationConfigWebApplicationContext
+      </param-value>
+  </context-param>
+
+  <!-- Configuration locations must consist of one or more comma- or space-delimited
+       fully-qualified @Configuration classes. Fully-qualified packages may also be
+       specified for component-scanning -->
+  <context-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>com.excilys.spring.AppConfig</param-value>
+  </context-param>
+  
+   <!-- Bootstrap the root application context as usual using ContextLoaderListener
+   		Add Spring in the web context, enable Spring use in servlet -->
+  <listener>
+      <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>  
 </web-app>

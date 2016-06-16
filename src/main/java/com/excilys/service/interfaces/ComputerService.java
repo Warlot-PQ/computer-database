@@ -6,7 +6,6 @@ import com.excilys.Pagination.Page;
 import com.excilys.bean.Computer;
 import com.excilys.bean.ComputerDTO;
 import com.excilys.exception.ConnectionException;
-import com.excilys.exception.DAOException;
 import com.excilys.exception.DriverException;
 import com.excilys.service.PageRequest;
 
@@ -15,7 +14,7 @@ import com.excilys.service.PageRequest;
  * @author pqwarlot
  *
  */
-public interface ServiceComputer {
+public interface ComputerService {
 	/**
 	 * Get all computers
 	 * @return list of ComputerDTO
@@ -63,7 +62,7 @@ public interface ServiceComputer {
 	 * @throws ConnectionException exception from CoManager concerning Connection
 	 * @throws DriverException exception from CoManager concerning Driver
 	 */
-	public Page<ComputerDTO> getPage(PageRequest pageRequest) throws DAOException, ConnectionException, DriverException;
+	public Page<ComputerDTO> getPage(PageRequest pageRequest);
 	
 	/**
 	 * Delete computers having the given company id
@@ -72,5 +71,5 @@ public interface ServiceComputer {
 	 * @throws ConnectionException
 	 * @throws DriverException
 	 */
-	public void deleteByCompany(Long id) throws DAOException, ConnectionException, DriverException;
+	public void deleteByCompany(Long id);
 }

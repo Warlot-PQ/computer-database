@@ -5,11 +5,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.sql.DataSource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Repository;
 
 /**
  * Connection DB factory, use singleton pattern.
@@ -18,27 +21,17 @@ import com.zaxxer.hikari.HikariDataSource;
  * @author pqwarlot
  *
  */
+@Repository
+@Scope("singleton")
 public class CoManager {
-	private static Logger logger = null;
-	private static HikariDataSource hikariDS = null;
-	protected static final CoManager INSTANCE = new CoManager();
+	private static final Logger LOGGER = LoggerFactory.getLogger(CoManager.class);
+	@Autowired
+	@Qualifier("hikariDataSource")
+	private DataSource hikariDS;
 	
-	private CoManager() {
-		logger = LoggerFactory.getLogger(this.getClass());
-		
-		HikariConfig config= new HikariConfig("/hikari.properties");
-		config.setMaximumPoolSize(50);
-		config.addDataSourceProperty("cachePrepStmts", "true");
-		config.addDataSourceProperty("prepStmtCacheSize", "250");
-		config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
-		try {
-			hikariDS = new HikariDataSource(config);
-		} catch (Exception e) {
-			logger.error("HikariCp config error", e);
-			System.exit(-1);
-		}
+	public CoManager() {
 	}
-
+	
 	/**
 	 * Get an HikariCp Connection object.
 	 * @return Connection object
@@ -47,26 +40,21 @@ public class CoManager {
 		Connection connection = null;
 		try {
 			connection = hikariDS.getConnection();
-			logger.debug("Connection asked");
+			LOGGER.debug("Connection asked");
 		} catch (SQLException e) {
-			logger.error("DB connection error!", e);
+			LOGGER.error("DB connection error!", e);
 			System.exit(-1);
 		}
 		return connection;
 	}
 
-	public static CoManager getInstance() {
-		return INSTANCE;
-	}
-
-
 	public static void cleanup(Connection connection) {
 		if (connection != null) {
 			try {
 				connection.close();
-				logger.debug("Connection closed");
+				LOGGER.debug("Connection closed");
 			} catch (SQLException e) {
-				logger.error("Cannot close Connection", e);
+				LOGGER.error("Cannot close Connection", e);
 			}
 		}
 	}
@@ -80,17 +68,17 @@ public class CoManager {
 		if (rs != null) {
 			try {
 				rs.close();
-				logger.debug("ResultSet closed");
+				LOGGER.debug("ResultSet closed");
 			} catch (SQLException e) {
-				logger.error("Cannot close ResultSet", e);
+				LOGGER.error("Cannot close ResultSet", e);
 			}
 		}
 		if (stat != null) {
 			try {
 				stat.close();
-				logger.debug("Statement closed");
+				LOGGER.debug("Statement closed");
 			} catch (SQLException e) {
-				logger.error("Cannot close Statement", e);
+				LOGGER.error("Cannot close Statement", e);
 			}
 		}
 	}

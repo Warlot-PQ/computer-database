@@ -31,7 +31,15 @@
 		<jsp-2.1.version>6.0.0</jsp-2.1.version>
 		<commons-lang3.version>3.4</commons-lang3.version>
 		<HikariCP.version>2.4.5</HikariCP.version>
-		<mockito-all.version>1.9.5</mockito-all.version>
+		<mockito-all.version>1.9.5</mockito-all.version>		
+		<spring-context.version>4.3.0.RELEASE</spring-context.version>
+		<spring-core.version>4.3.0.RELEASE</spring-core.version>
+		<spring-beans.version>4.3.0.RELEASE</spring-beans.version>
+		<spring-expression.version>4.3.0.RELEASE</spring-expression.version>
+		<spring-aop.version>4.3.0.RELEASE</spring-aop.version>
+		<spring-tx.version>4.3.0.RELEASE</spring-tx.version>
+		<spring-jdbc.version>4.3.0.RELEASE</spring-jdbc.version>
+		<spring-web.version>4.3.0.RELEASE</spring-web.version>
 		<tomcat.directory>${project.basedir}/apache-tomcat-8.0.33</tomcat.directory>
 	</properties>
 	
@@ -303,6 +311,66 @@
 			<version>${mockito-all.version}</version>
 			<scope>test</scope>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring-context.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring-core.version}</version>
+			<exclusions>
+	            <exclusion>
+	                <groupId>commons-logging</groupId>
+	                <artifactId>commons-logging</artifactId>
+	            </exclusion>
+	        </exclusions>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>${spring-beans.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-expression</artifactId>
+			<version>${spring-expression.version}</version>
+		</dependency>
+		
+		<!-- jdbc transaction manager and Transactional annotation -->
+	
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${spring-jdbc.version}</version>
+		</dependency>
+		
+		<!-- scope annotation -->
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+			<version>${spring-aop.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${spring-jdbc.version}</version>
+		</dependency>
+		
+		<!-- SpringBeanAutowiringSupport servlet -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${spring-web.version}</version>
+		</dependency>
+		
 	</dependencies>
 
 </project>

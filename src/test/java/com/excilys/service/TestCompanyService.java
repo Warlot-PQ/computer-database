@@ -11,21 +11,23 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.excilys.ResetDB;
 import com.excilys.bean.CompanyDTO;
 import com.excilys.exception.ConnectionException;
-import com.excilys.exception.DAOException;
 import com.excilys.exception.DriverException;
-import com.excilys.service.interfaces.ServiceCompany;
+import com.excilys.service.interfaces.CompanyService;
+import com.excilys.spring.AppConfig;
 
 public class TestCompanyService {
-	private ServiceCompany companyService = null;
+	private ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);	
+	private CompanyService companyService = applicationContext.getBean("companyService", CompanyService.class);
 
 	@Before
 	public void setUp() throws Exception {
 		ResetDB.setupTest();
-		companyService = CompanyService.getInstance();
 	}
 
 	@After
@@ -34,7 +36,7 @@ public class TestCompanyService {
 	}
 
 	@Test
-	public void testReadAll() throws DAOException, ConnectionException, DriverException {
+	public void testReadAll() throws ConnectionException, DriverException {
 		List<CompanyDTO> companiesExpected = new ArrayList<>();
 		companiesExpected.add(new CompanyDTO("1", "Apple Inc"));
 		companiesExpected.add(new CompanyDTO("2", "Microsoft"));
@@ -45,22 +47,7 @@ public class TestCompanyService {
 	}
 
 	@Test
-	public void testReadFromTo() throws DAOException, ConnectionException, DriverException {
-		List<CompanyDTO> companiesExpected = new ArrayList<>();
-		companiesExpected.add(new CompanyDTO("2", "Microsoft"));
-
-		List<CompanyDTO> companies = companyService.getFromTo(1, 1);
-		Assert.assertThat(companies, is(companiesExpected));
-
-		companies = companyService.getFromTo(-1, 1);
-		Assert.assertNull(companies);
-
-		companies = companyService.getFromTo(1, 0);
-		Assert.assertNull(companies);
-	}
-
-	@Test
-	public void testReadOne() throws DAOException, ConnectionException, DriverException {
+	public void testReadOne() throws ConnectionException, DriverException {
 		CompanyDTO companyExpected = new CompanyDTO("2", "Microsoft");
 
 		CompanyDTO company = companyService.get(2L);
@@ -89,7 +76,7 @@ public class TestCompanyService {
 	}
 	
 	@Test
-	public void testCount() throws DAOException, ConnectionException, DriverException {
+	public void testCount() throws ConnectionException, DriverException {
 		int rowsNumber = companyService.count();
 		
 		Assert.assertEquals(2, rowsNumber);

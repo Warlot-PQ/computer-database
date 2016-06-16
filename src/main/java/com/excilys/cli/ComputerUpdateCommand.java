@@ -2,12 +2,16 @@ package com.excilys.cli;
 
 import java.util.Scanner;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.excilys.bean.Computer;
 import com.excilys.bean.ComputerDTO;
-import com.excilys.service.ComputerService;
+import com.excilys.service.interfaces.ComputerService;
 import com.excilys.validation.MapperUtils;
 
 public class ComputerUpdateCommand implements Command {
+	@Autowired
+	private ComputerService computerService;
 
 	@Override
 	public void execute() {
@@ -26,7 +30,7 @@ public class ComputerUpdateCommand implements Command {
 		// Fetch the computer to update
 
 		System.out.println("You have chosen to update the following computer:");
-		computerDTOToUpdate = ComputerService.getInstance().get(computerIdToUpdate);
+		computerDTOToUpdate = computerService.get(computerIdToUpdate);
 
 		if (computerToUpdate == null) {
 			System.out.println("No computer found!");
@@ -50,7 +54,7 @@ public class ComputerUpdateCommand implements Command {
 		computerToUpdate.setCompanyId(MapperUtils.convertStringToLong(input.nextLine()));
 
 		// Report changes to the DB
-		ComputerService.getInstance().update(computerToUpdate);
+		computerService.update(computerToUpdate);
 
 		System.out.println("Computer updated with success.");
 	}

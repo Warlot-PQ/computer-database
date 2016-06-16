@@ -2,7 +2,13 @@ package com.excilys.cli;
 
 import java.util.Scanner;
 
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import com.excilys.spring.AppConfig;
+
 public class CDB_launcher {
+	public static ConfigurableApplicationContext applicationContext;
 	/**
 	 * Program entry point
 	 * 
@@ -10,9 +16,10 @@ public class CDB_launcher {
 	 *            arguments to parse, only the first one is used
 	 */
 	public static void main(String[] args) {
-		CommandFactory cf = CommandFactory.init();
+		applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);	
+		CommandFactory cf = applicationContext.getBean(CommandFactory.class);
 		String firstArg = null;
-
+		
 		System.out.println("Welcome to CDB program :)");
 
 		if (args.length > 0) {
@@ -33,5 +40,6 @@ public class CDB_launcher {
 			}
 		}
 		System.out.println("Bye bye.");
+		applicationContext.close();
 	}
 }
