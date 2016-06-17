@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,7 +23,7 @@ import com.excilys.service.interfaces.ComputerDAO;
  * @author pqwarlot
  *
  */
-@Repository("companyService")
+@Service("companyService")
 @Scope("singleton")
 public class CompanyServiceImpl implements CompanyService {
 	@Autowired
@@ -51,7 +51,7 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 
 	/**
-	 * Get a companie informations
+	 * Get a company informations
 	 * 
 	 * @return all companies
 	 * @throws DriverException

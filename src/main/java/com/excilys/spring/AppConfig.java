@@ -10,10 +10,17 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.TransactionManagementConfigurer;
+import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.excilys.cli.CommandFactory;
 import com.excilys.cli.CompanyListAllCommand;
@@ -26,10 +33,15 @@ import com.excilys.cli.ExitCommand;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
-@Configuration
-@EnableTransactionManagement
-@ComponentScan({ "com.excilys.cache", "com.excilys.cli", "com.excilys.db", "com.excilys.service" })
-public class AppConfig {
+@Configuration // Tell Spring this file contains beans definition
+/**
+ * Registers the DefaultAnnotationHandlerMapping and
+ * AnnotationMethodHandlerAdapter beans that are required for Spring 
+ */
+@EnableWebMvc // Replace <mvc:annotation-driven/> in servlet-config.xml
+@EnableTransactionManagement // Enable annotation-driven transaction management capability
+@ComponentScan(basePackages = { "com.excilys.cache", "com.excilys.cli", "com.excilys.db", "com.excilys.service", "com.excilys.servlet"})
+public class AppConfig extends WebMvcConfigurerAdapter implements TransactionManagementConfigurer {
 	private static final Logger LOGGER = LoggerFactory.getLogger(AppConfig.class);
 
 	@Bean
@@ -74,5 +86,56 @@ public class AppConfig {
 	@Bean
     public PlatformTransactionManager txManager() {
         return new DataSourceTransactionManager(getDataSource());
+    }
+
+	/**
+	 * Get the Spring bean handling transaction, 
+	 * allow custom method naming for the bean definition method returning a 
+	 * PlatformTransactionManager
+	 */
+    @Override
+    public PlatformTransactionManager annotationDrivenTransactionManager() {
+        return txManager();
+    }
+    
+    @Bean(name = "messageSource")
+    public ReloadableResourceBundleMessageSource getMessageSource() {
+        ReloadableResourceBundleMessageSource resource = new ReloadableResourceBundleMessageSource();
+        resource.setBasename("classpath:messages");
+        resource.setDefaultEncoding("UTF-8");
+        return resource;
+    }
+	
+	/**
+	 * View Resolver for JSPs.
+	 * Replace org.springframework.web.servlet.view.InternalResourceViewResolver
+	 * in servlet-config.xml 
+	 * @return InternalResourceViewResolver object
+	 */
+	@Bean
+	public InternalResourceViewResolver jspViewResolver() {
+		InternalResourceViewResolver bean = new InternalResourceViewResolver();
+        bean.setPrefix("/WEB-INF/views/");
+        bean.setSuffix(".jsp");
+        return bean;
+	}
+	
+	/**
+	 * Allows for mapping the DispatcherServlet to "/" 
+	 */
+	@Override
+    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+        configurer.enable();
+    }
+	
+	/**
+	 * Resources exclusions from servlet mapping.
+	 * (add static resources)
+	 */
+	@Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/css/**").addResourceLocations("/css/");
+        registry.addResourceHandler("/fonts/**").addResourceLocations("/fonts/");
+        registry.addResourceHandler("/js/**").addResourceLocations("/js/");
     }
 }

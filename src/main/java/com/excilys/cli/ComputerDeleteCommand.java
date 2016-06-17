@@ -5,8 +5,8 @@ import java.util.Scanner;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.excilys.bean.ComputerDTO;
+import com.excilys.bean.mapper.DateMapper;
 import com.excilys.service.interfaces.ComputerService;
-import com.excilys.validation.MapperUtils;
 
 public class ComputerDeleteCommand implements Command {
 	@Autowired
@@ -24,7 +24,7 @@ public class ComputerDeleteCommand implements Command {
 		System.out.printf("Enter the machine id to delete:%n>");
 		comupterId = input.nextLine();
 
-		computerIdInt = MapperUtils.convertStringToLong(comupterId);
+		computerIdInt = DateMapper.convertStringToLong(comupterId);
 		if (computerIdInt == null) {
 			return;
 		}

@@ -3,6 +3,7 @@ package com.excilys.validation;
 import java.time.LocalDate;
 
 import com.excilys.bean.ComputerDTO;
+import com.excilys.bean.mapper.DateMapper;
 
 /**
  * Validator class use to validate all fields of ComputerDTO object.
@@ -87,8 +88,8 @@ public class ComputerDTOValidator {
 	}
 	
 	private void checkDatesOrder() { 
-		LocalDate introduced = MapperUtils.convertStringToLocalDate(computerDTOToValidate.getIntroduced());
-		LocalDate discontinued = MapperUtils.convertStringToLocalDate(computerDTOToValidate.getDiscontinued());
+		LocalDate introduced = DateMapper.convertStringToLocalDate(computerDTOToValidate.getIntroduced());
+		LocalDate discontinued = DateMapper.convertStringToLocalDate(computerDTOToValidate.getDiscontinued());
 				
 		if (introduced != null && discontinued != null && introduced.isAfter(discontinued)) {
 			validate.addMessages("Error.computer.discontinued.lessThan.introduced");

@@ -13,6 +13,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import com.excilys.Pagination.PageRequest;
 import com.excilys.bean.Computer;
 import com.excilys.bean.ComputerDTO;
 import com.excilys.service.interfaces.ComputerDAO;

@@ -1,4 +1,4 @@
-package com.excilys.service;
+package com.excilys.Pagination;
 
 /**
  * Represent all informations needed to create a DB QUERY to fetch data. Set only necessery field.

@@ -2,9 +2,9 @@ package com.excilys.service.interfaces;
 
 import java.util.List;
 
+import com.excilys.Pagination.PageRequest;
 import com.excilys.bean.Computer;
 import com.excilys.bean.ComputerDTO;
-import com.excilys.service.PageRequest;
 
 public interface ComputerDAO {
 	public List<ComputerDTO> findAll(PageRequest pageRequest);

@@ -5,8 +5,8 @@ import java.util.Scanner;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.excilys.bean.ComputerDTO;
+import com.excilys.bean.mapper.DateMapper;
 import com.excilys.service.interfaces.ComputerService;
-import com.excilys.validation.MapperUtils;
 
 public class ComputerListOneCommand implements Command {
 	@Autowired
@@ -23,7 +23,7 @@ public class ComputerListOneCommand implements Command {
 		System.out.printf("Enter the computer id wanted:%n>");
 		computerId = input.nextLine();
 
-		computerIdInt = MapperUtils.convertStringToLong(computerId);
+		computerIdInt = DateMapper.convertStringToLong(computerId);
 		if (computerIdInt == null) {
 			return;
 		}

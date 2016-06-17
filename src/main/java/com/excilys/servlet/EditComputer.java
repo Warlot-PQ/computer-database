@@ -1,109 +1,87 @@
 package com.excilys.servlet;
 
-import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.context.support.SpringBeanAutowiringSupport;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.excilys.bean.CompanyDTO;
 import com.excilys.bean.ComputerDTO;
 import com.excilys.service.interfaces.CompanyService;
 import com.excilys.service.interfaces.ComputerService;
-import com.excilys.servlet.mapper.RequestParamExtractor;
-import com.excilys.validation.ComputerDTOValidator;
-import com.excilys.validation.Validation;
+import com.excilys.validation.ComputerValidation;
 
 /**
  * Servlet implementation class EditComputer
  */
-@WebServlet("/EditComputer")
-public class EditComputer extends HttpServlet {  
+@Controller
+@RequestMapping("/EditComputer")
+public class EditComputer {  
 	@Autowired
 	private ComputerService computerService;  
 	@Autowired
 	private CompanyService companyService;
 	
-	private static final Logger LOGGER = LoggerFactory.getLogger(EditComputer.class);
-	
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public EditComputer() {
-        super();
-    }
-    
-    @Override
-	public void init(ServletConfig config) throws ServletException {
-    	super.init(config);	
-    	SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this, config.getServletContext());
-    }
-
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * Map GET HTML request to display the computer edition page
+	 * @param computerDTO ComputerDTO object, id field is auto-mapped with id parameter in GET request
+	 * @return JSP page to display
 	 */
-	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		setEditComputer(request, response);
-		showPage(request, response, "editComputer.jsp");
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		updateComputer(request, response);
-		doGet(request, response);
-	}
-	
-	private void setEditComputer(HttpServletRequest request, HttpServletResponse response) {
-//		RequestParameter requestParameter = new RequestParameter(request);
-		RequestParamExtractor requestParameter = new RequestParamExtractor(request);
-				
-		Long id = requestParameter.getId();
 		
-		if (id == null) {
-			LOGGER.debug("Id null found.");
-			return;
-		}
+	@RequestMapping(method = RequestMethod.GET)
+	protected String displayEditPage(@RequestParam("id") String id, Model model) {
+		ComputerDTO computer = null;
+		long idWanted = 1;
+		if (id != null && StringUtils.isNumeric(id) == true 
+				&& Long.parseLong(id) > 0) {		
+			// Get ComputerDTO corresponding to the id wanted
+			idWanted = Long.parseLong(id);
+		} 
+		computer = computerService.get(idWanted);
 		
-		ComputerDTO computer = computerService.get(id);
 		List<CompanyDTO> companies = companyService.getAll();
-
-		requestParameter.setComputerDTO(computer);
-		requestParameter.setCompanies(companies);
+		model.addAttribute("companies", companies);
+		model.addAttribute("computerDTO", computer);
+		return "editComputer";
 	}
 
-	private void updateComputer(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		RequestParamExtractor requestParameter = new RequestParamExtractor(request);
-		ComputerDTO c1 = requestParameter.getComputerDTOWithId();
+	/**
+	 * Map POST HTML request to edit a computer and display the computer edition page
+	 * @param computerDTO @Valid @ModelAttribute("computerDTO")
+	 * @param result 
+	 * @param request
+	 * @param model
+	 * @return JSP page to display
+	 */
+	@RequestMapping(method = RequestMethod.POST)
+	protected String doPost(@Valid @ModelAttribute() ComputerDTO computerDTO, BindingResult result, 
+			Model model) {
 
-		Validation validation = new ComputerDTOValidator(c1).checkAll().getValidation();
+		if (result.hasErrors() == false) {
+			updateComputer(computerDTO, result, model);
+		}	
 
-		if (validation.getMessages().isEmpty()) {
-			computerService.update(c1.toEntity());
-			validation.addMessages("Success computer updated to the DB");
+		List<CompanyDTO> companies = companyService.getAll();
+		model.addAttribute("companies", companies);
+		return "editComputer";
+	}
+
+	private void updateComputer(ComputerDTO computerToUpdate, BindingResult result, Model model) {		
+		// Business verification only
+		if (ComputerValidation.date(computerToUpdate) == false) {
+			result.rejectValue("introduced", "user.error", "introduced date must be before discontinued date");
 		} else {
-			LOGGER.debug("Invalide computer detected, update aborted.");
+			computerService.update(computerToUpdate.toEntity());
+			model.addAttribute("updateSucceded", "Computer updaded with success :)");
 		}
-		
-		validation.displayError();
-		requestParameter.setErrorMessage(validation);
-	}
-	
-	private void showPage(HttpServletRequest request, HttpServletResponse response, String page)
-			throws ServletException, IOException {
-		request.getRequestDispatcher("WEB-INF/views/" + page).forward(request, response);
 	}
 }

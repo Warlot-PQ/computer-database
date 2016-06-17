@@ -3,6 +3,8 @@ package com.excilys.service;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.excilys.Pagination.PageRequest;
+
 /**
  * Create a PreparedStatement from a PageRequest and a Connection object.
  * The count option disable LIMIT, OFFSET and ORDER BY options.

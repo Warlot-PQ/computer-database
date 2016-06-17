@@ -20,6 +20,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.excilys.ResetDB;
+import com.excilys.Pagination.PageRequest;
 import com.excilys.bean.ComputerDTO;
 import com.excilys.exception.ConnectionException;
 import com.excilys.exception.DriverException;

@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.excilys.bean.Computer;
 import com.excilys.bean.ComputerDTO;
+import com.excilys.bean.mapper.DateMapper;
 import com.excilys.service.interfaces.ComputerService;
-import com.excilys.validation.MapperUtils;
 
 public class ComputerUpdateCommand implements Command {
 	@Autowired
@@ -22,7 +22,7 @@ public class ComputerUpdateCommand implements Command {
 		ComputerDTO computerDTOToUpdate = null;
 
 		System.out.printf("Enter the machine id:%n>");
-		computerIdToUpdate = MapperUtils.convertStringToLong(input.nextLine());
+		computerIdToUpdate = DateMapper.convertStringToLong(input.nextLine());
 		if (computerIdToUpdate == null) {
 			return;
 		}
@@ -45,13 +45,13 @@ public class ComputerUpdateCommand implements Command {
 		computerToUpdate.setName(input.nextLine());
 
 		System.out.printf("Enter the computer introduced date: format YYYY-MM-DD HH:MM:SS (enter to skip)%n>");
-		computerToUpdate.setIntroduced(MapperUtils.convertStringToLocalDate(input.nextLine()));
+		computerToUpdate.setIntroduced(DateMapper.convertStringToLocalDate(input.nextLine()));
 
 		System.out.printf("Enter the computer discontinued date: format YYYY-MM-DD HH:MM:SS (enter to skip)%n>");
-		computerToUpdate.setDiscontinued(MapperUtils.convertStringToLocalDate(input.nextLine()));
+		computerToUpdate.setDiscontinued(DateMapper.convertStringToLocalDate(input.nextLine()));
 
 		System.out.printf("Enter the computer company id:%n>");
-		computerToUpdate.setCompanyId(MapperUtils.convertStringToLong(input.nextLine()));
+		computerToUpdate.setCompanyId(DateMapper.convertStringToLong(input.nextLine()));
 
 		// Report changes to the DB
 		computerService.update(computerToUpdate);

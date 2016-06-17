@@ -5,11 +5,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.excilys.Pagination.Page;
+import com.excilys.Pagination.PageRequest;
 import com.excilys.bean.Computer;
 import com.excilys.bean.ComputerDTO;
 import com.excilys.cache.Cache;
@@ -25,7 +26,7 @@ import com.excilys.service.interfaces.ComputerService;
  * @author pqwarlot
  *
  */
-@Repository("computerService")
+@Service("computerService")
 @Scope("singleton")
 public class ComputerServiceImpl implements ComputerService {
 	private static Logger logger = LoggerFactory.getLogger(ComputerServiceImpl.class);

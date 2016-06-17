@@ -1,4 +1,4 @@
-package com.excilys.validation;
+package com.excilys.bean.mapper;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -9,7 +9,7 @@ import java.time.format.DateTimeParseException;
  * @author pqwarlot
  *
  */
-public class MapperUtils {
+public class DateMapper {
 	/**
 	 * Convert string object to integer object
 	 * 

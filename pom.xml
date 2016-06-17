@@ -31,15 +31,9 @@
 		<commons-lang3.version>3.4</commons-lang3.version>
 		<HikariCP.version>2.4.5</HikariCP.version>
 		<mockito-all.version>1.9.5</mockito-all.version>		
-		<spring-context.version>4.3.0.RELEASE</spring-context.version>
-		<spring-core.version>4.3.0.RELEASE</spring-core.version>
-		<spring-beans.version>4.3.0.RELEASE</spring-beans.version>
-		<spring-expression.version>4.3.0.RELEASE</spring-expression.version>
-		<spring-aop.version>4.3.0.RELEASE</spring-aop.version>
-		<spring-tx.version>4.3.0.RELEASE</spring-tx.version>
-		<spring-jdbc.version>4.3.0.RELEASE</spring-jdbc.version>
-		<spring-web.version>4.3.0.RELEASE</spring-web.version>
+		<spring.version>4.3.0.RELEASE</spring.version>
 		<tomcat.directory>${project.basedir}/apache-tomcat-8.0.33</tomcat.directory>
+		<hibernate-validator.version>4.2.0.Final</hibernate-validator.version>
 	</properties>
 	
 	<build>
@@ -197,12 +191,14 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>${javax.servlet-api.version}</version>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>javax.servlet.jsp</groupId>
 			<artifactId>javax.servlet.jsp-api</artifactId>
 			<version>${javax.servlet.jsp-api.version}</version>
+			<scope>provided</scope>
 		</dependency>
 
 		<!-- MySql 5.X Connector -->
@@ -328,13 +324,13 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
-			<version>${spring-context.version}</version>
+			<version>${spring.version}</version>
 		</dependency>
 		
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
-			<version>${spring-core.version}</version>
+			<version>${spring.version}</version>
 			<exclusions>
 	            <exclusion>
 	                <groupId>commons-logging</groupId>
@@ -346,13 +342,13 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-beans</artifactId>
-			<version>${spring-beans.version}</version>
+			<version>${spring.version}</version>
 		</dependency>
 		
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-expression</artifactId>
-			<version>${spring-expression.version}</version>
+			<version>${spring.version}</version>
 		</dependency>
 		
 		<!-- jdbc transaction manager and Transactional annotation -->
@@ -360,7 +356,7 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
-			<version>${spring-jdbc.version}</version>
+			<version>${spring.version}</version>
 		</dependency>
 		
 		<!-- scope annotation -->
@@ -368,20 +364,29 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aop</artifactId>
-			<version>${spring-aop.version}</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-jdbc</artifactId>
-			<version>${spring-jdbc.version}</version>
+			<version>${spring.version}</version>
 		</dependency>
 		
 		<!-- SpringBeanAutowiringSupport servlet -->
+		
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
-			<version>${spring-web.version}</version>
+			<version>${spring.version}</version>
+		</dependency>
+		
+		<!-- SpringBeanAutowiringSupport servlet -->
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>${hibernate-validator.version}</version>
 		</dependency>
 		
 	</dependencies>

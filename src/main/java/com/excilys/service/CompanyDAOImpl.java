@@ -4,13 +4,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.excilys.bean.Company;
 import com.excilys.bean.CompanyDTO;
 import com.excilys.service.interfaces.CompanyDAO;
-import com.excilys.service.mapper.CompanyMapper;
 import com.excilys.service.mapper.CountMapper;
 
 /**
@@ -32,7 +32,7 @@ public class CompanyDAOImpl implements CompanyDAO {
 	@Override
 	public List<CompanyDTO> findAll() {
 		final String SQL_SELECT = "SELECT id,name FROM company";
-		return jdbcTemplate.query(SQL_SELECT, new CompanyMapper());
+		return jdbcTemplate.query(SQL_SELECT, new BeanPropertyRowMapper<CompanyDTO>(CompanyDTO.class));
 	}
 
 	@Override
@@ -48,7 +48,7 @@ public class CompanyDAOImpl implements CompanyDAO {
 	@Override
 	public CompanyDTO findById(Long id) {
 		final String SQL_SELECT = "SELECT id,name FROM company WHERE id=?";
-		List<CompanyDTO> companies = jdbcTemplate.query(SQL_SELECT, new Object[]{id}, new CompanyMapper());
+		List<CompanyDTO> companies = jdbcTemplate.query(SQL_SELECT, new Object[]{id}, new BeanPropertyRowMapper<CompanyDTO>(CompanyDTO.class));
 		return (companies != null && companies.size() > 0) ? companies.get(0) : null;
 	}	
 

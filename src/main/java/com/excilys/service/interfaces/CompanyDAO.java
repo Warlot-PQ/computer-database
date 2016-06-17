@@ -5,7 +5,6 @@ import java.util.List;
 import com.excilys.bean.Company;
 import com.excilys.bean.CompanyDTO;
 
-
 public interface CompanyDAO {
 	public List<CompanyDTO> findAll();
 

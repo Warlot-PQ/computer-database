@@ -5,8 +5,8 @@ import java.util.Scanner;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.excilys.bean.Computer;
+import com.excilys.bean.mapper.DateMapper;
 import com.excilys.service.interfaces.ComputerService;
-import com.excilys.validation.MapperUtils;
 
 public class ComputerCreateCommand implements Command {
 	@Autowired
@@ -22,13 +22,13 @@ public class ComputerCreateCommand implements Command {
 		computer.setName(input.nextLine());
 
 		System.out.printf("Enter the computer introduced date: format YYYY-MM-DD (enter to skip)%n>");
-		computer.setIntroduced(MapperUtils.convertStringToLocalDate(input.nextLine()));
+		computer.setIntroduced(DateMapper.convertStringToLocalDate(input.nextLine()));
 
 		System.out.printf("Enter the computer discontinued date: format YYYY-MM-DD (enter to skip)%n>");
-		computer.setDiscontinued(MapperUtils.convertStringToLocalDate(input.nextLine()));
+		computer.setDiscontinued(DateMapper.convertStringToLocalDate(input.nextLine()));
 
 		System.out.printf("Enter the company id:%n>");
-		computer.setCompanyId(MapperUtils.convertStringToLong(input.nextLine()));
+		computer.setCompanyId(DateMapper.convertStringToLong(input.nextLine()));
 
 		computerService.create(computer);
 

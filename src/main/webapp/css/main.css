@@ -31,3 +31,15 @@ input[type='checkbox'] {
 .text-center {
 	text-align: center;
 }
+
+.errorBlock {
+	color: red;
+	background-color: #ffEEE;
+	boder: 3px solid #ff0000;
+	padding: 8px;
+	margin: 16px;
+}
+
+.error {
+	color: #ff0000;
+}
