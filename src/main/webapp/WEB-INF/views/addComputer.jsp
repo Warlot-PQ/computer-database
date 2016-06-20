@@ -1,10 +1,24 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="jslt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="jslt"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
+<spring:message code="title.AddComputer" var="i18nAddTitle" />
+<spring:message code="computer.name" var="i18nComputerName" />
+<spring:message code="computer.introduced" var="i18nComputerIntroduced" />
+<spring:message code="computer.discontinued" var="i18nComputerDiscontinued" />
+<spring:message code="computer.company" var="i18nComputerCompany" />
+<spring:message code="button.add" var="i18nButtonAdd" />
+<spring:message code="button.cancel" var="i18nButtonCancel" />
+<spring:message code="computer.placehorlder.name" var="i18nPlaceholderName" />
+<spring:message code="computer.placehorlder.introduced" var="i18nPlaceholderIntroduced" />
+<spring:message code="computer.placehorlder.discontinued" var="i18nPlaceholderDiscontinued" />
+
 <!DOCTYPE html>
 <html>
 <head>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="jslt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <title>Computer Database</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Bootstrap -->
@@ -20,50 +34,52 @@
         </div>
     </header>
 
-	<div id="errorMsg" class="alert alert-warning text-center" style="${validation.isStateDisplayed() eq 'true' ? 'display: block;' : 'display: none;'}">
-		<c:if test="${validation.getMessages().isEmpty() ne true}">
-	  		<jslt:forEach var="message" items="${validation.getMessages()}">
-	  			<p>${message}</p>
-	  		</jslt:forEach>
-		</c:if>	  
+	<div id="errorMsg" class="alert alert-warning text-center" style="${not empty saveStatus ? 'display: block;' : 'display: none;'}">
+		<p>
+			${saveStatus}
+		</p>
 	</div>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
     <section id="main">
         <div class="container">
             <div class="row">
                 <div class="col-xs-8 col-xs-offset-2 box">
-                    <h1>Add Computer</h1>
-                    <form action="${pageContext.request.contextPath}/AddComputer" onsubmit="return validateForm()" method="POST">
+                    <h1>${i18nAddTitle}</h1>
+                    <form:form commandName="computerDTO" action="${pageContext.request.contextPath}/AddComputer" onsubmit="return validateForm()" method="POST">
                         <fieldset>
                             <div class="form-group">
-                                <label for="computerName">Computer name</label>
-                                <input name="computerName" type="text" class="form-control" id="computerName" placeholder="Computer name">
+                                <label for="computerName">${i18nComputerName}</label>
+                                <form:input path="name" name="computerName" type="text" class="form-control" id="computerName" placeholder="${i18nPlaceholderName}" />
+                                <form:errors path="name" cssClass="error" />
                             </div>
                             <div class="form-group">
-                                <label for="introduced">Introduced date</label>
-                                <input name="introduced" type="text" class="form-control" id="introduced" placeholder="Introduced date">
+                                <label for="introduced">${i18nComputerIntroduced}</label>
+                                <form:input path="introduced" name="introduced" type="text" class="form-control" id="introduced" placeholder="${i18nPlaceholderIntroduced}" />
+                                <form:errors path="introduced" cssClass="error" />
                             </div>
                             <div class="form-group">
-                                <label for="discontinued">Discontinued date</label>
-                                <input name="discontinued" type="text" class="form-control" id="discontinued" placeholder="Discontinued date">
+                                <label for="discontinued">${i18nComputerDiscontinued}</label>
+                                <form:input path="discontinued" name="discontinued" type="text" class="form-control" id="discontinued" placeholder="${i18nPlaceholderDiscontinued}" />
+                                <form:errors path="discontinued" cssClass="error" />
                             </div>
                             <div class="form-group">
-                                <label for="companyId">Company</label>
-                                <select name="companyId" class="form-control" id="companyId" >
-                                		<option value="">Aucune</option>
+                                <label for="companyId">${i18nComputerCompany}</label>
+                                <form:select path="companyId" name="companyId" class="form-control" id="companyId" >
+                                	<option value="0">--</option>
                                 	<jslt:forEach var="company" items="${companies}">
-                                		<option value="${company.id}">${company.name}</option>
+                                		<option value="${company.id}" ${(computerDTO.companyId eq company.id) ? ' selected' : ''}>${company.name}</option>
                                 	</jslt:forEach>
-                                    
-                                </select>
+                                </form:select>
+                                <form:errors path="companyId" cssClass="error" />
                             </div>                  
                         </fieldset>
                         <div class="actions pull-right">
-                            <input type="submit" value="Add" class="btn btn-primary">
+                            <input type="submit" value="${i18nButtonAdd}" class="btn btn-primary">
                             or
-                            <a href="${pageContext.request.contextPath}/Router?action=dashboard" class="btn btn-default">Cancel</a>
+                            <a href="${pageContext.request.contextPath}/Router?action=dashboard" class="btn btn-default">${i18nButtonCancel}</a>
                         </div>
-                    </form>
+                    </form:form>
                 </div>
             </div>
         </div>

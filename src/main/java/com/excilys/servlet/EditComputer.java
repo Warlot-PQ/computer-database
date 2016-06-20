@@ -1,11 +1,13 @@
 package com.excilys.servlet;
 
 import java.util.List;
+import java.util.Locale;
 
 import javax.validation.Valid;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,6 +32,8 @@ public class EditComputer {
 	private ComputerService computerService;  
 	@Autowired
 	private CompanyService companyService;
+	@Autowired
+	private ReloadableResourceBundleMessageSource messageSource;
 	
 	/**
 	 * Map GET HTML request to display the computer edition page
@@ -38,15 +42,12 @@ public class EditComputer {
 	 */
 		
 	@RequestMapping(method = RequestMethod.GET)
-	protected String displayEditPage(@RequestParam("id") String id, Model model) {
-		ComputerDTO computer = null;
-		long idWanted = 1;
-		if (id != null && StringUtils.isNumeric(id) == true 
-				&& Long.parseLong(id) > 0) {		
-			// Get ComputerDTO corresponding to the id wanted
-			idWanted = Long.parseLong(id);
-		} 
-		computer = computerService.get(idWanted);
+	protected String displayEditPage(@RequestParam("id") long id, Model model, Locale locale) {
+		ComputerDTO computer = computerService.get(id);
+		
+		if (computer == null) {
+			computer = new ComputerDTO();
+		}
 		
 		List<CompanyDTO> companies = companyService.getAll();
 		model.addAttribute("companies", companies);
@@ -74,14 +75,15 @@ public class EditComputer {
 		model.addAttribute("companies", companies);
 		return "editComputer";
 	}
-
+	
 	private void updateComputer(ComputerDTO computerToUpdate, BindingResult result, Model model) {		
 		// Business verification only
 		if (ComputerValidation.date(computerToUpdate) == false) {
-			result.rejectValue("introduced", "user.error", "introduced date must be before discontinued date");
+			result.rejectValue("introduce", "user.error", messageSource.getMessage("computer.date.error", null, LocaleContextHolder.getLocale()));
+			model.addAttribute("updateStatus", messageSource.getMessage("computer.update.fail", null, LocaleContextHolder.getLocale()));
 		} else {
 			computerService.update(computerToUpdate.toEntity());
-			model.addAttribute("updateSucceded", "Computer updaded with success :)");
+			model.addAttribute("updateStatus", messageSource.getMessage("computer.update.success", null, LocaleContextHolder.getLocale()));
 		}
 	}
 }

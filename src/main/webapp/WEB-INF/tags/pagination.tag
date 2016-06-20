@@ -10,11 +10,15 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="myLib" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+
+<spring:message code="page.first" var="i18nPageFirst" />
+<spring:message code="page.last" var="i18nPageLast" />
 
 <ul class="pagination">
 	<c:if test="${current ne start}">
 		<li><myLib:link classes="btn btn-default" page="${start}" limit="${limit}" search="${search}" orderBy="${orderBy}" orderAlphaNum="${orderAlphaNum}" att="aria-label=\"Next\"">
-			First
+			${i18nPageFirst}
 		</myLib:link></li>
 		<li><myLib:link classes="btn btn-default" page="${current - 1}" limit="${limit}" orderBy="${orderBy}" orderAlphaNum="${orderAlphaNum}" search="${search}" att="aria-label=\"Previous\"">
 			<span aria-hidden="true">&laquo;</span>
@@ -47,7 +51,7 @@
 			<span aria-hidden="true">&raquo;</span>
 		</myLib:link></li>
 		<li><myLib:link classes="btn btn-default" page="${end}" limit="${limit}" search="${search}" orderBy="${orderBy}" orderAlphaNum="${orderAlphaNum}" att="aria-label=\"Next\"">
-			Last
+			${i18nPageLast}
 		</myLib:link></li>
 	</c:if>
 </ul>

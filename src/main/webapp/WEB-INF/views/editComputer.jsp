@@ -3,6 +3,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
+<spring:message code="title.editComputer" var="i18nEditTitle" />
+<spring:message code="computer.name" var="i18nComputerName" />
+<spring:message code="computer.introduced" var="i18nComputerIntroduced" />
+<spring:message code="computer.discontinued" var="i18nComputerDiscontinued" />
+<spring:message code="computer.company" var="i18nComputerCompany" />
+<spring:message code="button.edit" var="i18nButtonEdit" />
+<spring:message code="button.cancel" var="i18nButtonCancel" />
+<spring:message code="computer.placehorlder.name" var="i18nPlaceholderName" />
+<spring:message code="computer.placehorlder.introduced" var="i18nPlaceholderIntroduced" />
+<spring:message code="computer.placehorlder.discontinued" var="i18nPlaceholderDiscontinued" />
+                 	
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,7 +33,7 @@
         </div>
     </header>
     
-    <div id="errorMsg" class="alert alert-warning text-center" style="${updateStatus ? 'display: block;' : 'display: none;'}">
+    <div id="errorMsg" class="alert alert-warning text-center" style="${not empty updateStatus ? 'display: block;' : 'display: none;'}">
 		<p>
 			${updateStatus}
 		</p>
@@ -34,29 +46,39 @@
                     <div class="label label-default pull-right">
                         id: ${computerDTO.id}
                     </div>
-                    <h1>Edit Computer</h1>
+                    <h1>
+                    	${i18nEditTitle}
+                    </h1>
 
-                    <form:form commandName="computerDTO" action="EditComputer?id=${computerDTO.id}" onsubmit="return validateForm();" method="POST">
+                    <form:form commandName="computerDTO" action="EditComputer" onsubmit="return validateForm();" method="POST">
                         <form:errors path="*" cssClass="errorBlock" element="div" />
                         <input name="id" type="hidden" id="id" value="${computerDTO.id}" />
                         <fieldset>
                             <div class="form-group">
-                                <label for="computerName">Computer name</label>
-                                <form:input path="name"  name="computerName" type="text" class="form-control" id="computerName" placeholder="Computer name" />
+                                <label for="computerName">
+                                	${i18nComputerName}
+                                </label>
+                                <form:input path="name"  name="computerName" type="text" class="form-control" id="computerName" placeholder="${i18nPlaceholderName}" />
                             	<form:errors path="name" cssClass="error" />
                             </div>
                             <div class="form-group">
-                                <label for="introduced">Introduced date</label>
-                                <form:input path="introduced" name="introduced" type="text" class="form-control" id="introduced" placeholder="Introduced date" />
+                                <label for="introduced">
+                                	${i18nComputerDiscontinued}
+                                </label>
+                                <form:input path="introduced" name="introduced" type="text" class="form-control" id="introduced" placeholder="${i18nPlaceholderIntroduced}" />
                                 <form:errors path="introduced" cssClass="error" />
                             </div>
                             <div class="form-group">
-                                <label for="discontinued">Discontinued date</label>
-                                <form:input path="discontinued" name="discontinued" type="text" class="form-control" id="discontinued" placeholder="Discontinued date" />
+                                <label for="discontinued">
+                                	${i18nComputerDiscontinued}
+                                </label>
+                                <form:input path="discontinued" name="discontinued" type="text" class="form-control" id="discontinued" placeholder="${i18nPlaceholderDiscontinued}" />
                                 <form:errors path="discontinued" cssClass="error" />
                             </div>
                             <div class="form-group">
-                                <label for="companyId">Company</label>
+                                <label for="companyId">
+									${i18nComputerCompany}
+								</label>
                                 <form:select path="companyId" name="companyId" class="form-control" id="companyId" >
                                     <option value="0">--</option>
                                     <jslt:forEach var="company" items="${companies}">
@@ -67,10 +89,9 @@
                             </div>            
                         </fieldset>
                         <div class="actions pull-right">
-                        	<spring:message code="button.edit" var="i18nButtonEdit" />
                             <input type="submit" value="${i18nButtonEdit}" class="btn btn-primary">
                             or
-                            <a href="Dashboard" class="btn btn-default"><spring:message code="button.cancel" /></a>
+                            <a href="Dashboard" class="btn btn-default">${i18nButtonCancel}</a>
                         </div>
                     </form:form>
                 </div>

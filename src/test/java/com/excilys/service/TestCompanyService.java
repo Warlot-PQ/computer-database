@@ -6,33 +6,34 @@ import static org.junit.Assert.fail;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.AnnotationConfigWebContextLoader;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.excilys.ResetDB;
 import com.excilys.bean.CompanyDTO;
 import com.excilys.exception.ConnectionException;
 import com.excilys.exception.DriverException;
 import com.excilys.service.interfaces.CompanyService;
-import com.excilys.spring.AppConfig;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes=com.excilys.spring.AppConfig.class, loader=AnnotationConfigWebContextLoader.class)
+@WebAppConfiguration
 public class TestCompanyService {
-	private ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);	
-	private CompanyService companyService = applicationContext.getBean("companyService", CompanyService.class);
-
+	@Autowired
+	private CompanyService companyService;
+	
+	
 	@Before
 	public void setUp() throws Exception {
 		ResetDB.setupTest();
-	}
-
-	@After
-	public void tearDown() throws Exception {
-		companyService = null;
 	}
 
 	@Test

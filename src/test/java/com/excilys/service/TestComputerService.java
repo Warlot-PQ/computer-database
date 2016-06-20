@@ -9,15 +9,18 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.AnnotationConfigWebContextLoader;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.excilys.ResetDB;
 import com.excilys.Pagination.PageRequest;
@@ -26,13 +29,15 @@ import com.excilys.exception.ConnectionException;
 import com.excilys.exception.DriverException;
 import com.excilys.service.interfaces.ComputerService;
 import com.excilys.service.mapper.ComputerMapper;
-import com.excilys.spring.AppConfig;
 import com.steadystate.css.parser.ParseException;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes=com.excilys.spring.AppConfig.class, loader=AnnotationConfigWebContextLoader.class)
+@WebAppConfiguration
 public class TestComputerService {
-	private ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);	
-	private ComputerService computerService = applicationContext.getBean("computerService", ComputerService.class);
-
+	@Autowired
+	private ComputerService computerService;
+	
 	private LocalDate introduced;
 	private LocalDate discontinued;
 
@@ -44,11 +49,6 @@ public class TestComputerService {
 				.toLocalDateTime().toLocalDate();
 		discontinued = new Timestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2006-01-10 00:00:00").getTime())
 				.toLocalDateTime().toLocalDate();
-	}
-
-	@After
-	public void tearDown() throws Exception {
-		computerService = null;
 	}
 
 	@Test

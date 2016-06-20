@@ -14,47 +14,29 @@
     <location>/WEB-INF/views/500.jsp</location>
   </error-page>
   
-  <!-- Not needed with Spring MVC -->
-  <!-- 
   <context-param>
       <param-name>contextClass</param-name>
       <param-value>
           org.springframework.web.context.support.AnnotationConfigWebApplicationContext
       </param-value>
   </context-param>
- -->
  
-  <!-- Not needed with Spring MVC -->
   <!-- Configuration locations must consist of one or more comma- or space-delimited
        fully-qualified @Configuration classes. Fully-qualified packages may also be
        specified for component-scanning -->
-  <!-- 
+
   <context-param>
       <param-name>contextConfigLocation</param-name>
       <param-value>com.excilys.spring.AppConfig</param-value>
   </context-param>
-  -->
   
-  <!-- Not needed with Spring MVC -->
    <!-- Bootstrap the root application context as usual using ContextLoaderListener
-   		Add Spring in the web context, enable Spring use in Tomcat servlet -->
-  <!-- 
+   		Add Spring in the web context (e.g. enable Spring use in Tomcat servlet) -->
+  
   <listener>
       <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>  
-  -->
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <!-- Full Java Configuration possible using WebApplicationInitializer interface
-  	(instead of the following) -->
-    
+   
   <!-- Spring MVC redirect all incoming request to controllers defined in the contextConfigLocation -->
     
 	<servlet>
