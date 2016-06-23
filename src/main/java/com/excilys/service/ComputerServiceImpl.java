@@ -9,15 +9,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.excilys.Pagination.Page;
-import com.excilys.Pagination.PageRequest;
-import com.excilys.bean.Computer;
-import com.excilys.bean.ComputerDTO;
+import com.excilys.DTO.ComputerDTO;
 import com.excilys.cache.Cache;
-import com.excilys.exception.ConnectionException;
-import com.excilys.exception.DriverException;
-import com.excilys.service.interfaces.ComputerDAO;
+import com.excilys.entity.Computer;
+import com.excilys.pagination.Page;
+import com.excilys.pagination.PageRequest;
+import com.excilys.repository.interfaces.ComputerDAO;
 import com.excilys.service.interfaces.ComputerService;
+import com.excilys.validation.ComputerValidation;
 
 /**
  * Service to manipulate Company table. Use cache data if possible.
@@ -42,6 +41,7 @@ public class ComputerServiceImpl implements ComputerService {
 	}
 
 	@Override
+	@Transactional(readOnly = true, propagation=Propagation.REQUIRES_NEW)
 	public List<ComputerDTO> getAll() {
 		return computerDAO.findAll(PageRequest.create().build());
 	}
@@ -55,7 +55,9 @@ public class ComputerServiceImpl implements ComputerService {
 	 * @throws ConnectionException
 	 */
 	@Override
+	@Transactional(readOnly = true)
 	public List<ComputerDTO> getAll(PageRequest pageRequest) {
+		if (pageRequest == null) return null;
 		return computerDAO.findAll(pageRequest);
 	}
 	
@@ -70,7 +72,9 @@ public class ComputerServiceImpl implements ComputerService {
 	 * @throws ConnectionException
 	 */
 	@Override
+	@Transactional(readOnly = true)
 	public ComputerDTO get(Long id) {
+		if (id == null) return null;
 		List<ComputerDTO> computers = computerDAO.findAll(PageRequest.create().computerId(id).build());
 
 		if (computers != null && computers.size() > 0) {
@@ -93,9 +97,16 @@ public class ComputerServiceImpl implements ComputerService {
 	 * @throws ConnectionException
 	 */
 	@Override
-	public void create(Computer computer) {
+	@Transactional(propagation=Propagation.REQUIRES_NEW)
+	public ErrorMessage create(Computer computer) {
+		if (computer == null) return null;
+		if (ComputerValidation.date(computer) == false) {
+			return ErrorMessage.COMPUTER_DATE_ERROR;
+		}
+		
 		computerDAO.create(computer);
 		cache.incrementCount(1);
+		return ErrorMessage.NONE;
 	}
 
 	/**
@@ -111,8 +122,15 @@ public class ComputerServiceImpl implements ComputerService {
 	 * @throws ConnectionException
 	 */
 	@Override
-	public void update(Computer computer) {
+	@Transactional(propagation=Propagation.REQUIRES_NEW)
+	public ErrorMessage update(Computer computer) {
+		if (computer == null) return null;
+		if (ComputerValidation.date(computer) == false) {
+			return ErrorMessage.COMPUTER_DATE_ERROR;
+		}
+		
 		computerDAO.updateById(computer);
+		return ErrorMessage.NONE;
 	}
 
 	/**
@@ -126,12 +144,15 @@ public class ComputerServiceImpl implements ComputerService {
 	 * @throws ConnectionException
 	 */
 	@Override
+	@Transactional(propagation=Propagation.REQUIRES_NEW)
 	public void delete(Long id) {
+		if (id == null) return;
 		computerDAO.delete(id);
 		cache.decrementCount(1);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public int count() {
 		Integer computersNumber = cache.getCountComputer(); 
 		
@@ -143,7 +164,9 @@ public class ComputerServiceImpl implements ComputerService {
 	}
 
 	@Override
+	@Transactional(propagation=Propagation.REQUIRES_NEW)
 	public void deleteByCompany(Long id) {
+		if (id == null) return;
 		throw new UnsupportedClassVersionError();
 		// update cache once implemented
 	}
@@ -151,6 +174,7 @@ public class ComputerServiceImpl implements ComputerService {
 	@Override
 	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRES_NEW)
 	public Page<ComputerDTO> getPage(PageRequest pageRequest) {
+		if (pageRequest == null) return null;
 		List<ComputerDTO> computers = null;
 		Integer computersNumber = 0;
 		

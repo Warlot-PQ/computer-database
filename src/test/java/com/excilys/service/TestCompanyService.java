@@ -18,9 +18,7 @@ import org.springframework.test.context.web.AnnotationConfigWebContextLoader;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.excilys.ResetDB;
-import com.excilys.bean.CompanyDTO;
-import com.excilys.exception.ConnectionException;
-import com.excilys.exception.DriverException;
+import com.excilys.DTO.CompanyDTO;
 import com.excilys.service.interfaces.CompanyService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -30,14 +28,13 @@ public class TestCompanyService {
 	@Autowired
 	private CompanyService companyService;
 	
-	
 	@Before
 	public void setUp() throws Exception {
 		ResetDB.setupTest();
 	}
 
 	@Test
-	public void testReadAll() throws ConnectionException, DriverException {
+	public void testReadAll() {
 		List<CompanyDTO> companiesExpected = new ArrayList<>();
 		companiesExpected.add(new CompanyDTO("1", "Apple Inc"));
 		companiesExpected.add(new CompanyDTO("2", "Microsoft"));
@@ -48,7 +45,7 @@ public class TestCompanyService {
 	}
 
 	@Test
-	public void testReadOne() throws ConnectionException, DriverException {
+	public void testReadOne() {
 		CompanyDTO companyExpected = new CompanyDTO("2", "Microsoft");
 
 		CompanyDTO company = companyService.get(2L);
@@ -77,7 +74,7 @@ public class TestCompanyService {
 	}
 	
 	@Test
-	public void testCount() throws ConnectionException, DriverException {
+	public void testCount() {
 		int rowsNumber = companyService.count();
 		
 		Assert.assertEquals(2, rowsNumber);

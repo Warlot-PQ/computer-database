@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.excilys.Pagination.PageRequest;
-import com.excilys.bean.ComputerDTO;
+import com.excilys.DTO.ComputerDTO;
+import com.excilys.pagination.PageRequest;
 import com.excilys.service.interfaces.ComputerService;
 
 public class ComputerListAllCommand implements Command {

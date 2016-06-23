@@ -2,12 +2,10 @@ package com.excilys.service.interfaces;
 
 import java.util.List;
 
-import com.excilys.Pagination.Page;
-import com.excilys.Pagination.PageRequest;
-import com.excilys.bean.Computer;
-import com.excilys.bean.ComputerDTO;
-import com.excilys.exception.ConnectionException;
-import com.excilys.exception.DriverException;
+import com.excilys.DTO.ComputerDTO;
+import com.excilys.entity.Computer;
+import com.excilys.pagination.Page;
+import com.excilys.pagination.PageRequest;
 
 /**
  * Specific services to computer entities
@@ -15,6 +13,9 @@ import com.excilys.exception.DriverException;
  *
  */
 public interface ComputerService {
+	public enum ErrorMessage {
+		COMPUTER_DATE_ERROR, NONE
+	};
 	/**
 	 * Get all computers
 	 * @return list of ComputerDTO
@@ -34,13 +35,13 @@ public interface ComputerService {
 	 * Create a computer
 	 * @param obj Computer object to create
 	 */
-	public void create(Computer obj);
+	public ErrorMessage create(Computer obj);
 
 	/**
 	 * Update a computer
 	 * @param obj computer to update as entity object
 	 */
-	public void update(Computer obj);
+	public ErrorMessage update(Computer obj);
 
 	/**
 	 * Delete a computer

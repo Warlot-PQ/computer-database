@@ -2,7 +2,7 @@ package com.excilys.service.interfaces;
 
 import java.util.List;
 
-import com.excilys.bean.CompanyDTO;
+import com.excilys.DTO.CompanyDTO;
 
 /**
  * Specific services to company entities

@@ -4,7 +4,11 @@
 
 https://github.com/loicortola/spec-cdb
 
-## Todo before using project
+## QueryDSL
+
+At compile-time, Qclasses are generated in target/generated-sources/queryDSL. Copy these files in com.excilys.entity package to make repository classes working.
+
+## Todo before using project with docker features
 
 Download Tomcat : at root project directory, enter mkdir apache-tomcat-8.0.33 && cd apache-tomcat-8.0.33 && wget http://wwwftp.ciril.fr/pub/apache/tomcat/tomcat-8/v8.0.35/bin/apache-tomcat-8.0.35.tar.gz && tar xvf apache-tomcat-8.0.35.tar.gz && mv apache-tomcat-8.0.35/* . && rm -R apache-tomcat-8.0.35
 

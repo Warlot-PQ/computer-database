@@ -1,4 +1,4 @@
-package com.excilys.Pagination;
+package com.excilys.pagination;
 
 import java.util.List;
 

@@ -3,7 +3,7 @@ package com.excilys.cli;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.excilys.bean.CompanyDTO;
+import com.excilys.DTO.CompanyDTO;
 import com.excilys.service.interfaces.CompanyService;
 
 public class CompanyListAllCommand implements Command {

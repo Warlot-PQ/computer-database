@@ -1,4 +1,4 @@
-package com.excilys.bean;
+package com.excilys.DTO;
 
 /**
  * Representation of a Company object whitch is given to the front.
@@ -11,6 +11,11 @@ public class CompanyDTO {
 	private String name;
 
 	public CompanyDTO() {
+	}
+	
+	public CompanyDTO(Long id, String name) {
+		this((id == null) ? "" : id.toString(),
+			name);
 	}
 	
 	public CompanyDTO(String id, String name) {

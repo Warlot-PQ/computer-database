@@ -4,9 +4,9 @@ import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.excilys.bean.Computer;
-import com.excilys.bean.mapper.DateMapper;
+import com.excilys.entity.Computer;
 import com.excilys.service.interfaces.ComputerService;
+import com.excilys.utils.DateMapper;
 
 public class ComputerCreateCommand implements Command {
 	@Autowired

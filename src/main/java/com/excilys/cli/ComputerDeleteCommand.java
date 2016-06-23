@@ -4,9 +4,9 @@ import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.excilys.bean.ComputerDTO;
-import com.excilys.bean.mapper.DateMapper;
+import com.excilys.DTO.ComputerDTO;
 import com.excilys.service.interfaces.ComputerService;
+import com.excilys.utils.DateMapper;
 
 public class ComputerDeleteCommand implements Command {
 	@Autowired

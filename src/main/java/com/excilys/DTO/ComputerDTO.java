@@ -1,9 +1,13 @@
-package com.excilys.bean;
+package com.excilys.DTO;
+
+import java.time.LocalDate;
 
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-import com.excilys.bean.mapper.DateMapper;
+import com.excilys.entity.Company;
+import com.excilys.entity.Computer;
+import com.excilys.utils.DateMapper;
 
 /**
  * Representation of a Company object whitch is given to the front.
@@ -39,6 +43,16 @@ public class ComputerDTO {
 		this("", name, introduced, discontinued, companyId, "");
 	}
 	
+	public ComputerDTO(Long id, String name, LocalDate introduced, LocalDate discontinued, Company company) {
+		this((id == null) ? "" : String.valueOf(id),
+			name,
+			DateMapper.convertLocalDateToString(introduced),
+			DateMapper.convertLocalDateToString(discontinued),
+			(company == null || company.getId() == null) ? "" : company.getId().toString(),
+			(company == null) ? "" : company.getName());
+		
+	}
+	
 	public ComputerDTO(String id, String name, String introduced, String discontinued, String companyId,
 			String companyName) {
 		this.id = id;
@@ -67,7 +81,7 @@ public class ComputerDTO {
 				name,
 				DateMapper.convertStringToLocalDate(introduced),
 				DateMapper.convertStringToLocalDate(discontinued),
-				DateMapper.convertStringToLong(companyId));
+				new Company(DateMapper.convertStringToLong(companyId), companyName));
 	}
 
 	public String getId() {

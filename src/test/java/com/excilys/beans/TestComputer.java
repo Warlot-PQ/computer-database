@@ -1,5 +1,6 @@
 package com.excilys.beans;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -7,10 +8,12 @@ import static org.junit.Assert.assertNull;
 import java.sql.Timestamp;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.excilys.bean.Computer;
+import com.excilys.entity.Company;
+import com.excilys.entity.Computer;
 
 public class TestComputer {
 	private Computer computer;
@@ -36,14 +39,13 @@ public class TestComputer {
 	public void testNotEmpty1() {
 		String name = "test1";
 		Timestamp timestamp1 = new Timestamp(14545454);
-		Long companyId = 4L;
 
-		computer = new Computer(name, timestamp1.toLocalDateTime().toLocalDate(), null, companyId);
+		computer = new Computer(name, timestamp1.toLocalDateTime().toLocalDate(), null, new Company(4L, "Netronics"));
 		assertNotNull(computer);
 		assertEquals(name, computer.getName());
 		assertEquals(timestamp1.toLocalDateTime().toLocalDate(), computer.getIntroduced());
 		assertNull(computer.getDiscontinued());
-		assertEquals(companyId, computer.getCompanyId());
+		Assert.assertThat(new Company(4L, "Netronics"), is(computer.getCompany()));
 	}
 
 	@Test
@@ -51,14 +53,13 @@ public class TestComputer {
 		Long id = 3L;
 		String name = "test1";
 		Timestamp timestamp1 = new Timestamp(14545454);
-		Long companyId = 4L;
 
-		computer = new Computer(id, name, null, timestamp1.toLocalDateTime().toLocalDate(), companyId);
+		computer = new Computer(id, name, null, timestamp1.toLocalDateTime().toLocalDate(), new Company(4L, "Netronics"));
 		assertNotNull(computer);
 		assertEquals(id, computer.getId());
 		assertEquals(name, computer.getName());
 		assertNull(computer.getIntroduced());
 		assertEquals(timestamp1.toLocalDateTime().toLocalDate(), computer.getDiscontinued());
-		assertEquals(companyId, computer.getCompanyId());
+		Assert.assertThat(new Company(4L, "Netronics"), is(computer.getCompany()));
 	}
 }

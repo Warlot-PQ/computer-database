@@ -1,6 +1,15 @@
-package com.excilys.bean;
+package com.excilys.entity;
 
 import java.time.LocalDate;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
  * Computer entity DB representation
@@ -8,15 +17,24 @@ import java.time.LocalDate;
  * @author pqwarlot
  *
  */
+@Entity
+@Table(name="computer")
 public class Computer {
 	// Optional
+	@Id
+	@GeneratedValue
 	private Long id;
 	// Mandatory
+	@Column(name="name")
 	private String name;
+	@Column(name="introduced")
 	private LocalDate introduced;
+	@Column(name="discontinued")
 	private LocalDate discontinued;
-	private Long companyId;
-
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="company_id")
+	private Company company;
+	
 	/**
 	 * Construct an empty computer object
 	 */
@@ -36,8 +54,8 @@ public class Computer {
 	 * @param company_id
 	 *            computer company id
 	 */
-	public Computer(String name, LocalDate introduced, LocalDate discontinued, Long company_id) {
-		this(null, name, introduced, discontinued, company_id);
+	public Computer(String name, LocalDate introduced, LocalDate discontinued, Company company) {
+		this(null, name, introduced, discontinued, company);
 	}
 
 	/**
@@ -54,19 +72,19 @@ public class Computer {
 	 * @param company_id
 	 *            computer company id
 	 */
-	public Computer(Long id, String name, LocalDate introduced, LocalDate discontinued, Long company_id) {
+	public Computer(Long id, String name, LocalDate introduced, LocalDate discontinued, Company company) {
 		this.id = id;
 		this.name = name;
 		this.introduced = introduced;
 		this.discontinued = discontinued;
-		this.companyId = company_id;
+		this.company = company;
 	}
-
+	
 	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -104,28 +122,48 @@ public class Computer {
 		this.discontinued = discontinued;
 	}
 
-	public Long getCompanyId() {
-		return this.companyId;
+	public Company getCompany() {
+		return company;
 	}
 
-	public void setCompanyId(Long companyId) {
-		this.companyId = companyId;
+	public void setCompany(Company company) {
+		this.company = company;
+	}
+	
+	public long getCompanyId() {
+		if (getCompany() == null) {
+			setCompany(new Company());
+		}
+		return getCompany().getId();
+	}
+	
+
+	public void setCompanyId(long id) {
+		if (getCompany() == null) {
+			setCompany(new Company());
+		}
+		getCompany().setId(id);
+	}
+	
+	public String getCompanyName() {
+		if (getCompany() == null) {
+			setCompany(new Company());
+		}
+		return getCompany().getName();
 	}
 
-	@Override
-	public String toString() {
-		String s = String.format("id: %d " + "name: %s " + "introduced: %s " + "discontinued: %s " + "company id: %d ",
-				getId(), getName(), (getIntroduced() == null) ? getIntroduced() : getIntroduced().toString(),
-				(getDiscontinued() == null) ? getDiscontinued() : getDiscontinued().toString(), getCompanyId());
-
-		return s;
+	public void setCompanyName(String name) {
+		if (getCompany() == null) {
+			setCompany(new Company());
+		}
+		getCompany().setName(name);
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((companyId == null) ? 0 : companyId.hashCode());
+		result = prime * result + ((company == null) ? 0 : company.hashCode());
 		result = prime * result + ((discontinued == null) ? 0 : discontinued.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((introduced == null) ? 0 : introduced.hashCode());
@@ -135,51 +173,46 @@ public class Computer {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj) {
+		if (this == obj)
 			return true;
-		}
-		if (obj == null) {
+		if (obj == null)
 			return false;
-		}
-		if (getClass() != obj.getClass()) {
+		if (getClass() != obj.getClass())
 			return false;
-		}
 		Computer other = (Computer) obj;
-		if (companyId == null) {
-			if (other.companyId != null) {
+		if (company == null) {
+			if (other.company != null)
 				return false;
-			}
-		} else if (!companyId.equals(other.companyId)) {
+		} else if (!company.equals(other.company))
 			return false;
-		}
 		if (discontinued == null) {
-			if (other.discontinued != null) {
+			if (other.discontinued != null)
 				return false;
-			}
-		} else if (!discontinued.equals(other.discontinued)) {
+		} else if (!discontinued.equals(other.discontinued))
 			return false;
-		}
 		if (id == null) {
-			if (other.id != null) {
+			if (other.id != null)
 				return false;
-			}
-		} else if (!id.equals(other.id)) {
+		} else if (!id.equals(other.id))
 			return false;
-		}
 		if (introduced == null) {
-			if (other.introduced != null) {
+			if (other.introduced != null)
 				return false;
-			}
-		} else if (!introduced.equals(other.introduced)) {
+		} else if (!introduced.equals(other.introduced))
 			return false;
-		}
 		if (name == null) {
-			if (other.name != null) {
+			if (other.name != null)
 				return false;
-			}
-		} else if (!name.equals(other.name)) {
+		} else if (!name.equals(other.name))
 			return false;
-		}
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Computer [id=" + id + ", name=" + name + ", introduced=" + introduced + ", discontinued=" + discontinued
+				+ ", company=" + company + "]";
+	}
+	
+	
 }

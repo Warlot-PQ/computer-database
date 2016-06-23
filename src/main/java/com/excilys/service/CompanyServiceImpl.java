@@ -8,13 +8,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.excilys.bean.CompanyDTO;
+import com.excilys.DTO.CompanyDTO;
 import com.excilys.cache.Cache;
-import com.excilys.exception.ConnectionException;
-import com.excilys.exception.DriverException;
-import com.excilys.service.interfaces.CompanyDAO;
+import com.excilys.repository.interfaces.CompanyDAO;
+import com.excilys.repository.interfaces.ComputerDAO;
 import com.excilys.service.interfaces.CompanyService;
-import com.excilys.service.interfaces.ComputerDAO;
 
 /**
  * Service to manipulate Computer table.  Use cache data if possible.
@@ -37,13 +35,15 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 	
 	@Override
+	@Transactional(readOnly = true, propagation=Propagation.REQUIRES_NEW)
 	public int count() {
 		return companyDAO.getRowNumber();
 	}
 
 	@Override
 	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRES_NEW)
-	public void delete(Long id) {			
+	public void delete(Long id) {	
+		if (id == null) return;		
 		computerDAO.deleteByCompany(id);	
 		companyDAO.delete(id);
 		
@@ -59,7 +59,9 @@ public class CompanyServiceImpl implements CompanyService {
 	 * @throws DAOException
 	 */
 	@Override
+	@Transactional(readOnly = true, propagation=Propagation.REQUIRES_NEW)
 	public CompanyDTO get(Long id) {
+		if (id == null) return null;
 		return companyDAO.findById(id);
 	}
 
@@ -72,6 +74,7 @@ public class CompanyServiceImpl implements CompanyService {
 	 * @throws DAOException
 	 */
 	@Override
+	@Transactional(readOnly = true, propagation=Propagation.REQUIRES_NEW)
 	public List<CompanyDTO> getAll() {
 		List<CompanyDTO> companies = null;
 		

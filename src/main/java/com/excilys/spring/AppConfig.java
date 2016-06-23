@@ -1,7 +1,9 @@
 package com.excilys.spring;
 
 import java.util.Locale;
+import java.util.Properties;
 
+import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.slf4j.Logger;
@@ -13,11 +15,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.JpaVendorAdapter;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.transaction.annotation.TransactionManagementConfigurer;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -46,8 +49,8 @@ import com.zaxxer.hikari.HikariDataSource;
  */
 @EnableWebMvc // Replace <mvc:annotation-driven/> in servlet-config.xml
 @EnableTransactionManagement // Enable annotation-driven transaction management capability
-@ComponentScan(basePackages = { "com.excilys.cache", "com.excilys.cli", "com.excilys.db", "com.excilys.service", "com.excilys.servlet"})
-public class AppConfig extends WebMvcConfigurerAdapter implements TransactionManagementConfigurer {
+@ComponentScan(basePackages = { "com.excilys.cache", "com.excilys.cli", "com.excilys.service", "com.excilys.repository", "com.excilys.controller"}) // Transparently activate PersistenceAnnotationBeanPostProcessor
+public class AppConfig extends WebMvcConfigurerAdapter {
 	private static final Logger LOGGER = LoggerFactory.getLogger(AppConfig.class);
 
 	@Bean
@@ -62,12 +65,6 @@ public class AppConfig extends WebMvcConfigurerAdapter implements TransactionMan
 				new ComputerListOneCommand(), new ComputerCreateCommand(), 
 				new ComputerUpdateCommand(), new ComputerDeleteCommand(),
 				new ExitCommand());
-	}
-	
-	@Bean
-	@Scope("singleton")
-	public JdbcTemplate getJdbcTemplate() {
-		return new JdbcTemplate(getDataSource());
 	}
 	
 	@Bean
@@ -89,28 +86,9 @@ public class AppConfig extends WebMvcConfigurerAdapter implements TransactionMan
 		return hikariDS;
     }
 
-	@Bean
-    public PlatformTransactionManager txManager() {
-        return new DataSourceTransactionManager(getDataSource());
-    }
-
-	/**
-	 * Get the Spring bean handling transaction, 
-	 * allow custom method naming for the bean definition method returning a 
-	 * PlatformTransactionManager
-	 */
-    @Override
-    public PlatformTransactionManager annotationDrivenTransactionManager() {
-        return txManager();
-    }
-    
-    @Bean(name = "messageSource")
-    public ReloadableResourceBundleMessageSource getMessageSource() {
-        ReloadableResourceBundleMessageSource resource = new ReloadableResourceBundleMessageSource();
-        resource.setBasename("WEB-INF/classes/messages/messages");
-        resource.setDefaultEncoding("utf-8");
-        return resource;
-    }
+    /*
+     * Spring MVC
+     */
 	
 	/**
 	 * View Resolver for JSPs.
@@ -145,8 +123,18 @@ public class AppConfig extends WebMvcConfigurerAdapter implements TransactionMan
         registry.addResourceHandler("/js/**").addResourceLocations("/js/");
     }
 	
-	/** i18n */
-	
+	/*
+	 * i18n
+	 */
+
+    @Bean(name = "messageSource")
+    public ReloadableResourceBundleMessageSource getMessageSource() {
+        ReloadableResourceBundleMessageSource resource = new ReloadableResourceBundleMessageSource();
+        resource.setBasename("WEB-INF/classes/messages/messages");
+        resource.setDefaultEncoding("utf-8");
+        return resource;
+    }
+    
 	/**
 	 * Set default language as english. 
 	 * SessionLocaleResolver object to keep language in memory without passing it to each URL.
@@ -174,4 +162,42 @@ public class AppConfig extends WebMvcConfigurerAdapter implements TransactionMan
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(localeChangeInterceptor());
     }
+	
+	/*
+	 * JPA & Hibernate
+	 */
+	
+	/**
+	 * Start JPA and Hibernate
+	 * @return
+	 */
+	@Bean
+	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+	LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
+		em.setDataSource(getDataSource());
+		em.setPackagesToScan(new String[] { "com.excilys.entity" }); // Replace the persistence.xml file, look for @Entity classes
+ 
+		JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+    	em.setJpaVendorAdapter(vendorAdapter);
+    	em.setJpaProperties(additionalProperties());    	
+    	return em;
+	}
+	
+	Properties additionalProperties() {
+	  Properties properties = new Properties();
+	  // Begin debug properties
+	  properties.setProperty("showSql", "true");
+	  properties.setProperty("hibernate.format_sql", "true");
+	  // End debug properties
+	  properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5InnoDBDialect");
+	  properties.setProperty("hibernate.hbm2ddl.auto", "validate"); // DataBase option (create a new one each time, validate field, none, ...)
+	  return properties;
+	}
+	
+	@Bean
+	public PlatformTransactionManager transactionManager(EntityManagerFactory emf){
+		JpaTransactionManager transactionManager = new JpaTransactionManager();
+		transactionManager.setEntityManagerFactory(emf);
+		return transactionManager;
+	}
 }

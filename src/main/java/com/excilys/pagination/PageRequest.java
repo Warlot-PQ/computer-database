@@ -1,4 +1,4 @@
-package com.excilys.Pagination;
+package com.excilys.pagination;
 
 /**
  * Represent all informations needed to create a DB QUERY to fetch data. Set only necessery field.
@@ -6,8 +6,8 @@ package com.excilys.Pagination;
  *
  */
 public class PageRequest {
-	private Integer page;
-	private Integer eltByPage;
+	private Integer page = 1;
+	private Integer eltByPage = 20;
 	private Long computerId;
 	private String computerSearchedName;
 	private String orderBy;
@@ -31,8 +31,8 @@ public class PageRequest {
 	}
 	
 	public static class Builder {
-		private Integer page;
-		private Integer eltByPage;
+		private Integer page = 1;
+		private Integer eltByPage = 20;
 		private Long computerId;
 		private String computerName;
 		private String orderBy;
@@ -75,6 +75,10 @@ public class PageRequest {
 		public PageRequest build(){
 			return new PageRequest(this);
 		}
+	}
+	
+	public int getFirstIndexElt() {
+		return (getPage() - 1) * getEltByPage();
 	}
 
 	public Integer getPage() {

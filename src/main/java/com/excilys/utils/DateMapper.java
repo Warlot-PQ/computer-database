@@ -1,4 +1,4 @@
-package com.excilys.bean.mapper;
+package com.excilys.utils;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -56,5 +56,16 @@ public class DateMapper {
 		}
 
 		return localDate;
+	}
+	
+	public static String convertLocalDateToString(LocalDate locDate) {
+		if (locDate == null) {
+			return "";
+		}
+		return dateEnToFr(locDate.toString());	
+	}
+	
+	public static String dateEnToFr(String date) {
+		return date.substring(8) + "/" + date.substring(5, 7) + "/" + date.substring(0, 4);
 	}
 }

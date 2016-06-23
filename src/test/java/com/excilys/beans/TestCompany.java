@@ -6,7 +6,7 @@ import static org.junit.Assert.assertNull;
 import org.junit.After;
 import org.junit.Test;
 
-import com.excilys.bean.Company;
+import com.excilys.entity.Company;
 
 public class TestCompany {
 	private Company company = null;
