@@ -13,6 +13,7 @@ import com.excilys.DTO.CompanyDTO;
 import com.excilys.entity.Company;
 import com.excilys.entity.QCompany;
 import com.excilys.repository.interfaces.CompanyDAO;
+import com.excilys.utils.CompanyMapper;
 import com.mysema.query.SearchResults;
 import com.mysema.query.jpa.impl.JPAQuery;
 
@@ -40,7 +41,7 @@ public class CompanyDAOImpl implements CompanyDAO {
 		List<CompanyDTO> companiesDTO = new ArrayList<>();
 		
 		for (Company company: companies.getResults()) {
-			companiesDTO.add(company.toDTO());
+			companiesDTO.add( CompanyMapper.toDTO(company) );
 		}
 		return companiesDTO;
 	}
@@ -62,7 +63,7 @@ public class CompanyDAOImpl implements CompanyDAO {
 		JPAQuery query = new JPAQuery(em);
 		Company company = query.from(qcompany).where(qcompany.id.eq(id)).uniqueResult(qcompany);
 		
-		return (company == null) ? null : company.toDTO();
+		return (company == null) ? null : CompanyMapper.toDTO(company);
 	}	
 
 	@Override

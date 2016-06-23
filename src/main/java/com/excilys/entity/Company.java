@@ -6,8 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.excilys.DTO.CompanyDTO;
-
 /**
  * Company entity DB representation
  * 
@@ -51,12 +49,6 @@ public class Company {
 	 */
 	public Company(String name) {
 		this(null, name);
-	}
-
-	public CompanyDTO toDTO(){
-		return new CompanyDTO(
-				(id == null) ? "" : id.toString(),
-				name);
 	}
 	
 	@Override
