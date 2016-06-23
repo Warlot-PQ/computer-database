@@ -6,7 +6,6 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import com.excilys.entity.Company;
-import com.excilys.entity.Computer;
 import com.excilys.utils.DateMapper;
 
 /**
@@ -63,27 +62,6 @@ public class ComputerDTO {
 		this.companyName = companyName;
 	}
 	
-	/**
-	 * Copy all fiels into the given ComputerDTO object
-	 * @param c ComputerDTO object to fill. Must be already instantiated.
-	 */
-	public void fill(ComputerDTO c) {
-		c.setId(getId());
-		c.setName(getName());
-		c.setIntroduced(getIntroduced());
-		c.setDiscontinued(getDiscontinued());
-		c.setCompanyId(getCompanyId());
-	}
-	
-	public Computer toEntity(){
-		return new Computer(
-				DateMapper.convertStringToLong(id),
-				name,
-				DateMapper.convertStringToLocalDate(introduced),
-				DateMapper.convertStringToLocalDate(discontinued),
-				new Company(DateMapper.convertStringToLong(companyId), companyName));
-	}
-
 	public String getId() {
 		return id;
 	}

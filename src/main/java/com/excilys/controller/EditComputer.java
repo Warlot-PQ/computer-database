@@ -21,6 +21,7 @@ import com.excilys.DTO.ComputerDTO;
 import com.excilys.service.interfaces.CompanyService;
 import com.excilys.service.interfaces.ComputerService;
 import com.excilys.service.interfaces.ComputerService.ErrorMessage;
+import com.excilys.utils.ComputerMapper;
 
 /**
  * Servlet implementation class EditComputer
@@ -80,7 +81,7 @@ public class EditComputer {
 	
 	private void updateComputer(ComputerDTO computerToUpdate, BindingResult result, Model model) {		
 		// Business verification only
-		if (computerService.update(computerToUpdate.toEntity()) == ErrorMessage.NONE) {
+		if (computerService.update( ComputerMapper.toEntity(computerToUpdate) ) == ErrorMessage.NONE) {
 			model.addAttribute("updateStatus", messageSource.getMessage("computer.update.success", null, LocaleContextHolder.getLocale()));
 		} else {
 			result.rejectValue("introduce", "user.error", messageSource.getMessage("computer.date.error", null, LocaleContextHolder.getLocale()));

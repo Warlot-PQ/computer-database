@@ -17,6 +17,7 @@ import com.excilys.DTO.ComputerDTO;
 import com.excilys.service.interfaces.CompanyService;
 import com.excilys.service.interfaces.ComputerService;
 import com.excilys.service.interfaces.ComputerService.ErrorMessage;
+import com.excilys.utils.ComputerMapper;
 
 /**
  * Servlet implementation class AddComputer
@@ -41,7 +42,7 @@ public class AddComputer extends HttpServlet {
 	@RequestMapping(method = RequestMethod.POST)
 	protected String doPost(@Valid @ModelAttribute("computerDTO") ComputerDTO computerTosave, BindingResult result, Model model) {
 		if (result.hasErrors() == false) {
-			if (computerService.create(computerTosave.toEntity()) == ErrorMessage.NONE) {
+			if (computerService.create(ComputerMapper.toEntity(computerTosave)) == ErrorMessage.NONE) {
 				model.addAttribute("saveStatus", messageSource.getMessage("computer.save.success", null, LocaleContextHolder.getLocale()));
 			} else {
 				result.rejectValue("introduced", "user.error", messageSource.getMessage("computer.date.error", null, LocaleContextHolder.getLocale()));
