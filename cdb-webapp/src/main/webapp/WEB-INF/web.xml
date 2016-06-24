@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:jsp="http://java.sun.com/xml/ns/javaee/jsp" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
+  <display-name>computer-database</display-name>
+  <error-page>
+    <error-code>404</error-code>
+    <location>/WEB-INF/views/404.jsp</location>
+  </error-page>
+  <error-page>
+    <error-code>403</error-code>
+    <location>/WEB-INF/views/403.jsp</location>
+  </error-page>
+  <error-page>
+    <error-code>500</error-code>
+    <location>/WEB-INF/views/500.jsp</location>
+  </error-page>
+  
+  <context-param>
+      <param-name>contextClass</param-name>
+      <param-value>
+          org.springframework.web.context.support.AnnotationConfigWebApplicationContext
+      </param-value>
+  </context-param>
+ 
+  <!-- Configuration locations must consist of one or more comma- or space-delimited
+       fully-qualified @Configuration classes. Fully-qualified packages may also be
+       specified for component-scanning -->
+
+  <context-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>com.excilys.webapp.config.WebappConfig</param-value>
+  </context-param>
+  
+   <!-- Bootstrap the root application context as usual using ContextLoaderListener
+   		Add Spring in the web context (e.g. enable Spring use in Tomcat servlet) -->
+  
+  <listener>
+      <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>  
+   
+  <!-- Spring MVC redirect all incoming request to controllers defined in the contextConfigLocation -->
+    
+	<servlet>
+	    <servlet-name>trackerServlet</servlet-name>
+	    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+	    <!-- Redirect Web request in Spring MVC dispatcher -->
+	    <init-param>
+	        <param-name>contextClass</param-name>
+	        <param-value>
+	            org.springframework.web.context.support.AnnotationConfigWebApplicationContext
+	        </param-value>
+	    </init-param>
+	    <!-- Allow Spring MVC Controllers to use Spring context -->
+	    <init-param>
+	        <param-name>contextConfigLocation</param-name>
+	        <param-value>com.excilys.webapp.config.WebappConfig</param-value>
+	    </init-param>
+	</servlet>
+	 
+	<servlet-mapping>
+	    <servlet-name>trackerServlet</servlet-name>
+	    <url-pattern>/</url-pattern>
+	</servlet-mapping>
+   
+</web-app>

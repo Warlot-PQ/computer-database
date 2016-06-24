@@ -1,0 +1,8 @@
+/home/pqwarlot/workspace/computer-database/cdb-core/src/main/java/com/excilys/core/entity/Computer.java
+/home/pqwarlot/workspace/computer-database/cdb-core/src/main/java/com/excilys/core/date/DateMapper.java
+/home/pqwarlot/workspace/computer-database/cdb-core/src/main/java/com/excilys/core/entity/LocalDateAttributeConverter.java
+/home/pqwarlot/workspace/computer-database/cdb-core/target/generated-sources/querydsl/com/excilys/core/entity/QCompany.java
+/home/pqwarlot/workspace/computer-database/cdb-core/src/main/java/com/excilys/core/dto/ComputerDTO.java
+/home/pqwarlot/workspace/computer-database/cdb-core/src/main/java/com/excilys/core/entity/Company.java
+/home/pqwarlot/workspace/computer-database/cdb-core/src/main/java/com/excilys/core/dto/CompanyDTO.java
+/home/pqwarlot/workspace/computer-database/cdb-core/target/generated-sources/querydsl/com/excilys/core/entity/QComputer.java

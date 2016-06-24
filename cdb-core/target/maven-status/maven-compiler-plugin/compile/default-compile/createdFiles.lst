@@ -1,0 +1,8 @@
+com/excilys/core/date/DateMapper.class
+com/excilys/core/entity/LocalDateAttributeConverter.class
+com/excilys/core/entity/Computer.class
+com/excilys/core/dto/CompanyDTO.class
+com/excilys/core/entity/Company.class
+com/excilys/core/entity/QCompany.class
+com/excilys/core/entity/QComputer.class
+com/excilys/core/dto/ComputerDTO.class

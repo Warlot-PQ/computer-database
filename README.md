@@ -4,6 +4,18 @@
 
 https://github.com/loicortola/spec-cdb
 
+## Multi modules
+
+### Eclipse
+
+For each module, create a maven project in Eclipse. Launch a Tomcat server with cdb-webapp project.
+
+### Maven command line
+
+To configure a Tomcat server in a maven multi-modules properly, create /home/.m2/setting.xml and /home/apache-tomcat-8.0.33/conf/tomcat-users.xml. Files are in "project resources/multi-modules". And configure the CATALINA_HOME env variable, ex: export CATALINA_HOME=/home/pqwarlot/apache-tomcat-8.0.33.
+
+To launch the project, first launch the Tomcat with ./catalina.sh and deploy the project into the server with mvn tomcat7:redeplay. Or run mvn tomcat7:run-war to do both with one command.
+
 ## QueryDSL
 
 At compile-time, Qclasses are generated in target/generated-sources/queryDSL. Copy these files in com.excilys.entity package to make repository classes working.

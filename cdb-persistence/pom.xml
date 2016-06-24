@@ -1,0 +1,208 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<artifactId>computer-database</artifactId>
+        <groupId>com.excilys</groupId>
+        <version>8.0</version>
+	</parent>
+
+    <artifactId>cdb-persistence</artifactId>
+    <packaging>jar</packaging>
+
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+        		<filtering>true</filtering>
+			</resource>
+		</resources>
+		<testResources>
+            <testResource>
+                <directory>$src/test/resources</directory>
+                <filtering>true</filtering>
+            </testResource>
+        </testResources>
+        
+		<plugins>	
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+			</plugin>		
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+			</plugin>
+
+			<!-- Querydsl, generate Qclasses in target/generated-sources/querydsl -->
+			
+			<plugin>
+	            <groupId>com.mysema.maven</groupId>
+	            <artifactId>maven-apt-plugin</artifactId>
+	            <version>1.0.4</version>
+	            <executions>
+	                <execution>
+	                    <id>process-common-model</id>
+	                    <goals>
+	                        <goal>process</goal>
+	                    </goals>
+	                    <phase>generate-sources</phase>
+	                </execution>
+	            </executions>
+	            <configuration>
+	                <outputDirectory>target/generated-sources/querydsl</outputDirectory>
+	                <processors>
+	                    <processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor>
+	                </processors>
+	                <options>
+	                    <querydsl.entityAccessors>true</querydsl.entityAccessors>
+	                    <querydsl.createDefaultVariable>true</querydsl.createDefaultVariable>
+	                </options>
+	            </configuration>
+	        </plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.excilys</groupId>
+			<artifactId>cdb-binding</artifactId>
+		</dependency>
+		
+		<!-- SLF4j interface -->
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+		</dependency>
+		
+		<!-- LogBack implementation -->
+
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-core</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-access</artifactId>
+		</dependency>
+
+		<!-- MySql 5.X Connector -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+
+		<!-- Connection pool -->
+
+		<dependency>
+		    <groupId>com.zaxxer</groupId>
+		    <artifactId>HikariCP</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-expression</artifactId>
+		</dependency>
+		
+		<!-- jdbc transaction manager and Transactional annotation -->
+	
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+		</dependency>
+		
+		<!-- scope annotation -->
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+		</dependency>
+		
+		<!-- Interface to configure JPA within Spring -->
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+		</dependency>
+		
+		<!-- Unit Test with Spring (e.g. @ContextConfiguration) -->
+		
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-test</artifactId>
+		</dependency>
+		
+		<!-- JPA persistence provider implementation -->
+		
+		<dependency>
+		    <groupId>org.hibernate</groupId>
+		    <artifactId>hibernate-entitymanager</artifactId>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.eclipse.persistence</groupId>
+		    <artifactId>javax.persistence</artifactId>
+		</dependency>	
+		
+		<!-- JRS-303 bean validation -->
+				
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+		</dependency>	
+		
+		<!-- QuerySQL -->
+		
+		<dependency>
+		  <groupId>com.mysema.querydsl</groupId>
+		  <artifactId>querydsl-apt</artifactId>
+		  <scope>provided</scope>
+		</dependency>        
+		    
+		<dependency>
+		  <groupId>com.mysema.querydsl</groupId>
+		  <artifactId>querydsl-jpa</artifactId>
+		</dependency>
+		
+		<!-- Fix a bug using Junit and JPA -->
+		
+		<dependency>
+		    <groupId>xml-apis</groupId>
+		    <artifactId>xml-apis</artifactId>
+		</dependency>
+		
+	</dependencies>
+</project>
