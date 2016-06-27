@@ -9,11 +9,13 @@ import javax.persistence.PersistenceContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
+
 import com.excilys.binding.CompanyMapper;
 import com.excilys.core.dto.CompanyDTO;
 import com.excilys.core.entity.Company;
 import com.excilys.core.entity.QCompany;
 import com.excilys.persistence.repository.interfaces.CompanyDAO;
+
 import com.mysema.query.SearchResults;
 import com.mysema.query.jpa.impl.JPAQuery;
 
