@@ -5,11 +5,11 @@ import java.time.LocalDate;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-import com.excilys.core.entity.Company;
 import com.excilys.core.date.DateMapper;
+import com.excilys.core.entity.Company;
 
 /**
- * Representation of a Company object whitch is given to the front.
+ * Representation of a Company object which is given to the front.
  * @author pqwarlot
  *
  */

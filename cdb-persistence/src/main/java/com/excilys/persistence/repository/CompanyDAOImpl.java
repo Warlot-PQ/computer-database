@@ -9,13 +9,11 @@ import javax.persistence.PersistenceContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
-
 import com.excilys.binding.CompanyMapper;
 import com.excilys.core.dto.CompanyDTO;
 import com.excilys.core.entity.Company;
 import com.excilys.core.entity.QCompany;
 import com.excilys.persistence.repository.interfaces.CompanyDAO;
-
 import com.mysema.query.SearchResults;
 import com.mysema.query.jpa.impl.JPAQuery;
 
@@ -60,7 +58,6 @@ public class CompanyDAOImpl implements CompanyDAO {
 	
 	@Override
 	public CompanyDTO findById(Long id) {
-		//TODO for now, QCompany is generated at compile-time and need to be copying manually
 		QCompany qcompany = QCompany.company;
 		JPAQuery query = new JPAQuery(em);
 		Company company = query.from(qcompany).where(qcompany.id.eq(id)).uniqueResult(qcompany);
@@ -71,7 +68,6 @@ public class CompanyDAOImpl implements CompanyDAO {
 	@Override
 	public void delete(Long id) {
 		em.remove(em.find(Company.class, id));
-		throw new RuntimeException();
 	}
 
 	@Override

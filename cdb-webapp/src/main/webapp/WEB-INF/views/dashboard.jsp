@@ -26,10 +26,6 @@
 <c:set var="currentOrderBy" value="${requestModel.orderBy}" />
 <c:set var="currentOrderAlphaNumerical" value="${requestModel.orderAlphaNum}" />
 <c:set var="nameSearched" value="${requestModel.search}" />
-<%-- 
-<logout logout-success-url="/" logout-url="/logout" />
-<c:url value="/logout" var="logoutUrl" /> 
---%>
 
 <!DOCTYPE html>
 <html>
@@ -50,14 +46,14 @@
 		<div class="container">
 			<a class="navbar-brand" href="Dashboard"> Application -
 				Computer Database </a>
-			<div class="navbar-brand navbar-right">
+			<div class="navbar-brand pull-right">
 				<form:form name="logoutForm" action="${pageContext.request.contextPath}/logout" method="POST">
    					 <span onclick="document.logoutForm.submit()">Logout</span>
 				</form:form>
 			</div>
 		</div>
 	</header>
-
+	
 	 <div id="errorMsg" class="alert alert-warning text-center" style="${not empty deleteStatus ? 'display: block;' : 'display: none;'}">
 		<p>
 			${deleteStatus}
@@ -77,10 +73,13 @@
 							class="btn btn-primary" />
 					</form>
 				</div>
+				<security:authorize access="hasRole('ROLE_ADMIN')">
 				<div class="pull-right">
-					<a class="btn btn-success" id="addComputer" href="AddComputer">${i18nButtonAdd}</a> <a class="btn btn-default" id="editComputer" href="#"
+					<a class="btn btn-success" id="addComputer" href="AddComputer">${i18nButtonAdd}</a>
+					<a class="btn btn-default" id="editComputer" href="#"
 						onclick="$.fn.toggleEditMode();">${i18nButtonEdit}</a>
 				</div>
+				</security:authorize>
 			</div>
 		</div>
 

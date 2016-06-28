@@ -1,7 +1,7 @@
 package com.excilys.core.dto;
 
 /**
- * Representation of a Company object whitch is given to the front.
+ * Representation of a Company object which is given to the front.
  * 
  * @author pqwarlot
  *
