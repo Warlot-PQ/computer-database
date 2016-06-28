@@ -2,7 +2,6 @@ package com.excilys.selenium;
 
 import static org.junit.Assert.fail;
 
-import java.util.NoSuchElementException;
 import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
 
@@ -12,10 +11,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
-import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -31,11 +28,10 @@ public class AddComputerSeleniumTest {
 	private WebDriver driver;
 	private static DesiredCapabilities capabilities;
 	private String baseUrl;
-	private boolean acceptNextAlert = true;
 	private StringBuffer verificationErrors = new StringBuffer();
 	private ResourceBundle properties = ResourceBundle.getBundle("selenium");
-//	private static final String BROWSER = "CHROME";
-	private static final String BROWSER = "PHANTOMJS";
+	private static final String BROWSER = "CHROME";
+//	private static final String BROWSER = "PHANTOMJS";
 	
 	@BeforeClass
 	public static void configure() {
@@ -75,7 +71,7 @@ public class AddComputerSeleniumTest {
 	 * @throws Exception
 	 */
 	@Test
-	@Ignore("Not working on docker container")
+	@Ignore
 	public void testAddGoodComputer() throws Exception {
 		driver.get(baseUrl + "/computer-database/Dashboard");
 		
@@ -91,7 +87,7 @@ public class AddComputerSeleniumTest {
 		driver.findElement(By.cssSelector("input.btn.btn-primary")).click();
 		
 		WebElement errorDivElt = driver.findElement(By.cssSelector(".alert"));
-		Assert.assertEquals("Success computer added to the DB", errorDivElt.getText());
+		Assert.assertEquals("Computer saved successfully", errorDivElt.getText());
 		
 		driver.findElement(By.linkText("Application - Computer Database")).click();
 	}
@@ -101,7 +97,7 @@ public class AddComputerSeleniumTest {
 	 * @throws Exception
 	 */
 	@Test
-	@Ignore("Not working on docker container")
+	@Ignore
 	public void testAddWrongComputer() throws Exception {
 		driver.get(baseUrl + "/computer-database/Dashboard");
 
@@ -127,7 +123,7 @@ public class AddComputerSeleniumTest {
 	 * @throws Exception
 	 */
 	@Test
-	@Ignore("Not working on docker container")
+	@Ignore
 	public void testEditGoodComputer() throws Exception {
 	    driver.get(baseUrl + "/computer-database/Dashboard");
 
@@ -142,7 +138,7 @@ public class AddComputerSeleniumTest {
 		new Select(driver.findElement(By.cssSelector("body section div div form select"))).selectByVisibleText("Thinking Machines");
 		driver.findElement(By.cssSelector("input.btn.btn-primary")).click();
 		WebElement errorDivElt = driver.findElement(By.id("errorMsg"));
-		Assert.assertEquals("Success computer updated to the DB", errorDivElt.getText());
+		Assert.assertEquals("Computer saved successfully", errorDivElt.getText());
 
 		driver.findElement(By.linkText("Application - Computer Database")).click();
 	}
@@ -152,7 +148,7 @@ public class AddComputerSeleniumTest {
 	 * @throws Exception
 	 */
 	@Test
-	@Ignore("Not working on docker container")
+	@Ignore
 	public void testEditWrongComputer() throws Exception {
 	    driver.get(baseUrl + "/computer-database/Dashboard");
 
@@ -179,39 +175,6 @@ public class AddComputerSeleniumTest {
 		String verificationErrorString = verificationErrors.toString();
 		if (!"".equals(verificationErrorString)) {
 			fail(verificationErrorString);
-		}
-	}
-
-	private boolean isElementPresent(By by) {
-		try {
-			driver.findElement(by);
-			return true;
-		} catch (NoSuchElementException e) {
-			return false;
-		}
-	}
-
-	private boolean isAlertPresent() {
-		try {
-			driver.switchTo().alert();
-			return true;
-		} catch (NoAlertPresentException e) {
-			return false;
-		}
-	}
-
-	private String closeAlertAndGetItsText() {
-		try {
-			Alert alert = driver.switchTo().alert();
-			String alertText = alert.getText();
-			if (acceptNextAlert) {
-				alert.accept();
-			} else {
-				alert.dismiss();
-			}
-			return alertText;
-		} finally {
-			acceptNextAlert = true;
 		}
 	}
 }

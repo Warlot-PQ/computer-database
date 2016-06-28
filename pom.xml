@@ -42,7 +42,7 @@
 		<HikariCP.version>2.4.5</HikariCP.version>
 		<mockito-all.version>1.9.5</mockito-all.version>		
 		<spring.version>4.3.0.RELEASE</spring.version>
-		<tomcat.directory>"/project resources/apache-tomcat-8.0.33"</tomcat.directory>
+		<tomcat.directory>../project resources/apache-tomcat-8.0.33</tomcat.directory>
 		<jta.version>1.1</jta.version>
 		<javax.persistence>2.1.1</javax.persistence>
 		<hibernate-validator.version>4.2.0.Final</hibernate-validator.version>
@@ -111,7 +111,7 @@
 				</plugin>   
 	
 				<!-- start Tomcat server at pre-integration-test, stop it at post-integration-test -->
-	<!--  
+	
 				<plugin>
 					<groupId>org.codehaus.cargo</groupId>
 					<artifactId>cargo-maven2-plugin</artifactId>
@@ -142,9 +142,9 @@
 						</execution>
 					</executions>
 				</plugin>
-	-->
+	
 				<!-- start Selenium server at pre-integration-test, stop it at post-integration-test -->
-	<!--  
+	
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>selenium-maven-plugin</artifactId>
@@ -170,10 +170,10 @@
 						</execution>
 					</executions>
 				</plugin>
-	-->
+	
 				<!-- Run unit tests during test phase but exclude the Selenium test classes -->
 				<!-- Run the Selenium test classes during the integration-test phase -->
-	<!--  
+	 
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
@@ -183,19 +183,19 @@
 							org.junit:com.springsource.org.junit
 						</junitartifactname>
 						<excludes>
-	-->
+
 							<!-- excluding the test class in the functional tests package during 
 								the test phase -->
-	<!-- 
+	
 							<exclude>**/selenium/*Test.java</exclude>
 						</excludes>
 					</configuration>
 					<executions>
 						<execution>
-	-->
+
 							<!-- Running the tests in the functional tests package during the integration 
 								tests phase. -->
-	<!-- 
+	
 							<id>integration-tests</id>
 							<phase>integration-test</phase>
 							<goals>
@@ -213,7 +213,7 @@
 						</execution>
 					</executions>
 				</plugin>
-	-->
+
 			</plugins>
 		</pluginManagement>
 	</build>
