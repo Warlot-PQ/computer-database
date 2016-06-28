@@ -41,7 +41,7 @@
 		<commons-lang3.version>3.4</commons-lang3.version>
 		<HikariCP.version>2.4.5</HikariCP.version>
 		<mockito-all.version>1.9.5</mockito-all.version>		
-		<spring.version>4.3.0.RELEASE</spring.version>
+		<spring.version>4.1.0.RELEASE</spring.version>
 		<tomcat.directory>../project resources/apache-tomcat-8.0.33</tomcat.directory>
 		<jta.version>1.1</jta.version>
 		<javax.persistence>2.1.1</javax.persistence>
@@ -475,6 +475,32 @@
 			<dependency>
 			    <groupId>org.springframework</groupId>
 			    <artifactId>spring-test</artifactId>
+			    <version>${spring.version}</version>
+			</dependency>
+			
+			<!-- Spring security -->
+			
+			<dependency>
+			    <groupId>org.springframework.security</groupId>
+			    <artifactId>spring-security-config</artifactId>
+			    <version>${spring.version}</version>
+			</dependency>
+			
+			<dependency>
+			    <groupId>org.springframework.security</groupId>
+			    <artifactId>spring-security-core</artifactId>
+			    <version>${spring.version}</version>
+			</dependency>
+			
+			<dependency>
+			    <groupId>org.springframework.security</groupId>
+			    <artifactId>spring-security-web</artifactId>
+			    <version>${spring.version}</version>
+			</dependency>
+			
+			<dependency>
+			    <groupId>org.springframework.security</groupId>
+			    <artifactId>spring-security-taglibs</artifactId>
 			    <version>${spring.version}</version>
 			</dependency>
 			

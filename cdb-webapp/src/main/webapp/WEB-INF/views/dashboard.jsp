@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="myLib" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 
 <spring:message code="title.dashboard" var="i18nDashboardTitle" />
 <spring:message code="computer.filterBy.name" var="i18nFilterByName" />
@@ -24,6 +26,10 @@
 <c:set var="currentOrderBy" value="${requestModel.orderBy}" />
 <c:set var="currentOrderAlphaNumerical" value="${requestModel.orderAlphaNum}" />
 <c:set var="nameSearched" value="${requestModel.search}" />
+<%-- 
+<logout logout-success-url="/" logout-url="/logout" />
+<c:url value="/logout" var="logoutUrl" /> 
+--%>
 
 <!DOCTYPE html>
 <html>
@@ -42,9 +48,13 @@
 <body>
 	<header class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
-	${current}-${end}
 			<a class="navbar-brand" href="Dashboard"> Application -
 				Computer Database </a>
+			<div class="navbar-brand navbar-right">
+				<form:form name="logoutForm" action="${pageContext.request.contextPath}/logout" method="POST">
+   					 <span onclick="document.logoutForm.submit()">Logout</span>
+				</form:form>
+			</div>
 		</div>
 	</header>
 

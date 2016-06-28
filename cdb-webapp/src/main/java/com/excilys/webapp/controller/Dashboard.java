@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -31,7 +32,8 @@ public class Dashboard {
 	private ReloadableResourceBundleMessageSource messageSource;
 
 	@RequestMapping(method = RequestMethod.GET)
-	protected String doGet(@Valid @ModelAttribute RequestModel requestModel, BindingResult result, Model model) {
+	protected String doGet(@Valid @ModelAttribute RequestModel requestModel, BindingResult result, Model model, 
+			Authentication authentication) {
 		if (result.hasErrors()) {
 			requestModel.reset();
 		}
