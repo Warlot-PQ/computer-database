@@ -2,6 +2,8 @@ package com.excilys.webapp.config;
 
 import javax.sql.DataSource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
@@ -20,20 +22,44 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	private DataSource dataSource;
 	@Autowired
 	private UserDetailsService userDetailsService;
+	private static final Logger LOGGER = LoggerFactory.getLogger(WebSecurityConfig.class);
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http
-		.exceptionHandling()
-			.authenticationEntryPoint(digestEntryPoint())
-			.and()
-		.addFilterAfter(digestAuthenticationFilter(digestEntryPoint()), DigestAuthenticationFilter.class)
-	  	.authorizeRequests()
-			.antMatchers("/css/**").permitAll()
-			.antMatchers("/fonts/**").permitAll()
-			.antMatchers("/js/**").permitAll()	
-			.antMatchers("/Dashboard").access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-			.antMatchers("/**").access("hasRole('ROLE_ADMIN')");
+		// Use HTTP Digest or Login form
+		boolean httpDigest = false;
+				
+		if (httpDigest == true) {
+			LOGGER.info("Athentification: HTTP Digest");
+			http
+			.exceptionHandling()
+				.authenticationEntryPoint(digestEntryPoint())
+				.and()
+			.addFilterAfter(digestAuthenticationFilter(digestEntryPoint()), DigestAuthenticationFilter.class)
+		  	.authorizeRequests()
+				.antMatchers("/css/**").permitAll()
+				.antMatchers("/fonts/**").permitAll()
+				.antMatchers("/js/**").permitAll()	
+				.antMatchers("/Dashboard").access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+				.antMatchers("/**").access("hasRole('ROLE_ADMIN')");
+		} else {
+			LOGGER.info("Athentification: login form");
+			http
+		  	.authorizeRequests()
+				.antMatchers("/css/**").permitAll()
+				.antMatchers("/fonts/**").permitAll()
+				.antMatchers("/js/**").permitAll()	
+				.antMatchers("/Dashboard").access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+				.antMatchers("/**").access("hasRole('ROLE_ADMIN')")
+				.and()
+			.formLogin()
+			.loginPage("/login")
+			.failureUrl("/login?error")
+	        .usernameParameter("username") // input name where the id is retrieved in the login form
+			.permitAll();
+		}
+		// HTTPS
+//		.and().requiresChannel().antMatchers("Dashboard").requiresSecure();
 	}
 
 	/*
@@ -67,15 +93,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
-		boolean useJDBC = true;
-		if (useJDBC) {
+		boolean useJDBC = false;
+		if (useJDBC == true) {
 		// JDBC command
+			LOGGER.info("Users datasource: JDBC");
 			auth.jdbcAuthentication().dataSource(dataSource)
 				.usersByUsernameQuery(
 						"select username, password, enabled from user where username=?")
 				.authoritiesByUsernameQuery(
 						"select username, role from userRole where username=?");
 		} else {
+			LOGGER.info("Users datasource: DAO");
 			// Use a custom user Service, no password encryption for now
 			auth.userDetailsService(userDetailsService);
 		}
@@ -88,7 +116,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	 */
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//	  auth.inMemoryAuthentication().withUser("Pierre").password("123").roles("USER");
-//	  auth.inMemoryAuthentication().withUser("admin").password("123").roles("ADMIN");
+//		LOGGER.info("Users hard-coded added!");
+//		auth.inMemoryAuthentication().withUser("Pierre").password("123").roles("USER");
+//		auth.inMemoryAuthentication().withUser("admin").password("123").roles("ADMIN");
 	}
 }

@@ -46,6 +46,11 @@
 		<div class="container">
 			<a class="navbar-brand" href="Dashboard"> Application -
 				Computer Database </a>
+			<div class="navbar-brand pull-right">
+				<form:form name="logoutForm" action="${pageContext.request.contextPath}/logout" method="POST">
+   					 <span onclick="document.logoutForm.submit()">Logout</span>
+				</form:form>
+			</div>
 		</div>
 	</header>
 	

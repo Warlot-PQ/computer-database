@@ -29,7 +29,7 @@ public class UserServiceSecurity implements UserDetailsService{
 		return new org.springframework.security.core.userdetails.User(
 				user.getUsername(), 
 				user.getPassword(), 
-				AuthorityUtils.createAuthorityList(user.getUserRole().toString()));
+				AuthorityUtils.createAuthorityList(user.getUserRoleArray()));
 	}		
 	
 }

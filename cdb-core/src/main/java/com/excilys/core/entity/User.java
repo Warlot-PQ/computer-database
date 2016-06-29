@@ -1,5 +1,6 @@
 package com.excilys.core.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -24,7 +25,7 @@ public class User {
 	private String password;
 	@NotNull
 	private boolean enabled;
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "username")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "username")
 	private List<UserRole> userRole;
 	
 	public User() {
@@ -107,4 +108,13 @@ public class User {
 	public void setUserRole(List<UserRole> userRole) {
 		this.userRole = userRole;
 	}
+	
+	public String[] getUserRoleArray() {
+		List<String> listRoles = new ArrayList<>();
+		for (UserRole userRole: this.getUserRole()) {
+			listRoles.add(userRole.getRole().toString());
+		}
+		return listRoles.toArray(new String[0]);
+	}
+
 }

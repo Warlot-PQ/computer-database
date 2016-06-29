@@ -8,8 +8,8 @@ import javax.persistence.PersistenceContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
-import com.excilys.core.dto.QUser;
 import com.excilys.core.entity.Company;
+import com.excilys.core.entity.QUser;
 import com.excilys.core.entity.User;
 import com.excilys.persistence.repository.interfaces.UserDAO;
 import com.mysema.query.jpa.impl.JPAQuery;
