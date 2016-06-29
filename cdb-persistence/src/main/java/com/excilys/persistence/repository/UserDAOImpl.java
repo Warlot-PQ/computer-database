@@ -1,6 +1,5 @@
 package com.excilys.persistence.repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -9,15 +8,19 @@ import javax.persistence.PersistenceContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
-import com.excilys.binding.UserMapper;
 import com.excilys.core.dto.QUser;
-import com.excilys.core.dto.UserDTO;
 import com.excilys.core.entity.Company;
 import com.excilys.core.entity.User;
 import com.excilys.persistence.repository.interfaces.UserDAO;
-import com.mysema.query.SearchResults;
 import com.mysema.query.jpa.impl.JPAQuery;
 
+/**
+ * DB manipulation on User and UserRole entity using JPA and HQL.
+ * Singleton class.
+ * 
+ * @author pqwarlot
+ *
+ */
 @Repository("userDAO")
 @Scope("singleton")
 public class UserDAOImpl implements UserDAO {
@@ -31,16 +34,12 @@ public class UserDAOImpl implements UserDAO {
 	 * @see com.excilys.persistence.repository.UserDAO#findAll()
 	 */
 	@Override
-	public List<UserDTO> findAll() {
+	public List<User> findAll() {
 		QUser quser = QUser.user;
 		JPAQuery query = new JPAQuery(em);
-		SearchResults<User> users = query.from(quser).listResults(quser);
-		List<UserDTO> usersDTO = new ArrayList<>();
+		List<User> users = query.from(quser).listResults(quser).getResults();
 		
-		for (User user: users.getResults()) {
-			usersDTO.add( UserMapper.toDTO(user) );
-		}
-		return usersDTO;
+		return users;
 	}
 	
 	/* (non-Javadoc)

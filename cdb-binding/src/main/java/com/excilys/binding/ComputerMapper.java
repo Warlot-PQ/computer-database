@@ -1,10 +1,15 @@
 package com.excilys.binding;
 
+import com.excilys.core.date.DateMapper;
 import com.excilys.core.dto.ComputerDTO;
 import com.excilys.core.entity.Company;
 import com.excilys.core.entity.Computer;
-import com.excilys.core.date.DateMapper;
 
+/**
+ * Mapper around Computer and ComputerDTO object
+ * @author pqwarlot
+ *
+ */
 public class ComputerMapper {
 	public static Computer toEntity(ComputerDTO computerDTO) {
 		return new Computer(

@@ -23,7 +23,7 @@ public class PageRequest {
 	}
 
 	/**
-	 * Entry point to create an instance.
+	 * Entry point to create an instance of a PageRequest object.
 	 * @return
 	 */
 	public static Builder create() {

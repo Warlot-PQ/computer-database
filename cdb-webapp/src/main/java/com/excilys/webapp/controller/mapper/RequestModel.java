@@ -4,8 +4,7 @@ import javax.annotation.PostConstruct;
 import javax.validation.constraints.Min;
 
 /**
- * Get/set attribute from/to the HttpServletRequest, regroup all manipulation on
- * HttpServletRequest object. Use builder pattern.
+ * Get/set attribute from/to an http request.
  * 
  * @author pqwarlot
  *

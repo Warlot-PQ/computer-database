@@ -1,7 +1,6 @@
 package com.excilys.service.service.interfaces;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.excilys.core.dto.UserDTO;
 import com.excilys.core.entity.User;
@@ -18,7 +17,7 @@ public interface UserService {
 
 	void updateByName(User obj);
 
-	Optional<User> get(String username);
+	UserDTO get(String username);
 
 	void delete(String username);
 }

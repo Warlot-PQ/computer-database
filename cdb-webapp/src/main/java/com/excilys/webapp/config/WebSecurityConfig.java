@@ -67,15 +67,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
+		boolean useJDBC = true;
+		if (useJDBC) {
 		// JDBC command
-//		auth.jdbcAuthentication().dataSource(dataSource)
-//			.usersByUsernameQuery(
-//					"select username, password, enabled from user where username=?")
-//			.authoritiesByUsernameQuery(
-//					"select username, role from user where username=?");
-		
-		// Use a custom user Service, no password encryption for now
-		auth.userDetailsService(userDetailsService);
+			auth.jdbcAuthentication().dataSource(dataSource)
+				.usersByUsernameQuery(
+						"select username, password, enabled from user where username=?")
+				.authoritiesByUsernameQuery(
+						"select username, role from userRole where username=?");
+		} else {
+			// Use a custom user Service, no password encryption for now
+			auth.userDetailsService(userDetailsService);
+		}
 	}	
 	
 	/**

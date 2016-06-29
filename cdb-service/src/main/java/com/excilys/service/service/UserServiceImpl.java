@@ -1,11 +1,12 @@
 package com.excilys.service.service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.excilys.binding.UserMapper;
 import com.excilys.core.dto.UserDTO;
 import com.excilys.core.entity.User;
 import com.excilys.persistence.repository.interfaces.UserDAO;
@@ -18,7 +19,13 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<UserDTO> getAll() {
-		return userDAO.findAll();
+		List<User> users = userDAO.findAll();
+		List<UserDTO> usersDTO = new ArrayList<>();
+		
+		for (User user: users) {
+			usersDTO.add( UserMapper.toDTO(user) );
+		}
+		return usersDTO;
 	}
 
 	@Override
@@ -34,14 +41,14 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Optional<User> get(String username) {
+	public UserDTO get(String username) {
 		if (username == null) return null;
 		User user = userDAO.findByUserName(username);
 		
 		if (user == null) {
-			return Optional.empty();
+			return null;
 		}
-		return Optional.of(user);
+		return UserMapper.toDTO(user);
 	}
 
 	@Override

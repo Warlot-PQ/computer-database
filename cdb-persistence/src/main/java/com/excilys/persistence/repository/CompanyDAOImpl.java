@@ -18,7 +18,7 @@ import com.mysema.query.SearchResults;
 import com.mysema.query.jpa.impl.JPAQuery;
 
 /**
- * DB manipulation on Company table.
+ * DB manipulation on Company entity using JPA and HQL.
  * Singleton class.
  * 
  * @author pqwarlot

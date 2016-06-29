@@ -2,12 +2,11 @@ package com.excilys.persistence.repository.interfaces;
 
 import java.util.List;
 
-import com.excilys.core.dto.UserDTO;
 import com.excilys.core.entity.User;
 
 public interface UserDAO {
 
-	List<UserDTO> findAll();
+	List<User> findAll();
 
 	void create(User obj);
 

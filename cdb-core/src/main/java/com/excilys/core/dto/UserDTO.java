@@ -1,5 +1,7 @@
 package com.excilys.core.dto;
 
+import java.util.List;
+
 /**
  * Representation of a User object which is given to the front.
  * 
@@ -10,16 +12,16 @@ public class UserDTO {
 	private String username;
 	private String password;
 	private String enabled;
-	private String role;
+	private List<String> roles;
 	
 	public UserDTO() {
 	}
 	
-	public UserDTO(String username, String password, String enabled, String role) {
+	public UserDTO(String username, String password, String enabled,  List<String> roles) {
 		this.username = username;
 		this.password = password;
 		this.enabled = enabled;
-		this.role = role;
+		this.roles = roles;
 	}
 
 	@Override
@@ -28,7 +30,7 @@ public class UserDTO {
 		int result = 1;
 		result = prime * result + ((enabled == null) ? 0 : enabled.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + ((role == null) ? 0 : role.hashCode());
+		result = prime * result + ((roles == null) ? 0 : roles.hashCode());
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
 	}
@@ -52,10 +54,10 @@ public class UserDTO {
 				return false;
 		} else if (!password.equals(other.password))
 			return false;
-		if (role == null) {
-			if (other.role != null)
+		if (roles == null) {
+			if (other.roles != null)
 				return false;
-		} else if (!role.equals(other.role))
+		} else if (!roles.equals(other.roles))
 			return false;
 		if (username == null) {
 			if (other.username != null)
@@ -67,7 +69,7 @@ public class UserDTO {
 
 	@Override
 	public String toString() {
-		return "UserDTO [username=" + username + ", password=" + password + ", enabled=" + enabled + ", role=" + role
+		return "UserDTO [username=" + username + ", password=" + password + ", enabled=" + enabled + ", roles=" + roles
 				+ "]";
 	}
 
@@ -95,11 +97,11 @@ public class UserDTO {
 		this.enabled = enabled;
 	}
 
-	public String getRole() {
-		return role;
+	public List<String> getRoles() {
+		return roles;
 	}
 
-	public void setRole(String role) {
-		this.role = role;
+	public void setRoles(List<String> roles) {
+		this.roles = roles;
 	}
 }

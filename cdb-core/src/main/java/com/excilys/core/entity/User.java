@@ -1,9 +1,11 @@
 package com.excilys.core.entity;
 
+import java.util.List;
+
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -22,9 +24,8 @@ public class User {
 	private String password;
 	@NotNull
 	private boolean enabled;
-	@NotNull
-	@Enumerated(EnumType.STRING)
-	private Role role;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "username")
+	private List<UserRole> userRole;
 	
 	public User() {
 	}
@@ -35,7 +36,7 @@ public class User {
 		int result = 1;
 		result = prime * result + (enabled ? 1231 : 1237);
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + ((role == null) ? 0 : role.hashCode());
+		result = prime * result + ((userRole == null) ? 0 : userRole.hashCode());
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
 	}
@@ -56,7 +57,10 @@ public class User {
 				return false;
 		} else if (!password.equals(other.password))
 			return false;
-		if (role != other.role)
+		if (userRole == null) {
+			if (other.userRole != null)
+				return false;
+		} else if (!userRole.equals(other.userRole))
 			return false;
 		if (username == null) {
 			if (other.username != null)
@@ -68,8 +72,8 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [username=" + username + ", password=" + password + ", enabled=" + enabled + ", role=" + role
-				+ "]";
+		return "User [username=" + username + ", password=" + password + ", enabled=" + enabled + ", userRole="
+				+ userRole + "]";
 	}
 
 	public String getUsername() {
@@ -96,11 +100,11 @@ public class User {
 		this.enabled = enabled;
 	}
 
-	public Role getRole() {
-		return role;
+	public List<UserRole> getUserRole() {
+		return userRole;
 	}
 
-	public void setRole(Role role) {
-		this.role = role;
+	public void setUserRole(List<UserRole> userRole) {
+		this.userRole = userRole;
 	}
 }

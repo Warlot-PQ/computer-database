@@ -1,9 +1,0 @@
-com/excilys/persistence/pagination/PageRequest$Builder.class
-com/excilys/persistence/repository/QueryCreator.class
-com/excilys/persistence/pagination/PageRequest.class
-com/excilys/persistence/repository/interfaces/ComputerDAO.class
-com/excilys/persistence/repository/ComputerDAOImpl.class
-com/excilys/persistence/repository/CompanyDAOImpl.class
-com/excilys/persistence/pagination/PageRequest$1.class
-com/excilys/persistence/config/PersistenceConfig.class
-com/excilys/persistence/repository/interfaces/CompanyDAO.class

@@ -52,7 +52,10 @@
 	    <!-- Allow Spring MVC Controllers to use Spring context -->
 	    <init-param>
 	        <param-name>contextConfigLocation</param-name>
-	        <param-value>com.excilys.webapp.config.WebappConfig</param-value>
+	        <param-value>
+	        	com.excilys.webapp.config.WebappConfig
+	        	com.excilys.webapp.config.WebSecurityConfig
+	        </param-value>
 	    </init-param>
 	</servlet>
 	 

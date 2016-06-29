@@ -17,8 +17,7 @@ import com.excilys.persistence.pagination.PageRequest;
 import com.excilys.persistence.repository.interfaces.ComputerDAO;
 
 /**
- * DB manipulation on Computer table using JPQL
- * Singleton class.
+ * DB manipulation on Computer entity using JPQL.
  * 
  * @author pqwarlot
  *

@@ -1,7 +1,0 @@
-/home/pqwarlot/workspace/computer-database/cdb-persistence/src/main/java/com/excilys/persistence/repository/ComputerDAOImpl.java
-/home/pqwarlot/workspace/computer-database/cdb-persistence/src/main/java/com/excilys/persistence/pagination/PageRequest.java
-/home/pqwarlot/workspace/computer-database/cdb-persistence/src/main/java/com/excilys/persistence/repository/interfaces/CompanyDAO.java
-/home/pqwarlot/workspace/computer-database/cdb-persistence/src/main/java/com/excilys/persistence/repository/interfaces/ComputerDAO.java
-/home/pqwarlot/workspace/computer-database/cdb-persistence/src/main/java/com/excilys/persistence/config/PersistenceConfig.java
-/home/pqwarlot/workspace/computer-database/cdb-persistence/src/main/java/com/excilys/persistence/repository/QueryCreator.java
-/home/pqwarlot/workspace/computer-database/cdb-persistence/src/main/java/com/excilys/persistence/repository/CompanyDAOImpl.java
