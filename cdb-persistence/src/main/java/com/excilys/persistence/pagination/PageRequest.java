@@ -8,16 +8,16 @@ package com.excilys.persistence.pagination;
 public class PageRequest {
 	private Integer page = 1;
 	private Integer eltByPage = 20;
-	private Long computerId;
-	private String computerSearchedName;
+	private Long id;
+	private String searchedName;
 	private String orderBy;
 	private boolean orderAlphaNumerical;
 	
 	private PageRequest(Builder pageRequestBuilder) {
 		this.page = pageRequestBuilder.page;
 		this.eltByPage = pageRequestBuilder.eltByPage;
-		this.computerId = pageRequestBuilder.computerId;
-		this.computerSearchedName = pageRequestBuilder.computerName;
+		this.id = pageRequestBuilder.id;
+		this.searchedName = pageRequestBuilder.name;
 		this.orderBy = pageRequestBuilder.orderBy;
 		this.orderAlphaNumerical = pageRequestBuilder.orderAlphaNumerical;
 	}
@@ -33,8 +33,8 @@ public class PageRequest {
 	public static class Builder {
 		private Integer page = 1;
 		private Integer eltByPage = 20;
-		private Long computerId;
-		private String computerName;
+		private Long id;
+		private String name;
 		private String orderBy;
 		private boolean orderAlphaNumerical;
 		
@@ -49,12 +49,12 @@ public class PageRequest {
 		}
 		
 		public Builder computerId(Long computerId) {
-			this.computerId = computerId;
+			this.id = computerId;
 			return this;
 		}
 		
 		public Builder computerSeachedName(String computerName) {
-			this.computerName = computerName;
+			this.name = computerName;
 			return this;
 		}
 		
@@ -97,20 +97,20 @@ public class PageRequest {
 		this.eltByPage = eltByPage;
 	}
 
-	public Long getComputerId() {
-		return computerId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setComputerId(Long computerId) {
-		this.computerId = computerId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public String getComputerSearchedName() {
-		return computerSearchedName;
+	public String getSearchedName() {
+		return searchedName;
 	}
 
-	public void setComputerSearchedName(String computerSearchedName) {
-		this.computerSearchedName = computerSearchedName;
+	public void setSearchedName(String searchedName) {
+		this.searchedName = searchedName;
 	}
 
 	public String getOrderBy() {

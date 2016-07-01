@@ -1,5 +1,6 @@
 package com.excilys.core.dto;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.validation.constraints.Pattern;
@@ -13,7 +14,7 @@ import com.excilys.core.entity.Company;
  * @author pqwarlot
  *
  */
-public class ComputerDTO {
+public class ComputerDTO implements Serializable {
 	@Size(max=20)
 	private String id;
 	@Size(min=1, max=255)

@@ -2,9 +2,9 @@ package com.excilys.console.cli;
 
 import java.util.Scanner;
 
+import com.excilys.console.restClient.ClientRestComputer;
 import com.excilys.core.date.DateMapper;
 import com.excilys.core.dto.ComputerDTO;
-import com.excilys.service.service.interfaces.ComputerService;
 
 public class ComputerListOneCommand implements Command {	
 	@Override
@@ -22,8 +22,11 @@ public class ComputerListOneCommand implements Command {
 		if (computerIdInt == null) {
 			return;
 		}
+
+		System.out.println("Sending deletion request to server....");
+		computer = ClientRestComputer.getComputer(computerId);
 		
-		computer = CDB_launcher.applicationContext.getBean(ComputerService.class).get(computerIdInt);
+		//computer = CDB_launcher.applicationContext.getBean(ComputerService.class).get(computerIdInt);
 
 		if (computer == null) {
 			System.out.println("No computer found.");

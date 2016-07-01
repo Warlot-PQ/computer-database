@@ -49,17 +49,17 @@ public class QueryCreator {
 		sql.append("FROM Computer computer "
 				+ "LEFT OUTER JOIN computer.company company ");
 		
-		if (pageRequest.getComputerSearchedName() != null || pageRequest.getComputerId() != null) {
+		if (pageRequest.getSearchedName() != null || pageRequest.getId() != null) {
 			sql.append(" WHERE");
 			 
-			if (pageRequest.getComputerId() != null) {
-				sql.append(" computer.id LIKE " + pageRequest.getComputerId());
+			if (pageRequest.getId() != null) {
+				sql.append(" computer.id LIKE " + pageRequest.getId());
 			}
-			if (pageRequest.getComputerSearchedName() != null) {
-				if (pageRequest.getComputerId() != null) {
+			if (pageRequest.getSearchedName() != null) {
+				if (pageRequest.getId() != null) {
 					sql.append(" AND");
 				}
-				sql.append(" computer.name LIKE '"  + pageRequest.getComputerSearchedName() + "%'" + " OR company.name LIKE '" + pageRequest.getComputerSearchedName() + "%'");
+				sql.append(" computer.name LIKE '"  + pageRequest.getSearchedName() + "%'" + " OR company.name LIKE '" + pageRequest.getSearchedName() + "%'");
 			}
 		}
 		if (count == false) {

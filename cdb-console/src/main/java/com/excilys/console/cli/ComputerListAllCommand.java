@@ -3,8 +3,9 @@ package com.excilys.console.cli;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.excilys.console.restClient.ClientRestComputer;
+import com.excilys.console.restClient.ReturnRest;
 import com.excilys.core.dto.ComputerDTO;
-import com.excilys.persistence.pagination.PageRequest;
 import com.excilys.service.service.interfaces.ComputerService;
 
 public class ComputerListAllCommand implements Command {
@@ -16,10 +17,16 @@ public class ComputerListAllCommand implements Command {
 		
 		List<ComputerDTO> computers = new ArrayList<>();
 
-		computers = computerService.getAll(PageRequest.create().build());
-
-		for (ComputerDTO computer : computers) {
-			System.out.println(computer.toString());
+		System.out.println("Sending request to server....");
+		ReturnRest<List<ComputerDTO>> returnElt = ClientRestComputer.getAllComputer();
+		System.out.println("server answer " + returnElt.getStatusCode());
+		
+//		computers = computerService.getAll(PageRequest.create().build());
+		
+		if (returnElt.getStatusCode() == 200) {
+			for (ComputerDTO computer : computers) {
+				System.out.println(computer.toString());
+			}
 		}
 	}
 

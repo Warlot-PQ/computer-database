@@ -9,9 +9,12 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.excilys.core.dto.CompanyDTO;
-import com.excilys.service.cache.Cache;
+import com.excilys.core.entity.Company;
+import com.excilys.persistence.pagination.PageRequest;
 import com.excilys.persistence.repository.interfaces.CompanyDAO;
 import com.excilys.persistence.repository.interfaces.ComputerDAO;
+import com.excilys.service.cache.Cache;
+import com.excilys.service.pagination.Page;
 import com.excilys.service.service.interfaces.CompanyService;
 
 /**
@@ -81,9 +84,42 @@ public class CompanyServiceImpl implements CompanyService {
 		companies = cache.getCompanies();
 		if (companies == null) {
 			// If cached value not available
-			companies = companyDAO.findAll();
+			companies = companyDAO.findAll(PageRequest.create().build());
 			cache.setCompanies(companies);
 		}
 		return companies;
+	}
+
+	@Override
+	@Transactional(propagation=Propagation.REQUIRES_NEW)
+	public void create(Company obj) {
+		if (obj == null) return;
+		companyDAO.create(obj);
+	}
+
+	@Override
+	@Transactional(propagation=Propagation.REQUIRES_NEW)
+	public void update(Company obj) {
+		if (obj == null) return;
+		companyDAO.updateById(obj);
+	}
+
+	@Override
+	@Transactional(rollbackFor = Exception.class, propagation=Propagation.REQUIRES_NEW)
+	public Page<CompanyDTO> getPage(PageRequest pageRequest) {
+		if (pageRequest == null) return null;
+		List<CompanyDTO> companies = null;
+		Integer companiesNumber = 0;
+		
+		if (pageRequest.getSearchedName() == null || pageRequest.getSearchedName().isEmpty()) {
+			// If not in search mode
+			companiesNumber = count();
+		} else {
+			// Count the searched elements founded
+			companiesNumber = companyDAO.count(pageRequest);			
+		}
+		companies = companyDAO.findAll(pageRequest);
+
+		return new Page<CompanyDTO>(companies, companiesNumber, pageRequest.getPage().intValue(), pageRequest.getEltByPage().intValue());
 	}
 }

@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.excilys.core.dto.ComputerDTO;
 import com.excilys.core.entity.Computer;
-import com.excilys.service.pagination.Page;
 import com.excilys.persistence.pagination.PageRequest;
+import com.excilys.service.pagination.Page;
 
 /**
  * Specific services to computer entities
@@ -59,9 +59,6 @@ public interface ComputerService {
 	 * Get a page of DTO object
 	 * @param pageRequest options to create the query to get DTO
 	 * @return Page<ComputerDTO> page containing all informations
-	 * @throws DAOException exception from DAO
-	 * @throws ConnectionException exception from CoManager concerning Connection
-	 * @throws DriverException exception from CoManager concerning Driver
 	 */
 	public Page<ComputerDTO> getPage(PageRequest pageRequest);
 	

@@ -3,48 +3,53 @@
 
 <configuration>
 
-  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-    <!-- encoders are assigned the type
-         ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
-    <encoder>
-      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5}.%M - %msg%n</pattern>
-    </encoder>
-  </appender>
-    
-  <appender name="FILEOUT" class="ch.qos.logback.core.FileAppender">
- 	<param name="File" value="logsCDB/report.log" />
-    <param name="append" value="true" />
-  	<!-- encoders are assigned the type
-         ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
-    <encoder>
-      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5}.%M - %msg%n</pattern>
-    </encoder>
-  </appender>
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<!-- encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder 
+			by default -->
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5}.%M - %msg%n
+			</pattern>
+		</encoder>
+		<target>System.out</target>
+	</appender>
 
-  <logger name="com.excilys">
-  	<level value="ERROR" />
-    <appender-ref ref="FILEOUT" />
-  </logger>
-  
-  <logger name="org.hibernate">
-    <level value="ERROR" />
-    <appender-ref ref="FILEOUT"/>
-  </logger>
-  
-  <logger name="com.zaxxer.hikari">
-  	<level value="ERROR" />
-    <appender-ref ref="FILEOUT"/>
-  </logger>
-  
-  <logger name="org.springframework">
-  	<level value="ERROR" />
-    <appender-ref ref="FILEOUT"/>
-  </logger>
+	<appender name="FILEOUT" class="ch.qos.logback.core.FileAppender">
+		<param name="File"
+			value="/home/pqwarlot/workspace/computer-database/cdb-webapp/logsCDB/report.log" />
+		<!-- <param name="append" value="true" /> -->
+		<!-- encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder 
+			by default -->
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5}.%M - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
 
-  <!-- Strictly speaking, the level attribute is not necessary since -->
-  <!-- the level of the root level is set to DEBUG by default.       -->
-  <root level="ERROR">          
-    <appender-ref ref="STDOUT" />
-  </root> 
-  
+	<logger name="com.excilys">
+		<level value="ERROR" />
+		<appender-ref ref="FILEOUT" />
+	</logger>
+
+	<logger name="org.hibernate">
+		<level value="ERROR" />
+		<appender-ref ref="FILEOUT" />
+	</logger>
+
+	<logger name="com.zaxxer.hikari">
+		<level value="ERROR" />
+		<appender-ref ref="FILEOUT" />
+	</logger>
+
+	<logger name="org.springframework">
+		<level value="ERROR" />
+		<appender-ref ref="FILEOUT" />
+	</logger>
+
+	<!-- Strictly speaking, the level attribute is not necessary since -->
+	<!-- the level of the root level is set to DEBUG by default. -->
+	<root level="ERROR">
+		<appender-ref ref="FILEOUT" />
+		<appender-ref ref="STDOUT" />
+	</root>
+
 </configuration>
