@@ -1,22 +1,28 @@
 package com.excilys.console.cli;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import com.excilys.console.restClient.ClientRestCompany;
+import com.excilys.console.restClient.ReturnRest;
 import com.excilys.core.dto.CompanyDTO;
-import com.excilys.service.service.interfaces.CompanyService;
 
 public class CompanyListAllCommand implements Command {
 	@Override
 	public void execute() {
-		List<CompanyDTO> companies = new ArrayList<>();
+		int responseCode = 0;
 
-		CompanyService s1 = CDB_launcher.applicationContext.getBean(CompanyService.class);
+		System.out.println("Sending get request to server....");
+		ReturnRest<List<CompanyDTO>> returnElt = ClientRestCompany.getAllCompany();
+		responseCode = returnElt.getStatusCode();
+		System.out.println("server: " + responseCode + " code");
 		
-		companies = s1.getAll();
-		
-		for (CompanyDTO company : companies) {
-			System.out.println(company.toString());
+		List<CompanyDTO> companies = returnElt.getEntity();
+		if (companies != null) {
+			for (CompanyDTO company: companies) {
+				System.out.println(company.toString());
+			}
+		} else {
+			System.out.println("No company list received.");
 		}
 	}
 }

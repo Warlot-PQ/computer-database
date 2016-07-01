@@ -11,11 +11,11 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.excilys.core.dto.ComputerDTO;
-import com.excilys.service.cache.Cache;
 import com.excilys.core.entity.Computer;
-import com.excilys.service.pagination.Page;
 import com.excilys.persistence.pagination.PageRequest;
 import com.excilys.persistence.repository.interfaces.ComputerDAO;
+import com.excilys.service.cache.Cache;
+import com.excilys.service.pagination.Page;
 import com.excilys.service.service.interfaces.ComputerService;
 import com.excilys.service.validation.ComputerValidation;
 
@@ -179,7 +179,7 @@ public class ComputerServiceImpl implements ComputerService {
 		List<ComputerDTO> computers = null;
 		Integer computersNumber = 0;
 		
-		if (pageRequest.getComputerSearchedName() == null || pageRequest.getComputerSearchedName().isEmpty()) {
+		if (pageRequest.getSearchedName() == null || pageRequest.getSearchedName().isEmpty()) {
 			// If not in search mode
 			computersNumber = count();
 		} else {

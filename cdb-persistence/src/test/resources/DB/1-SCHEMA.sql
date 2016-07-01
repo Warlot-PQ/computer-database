@@ -4,6 +4,8 @@ drop schema if exists `computer-database-db`;
 
   drop table if exists computer;
   drop table if exists company;
+  drop table if exists user;
+  drop table if exists userRole;
 
   create table company (
     id                        bigint not null auto_increment,
@@ -18,6 +20,21 @@ drop schema if exists `computer-database-db`;
     discontinued              timestamp NULL,
     company_id                bigint default NULL,
     constraint pk_computer primary key (id))
+  ;
+
+  create table user (
+    username          varchar(45) NOT NULL,
+    enabled                    tinyint(1) NOT NULL DEFAULT '1',
+    password                   varchar(45) NOT NULL,
+    constraint pk_user primary key (`username`))
+  ;
+
+  create table userRole (
+    id int(11) NOT NULL AUTO_INCREMENT,
+    username varchar(45) NOT NULL,
+    role varchar(15) NOT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `username` (`username`,`role`))
   ;
 
   alter table computer add constraint fk_computer_company_1 foreign key (company_id) references company (id) on delete restrict on update restrict;

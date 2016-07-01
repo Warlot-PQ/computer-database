@@ -28,38 +28,37 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		// Use HTTP Digest or Login form
 		boolean httpDigest = false;
-				
+
+		http.csrf().disable();
+		http
+		  	.authorizeRequests()
+		  		.antMatchers("/rest/**").permitAll()
+				.antMatchers("/css/**").permitAll()
+				.antMatchers("/fonts/**").permitAll()
+				.antMatchers("/js/**").permitAll()	
+				.antMatchers("/Dashboard").access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+				.antMatchers("/**").access("hasRole('ROLE_ADMIN')");
+
 		if (httpDigest == true) {
 			LOGGER.info("Athentification: HTTP Digest");
 			http
 			.exceptionHandling()
 				.authenticationEntryPoint(digestEntryPoint())
 				.and()
-			.addFilterAfter(digestAuthenticationFilter(digestEntryPoint()), DigestAuthenticationFilter.class)
-		  	.authorizeRequests()
-				.antMatchers("/css/**").permitAll()
-				.antMatchers("/fonts/**").permitAll()
-				.antMatchers("/js/**").permitAll()	
-				.antMatchers("/Dashboard").access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-				.antMatchers("/**").access("hasRole('ROLE_ADMIN')");
+			.addFilterAfter(digestAuthenticationFilter(digestEntryPoint()), DigestAuthenticationFilter.class);
 		} else {
 			LOGGER.info("Athentification: login form");
 			http
-		  	.authorizeRequests()
-				.antMatchers("/css/**").permitAll()
-				.antMatchers("/fonts/**").permitAll()
-				.antMatchers("/js/**").permitAll()	
-				.antMatchers("/Dashboard").access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-				.antMatchers("/**").access("hasRole('ROLE_ADMIN')")
-				.and()
-			.formLogin()
-			.loginPage("/login")
-			.failureUrl("/login?error")
-	        .usernameParameter("username") // input name where the id is retrieved in the login form
-			.permitAll();
+				.formLogin()
+				.loginPage("/login")
+				.failureUrl("/login?error")
+		        .usernameParameter("username") // input name where the id is retrieved in the login form
+				.permitAll();
 		}
 		// HTTPS
-//		.and().requiresChannel().antMatchers("Dashboard").requiresSecure();
+		http.requiresChannel().antMatchers("/Dashboard").requiresSecure();
+		http.requiresChannel().antMatchers("/AddComputer").requiresSecure();
+		http.requiresChannel().antMatchers("/EditComputer").requiresSecure();
 	}
 
 	/*

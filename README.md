@@ -4,15 +4,34 @@
 
 https://github.com/loicortola/spec-cdb
 
-## Multi modules
+## SSL configuration
 
-### Eclipse
+Create a certificate by running the following command.
 
-For each module, create a maven project in Eclipse. Launch a Tomcat server with cdb-webapp project.
+```javascript
+/usr/bin/keytool -genkey -alias tomcat -keyalg RSA
+```
 
-### Maven command line
+When prompt is asking for a password, type enter to set the default password 'changeit'. .keystore file is generated in ${user.home}.
 
-To configure a Tomcat server in a maven multi-modules properly, create /home/.m2/setting.xml and /home/apache-tomcat-8.0.33/conf/tomcat-users.xml. Files are in "project resources/multi-modules". And configure the CATALINA_HOME env variable, ex: export CATALINA_HOME=/home/pqwarlot/apache-tomcat-8.0.33.
+Configure the Tomcat server, TOMCAT_DIR/conf/server.xml
+
+```xml
+<Connector port="8443" 
+		protocol="org.apache.coyote.http11.Http11NioProtocol"
+		maxThreads="150" 
+		scheme="https"
+		secure="true"
+		SSLEnabled="true"
+		keystoreFile="${user.home}/.keystore"
+		keystorePass="changeit"
+		clientAuth="false"
+		sslProtocol="TLS" />
+```
+
+## Maven command line
+
+To configure a Tomcat server and SSL in a maven multi-modules properly, create /home/.m2/setting.xml and /home/apache-tomcat-8.0.33/conf/tomcat-users.xml. Files are in "project resources/multi-modules". And configure the CATALINA_HOME env variable, ex: export CATALINA_HOME=/home/pqwarlot/apache-tomcat-8.0.33.
 
 To launch the project, first launch the Tomcat with ./catalina.sh and deploy the project into the server with mvn tomcat7:redeplay. Or run mvn tomcat7:run-war to do both with one command.
 

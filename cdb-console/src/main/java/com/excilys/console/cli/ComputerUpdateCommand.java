@@ -2,56 +2,75 @@ package com.excilys.console.cli;
 
 import java.util.Scanner;
 
+import com.excilys.console.restClient.ClientRestComputer;
+import com.excilys.console.restClient.ReturnRest;
 import com.excilys.core.date.DateMapper;
 import com.excilys.core.dto.ComputerDTO;
-import com.excilys.core.entity.Computer;
-import com.excilys.service.service.interfaces.ComputerService;
+import com.excilys.core.validator.DateValidator;
 
 public class ComputerUpdateCommand implements Command {
 	@Override
 	public void execute() {
 		@SuppressWarnings("resource")
 		Scanner input = new Scanner(System.in);
+		String computerIdToUpdateStr = null;
 		Long computerIdToUpdate = null;
-		Computer computerToUpdate = null;
-		ComputerDTO computerDTOToUpdate = null;
 
 		System.out.printf("Enter the machine id:%n>");
-		computerIdToUpdate = DateMapper.convertStringToLong(input.nextLine());
+		computerIdToUpdateStr = input.nextLine();
+		computerIdToUpdate = DateMapper.convertStringToLong(computerIdToUpdateStr);
 		if (computerIdToUpdate == null) {
 			return;
 		}
 
 		// Fetch the computer to update
+		System.out.println("Sending deletion request to server....");
+		ReturnRest<ComputerDTO> returnEltGet = ClientRestComputer.getComputer(computerIdToUpdateStr);
+		System.out.println("server: " + returnEltGet.getStatusCode() + " code");
 
 		System.out.println("You have chosen to update the following computer:");
-		computerDTOToUpdate = CDB_launcher.applicationContext.getBean(ComputerService.class).get(computerIdToUpdate);
-
-		if (computerToUpdate == null) {
+		ComputerDTO computerDTOToUpdate = returnEltGet.getEntity();
+		if (computerDTOToUpdate != null) {
+			System.out.println(computerDTOToUpdate.toString());
+		} else {
 			System.out.println("No computer found!");
 			return;
-		} else {
-			System.out.println(computerToUpdate.toString());
 		}
 
-		// Change computer to update field
-
+		// Locally update computer to update
 		System.out.printf("Enter the computer name:%n>");
-		computerToUpdate.setName(input.nextLine());
+		computerDTOToUpdate.setName(input.nextLine());
 
-		System.out.printf("Enter the computer introduced date: format YYYY-MM-DD HH:MM:SS (enter to skip)%n>");
-		computerToUpdate.setIntroduced(DateMapper.convertStringToLocalDate(input.nextLine()));
+		System.out.printf("Enter the computer introduced date: format DD/MM/YYYY (enter to skip)%n>");
+		String dateStr = input.nextLine();
+		if (DateValidator.isValid(dateStr) == false) { 
+			System.out.println("Incorrect date format! Stopping process.");
+			return; 
+		}
+		computerDTOToUpdate.setIntroduced(dateStr);
 
-		System.out.printf("Enter the computer discontinued date: format YYYY-MM-DD HH:MM:SS (enter to skip)%n>");
-		computerToUpdate.setDiscontinued(DateMapper.convertStringToLocalDate(input.nextLine()));
+		System.out.printf("Enter the computer discontinued date: format DD/MM/YYYY (enter to skip)%n>");
+		dateStr = input.nextLine();
+		if (DateValidator.isValid(dateStr) == false) { 
+			System.out.println("Incorrect date format! Stopping process.");
+			return; 
+		}
+		computerDTOToUpdate.setDiscontinued(dateStr);
 
 		System.out.printf("Enter the computer company id:%n>");
-		computerToUpdate.setCompanyId(DateMapper.convertStringToLong(input.nextLine()));
+		computerDTOToUpdate.setCompanyId(input.nextLine());
 
 		// Report changes to the DB
-		CDB_launcher.applicationContext.getBean(ComputerService.class).update(computerToUpdate);
+		System.out.println("Sending deletion request to server....");
+		ReturnRest<String> returnEltUpdate = ClientRestComputer.updateComputer(computerDTOToUpdate);
+		System.out.println("server: " + returnEltGet.getStatusCode() + " code");
 
-		System.out.println("Computer updated with success.");
+		String msg = returnEltUpdate.getEntity();
+		if (msg != null) {
+			System.out.println("server: " + msg);
+		} else {
+			System.out.println("No message from server.");
+		}
 	}
 
 }

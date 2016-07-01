@@ -1,25 +1,28 @@
 package com.excilys.console.cli;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import com.excilys.console.restClient.ClientRestComputer;
+import com.excilys.console.restClient.ReturnRest;
 import com.excilys.core.dto.ComputerDTO;
-import com.excilys.persistence.pagination.PageRequest;
-import com.excilys.service.service.interfaces.ComputerService;
 
-public class ComputerListAllCommand implements Command {
-	private ComputerService computerService;
-	
+public class ComputerListAllCommand implements Command {	
 	@Override
 	public void execute() {
-		computerService = CDB_launcher.applicationContext.getBean(ComputerService.class);
+		int responseCode = 0;
 		
-		List<ComputerDTO> computers = new ArrayList<>();
-
-		computers = computerService.getAll(PageRequest.create().build());
-
-		for (ComputerDTO computer : computers) {
-			System.out.println(computer.toString());
+		System.out.println("Sending get request to server....");
+		ReturnRest<List<ComputerDTO>> returnElt = ClientRestComputer.getAllComputer();
+		responseCode = returnElt.getStatusCode();
+		System.out.println("server: " + responseCode + " code");
+		
+		List<ComputerDTO> computers = returnElt.getEntity();
+		if (computers != null) {
+			for (ComputerDTO computer: computers) {
+				System.out.println(computer.toString());
+			}
+		} else {
+			System.out.println("No computer list received.");
 		}
 	}
 

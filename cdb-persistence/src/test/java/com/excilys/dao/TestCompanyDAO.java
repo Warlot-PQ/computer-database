@@ -18,6 +18,7 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
 import com.excilys.ResetDB;
 import com.excilys.core.dto.CompanyDTO;
+import com.excilys.persistence.pagination.PageRequest;
 import com.excilys.persistence.repository.interfaces.CompanyDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -37,7 +38,7 @@ public class TestCompanyDAO {
 		companiesExpected.add(new CompanyDTO("1", "Apple Inc"));
 		companiesExpected.add(new CompanyDTO("2", "Microsoft"));
 
-		List<CompanyDTO> companies = companyDAO.findAll();
+		List<CompanyDTO> companies = companyDAO.findAll(PageRequest.create().build());
 
 		Assert.assertThat(companies, is(companiesExpected));
 	}

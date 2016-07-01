@@ -28,40 +28,27 @@
 				<artifactId>maven-resources-plugin</artifactId>
 			</plugin>
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-			</plugin>
-			
-			<!-- integration test -->
-			
-			<plugin>
-				<groupId>org.codehaus.cargo</groupId>
-				<artifactId>cargo-maven2-plugin</artifactId>
-			</plugin>
-				
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>selenium-maven-plugin</artifactId>
-			</plugin>
-			
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-			</plugin>
-			
-			<plugin>
-				<groupId>org.apache.tomcat.maven</groupId>
+			<plugin>  
+				<groupId>org.apache.tomcat.maven</groupId>  
 				<artifactId>tomcat7-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
+			</plugin> 
+		</plugins>			
 	</build>
 
 	<dependencies>
-
 		<dependency>
 			<groupId>com.excilys</groupId>
 			<artifactId>cdb-service</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.excilys</groupId>
+			<artifactId>cdb-persistence</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.excilys</groupId>
+			<artifactId>cdb-core</artifactId>
 		</dependency>
 
 		<dependency>
@@ -89,6 +76,16 @@
 			<artifactId>spring-core</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+		</dependency>
+
 		<!-- SpringBeanAutowiringSupport servlet -->
 
 		<dependency>
@@ -102,56 +99,56 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 		</dependency>
-			
+
 		<!-- Spring security -->
-		
+
 		<dependency>
-		    <groupId>org.springframework.security</groupId>
-		    <artifactId>spring-security-config</artifactId>
-		</dependency>
-		
-		<dependency>
-		    <groupId>org.springframework.security</groupId>
-		    <artifactId>spring-security-core</artifactId>
-		</dependency>
-		
-		<dependency>
-		    <groupId>org.springframework.security</groupId>
-		    <artifactId>spring-security-web</artifactId>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
 		</dependency>
 
 		<dependency>
-		    <groupId>org.springframework.security</groupId>
-		    <artifactId>spring-security-taglibs</artifactId>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
 		</dependency>
-			
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+		</dependency>
+
 		<!-- Integration test -->
-	
+
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
 		</dependency>
-			
+
 		<dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-remote-driver</artifactId>
-        </dependency>
-        
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-remote-driver</artifactId>
+		</dependency>
+
 		<dependency>
-	      <groupId>org.seleniumhq.selenium</groupId>
-	      <artifactId>selenium-chrome-driver</artifactId>
-	    </dependency>  
-    
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-chrome-driver</artifactId>
+		</dependency>
+
 		<dependency>
-            <groupId>com.codeborne</groupId>
-            <artifactId>phantomjsdriver</artifactId>
-        </dependency>
-        
+			<groupId>com.codeborne</groupId>
+			<artifactId>phantomjsdriver</artifactId>
+		</dependency>
+
 		<!-- jUnit 4.X -->
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 		</dependency>
-			
 	</dependencies>
 </project>

@@ -1,5 +1,6 @@
 package com.excilys.core.dto;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.validation.constraints.Pattern;
@@ -7,22 +8,23 @@ import javax.validation.constraints.Size;
 
 import com.excilys.core.date.DateMapper;
 import com.excilys.core.entity.Company;
+import com.excilys.core.validator.DateValidator;
 
 /**
  * Representation of a Company object which is given to the front.
  * @author pqwarlot
  *
  */
-public class ComputerDTO {
+public class ComputerDTO implements Serializable {
 	@Size(max=20)
 	private String id;
 	@Size(min=1, max=255)
 	private String name;
 	@Size(max=10)
-	@Pattern(regexp="^$|^(?:(?:31(\\/)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)(\\/)(?:0?[1,3-9]|1[0-2])\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^(?:29(\\/)0?2\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\\d|2[0-8])(\\/)(?:(?:0?[1-9])|(?:1[0-2]))\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$")
+	@Pattern(regexp=DateValidator.DATE_REGEX)
 	private String introduced;
 	@Size(max=10)
-	@Pattern(regexp="^$|^(?:(?:31(\\/)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)(\\/)(?:0?[1,3-9]|1[0-2])\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^(?:29(\\/)0?2\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\\d|2[0-8])(\\/)(?:(?:0?[1-9])|(?:1[0-2]))\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$")
+	@Pattern(regexp=DateValidator.DATE_REGEX)
 	private String discontinued;
 	@Size(max=20)
 	private String companyId;

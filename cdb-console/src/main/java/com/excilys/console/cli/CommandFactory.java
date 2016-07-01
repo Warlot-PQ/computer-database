@@ -3,6 +3,9 @@ package com.excilys.console.cli;
 import java.util.HashMap;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * CLI implementation with command pattern. Singleton class.
  * 
@@ -10,6 +13,7 @@ import java.util.stream.Collectors;
  *
  */
 public class CommandFactory {
+	private static final Logger LOGGER = LoggerFactory.getLogger(CommandFactory.class);
 	private final HashMap<String, Command> commands = new HashMap<>();
 
 	public CommandFactory(ComputerListAllCommand computerListAllCommand,
@@ -33,9 +37,12 @@ public class CommandFactory {
 	}
 
 	public void executeCommand(String name) {
+		LOGGER.info("Command: " + name + " requested.");
 		if (commands.containsKey(name)) {
+			LOGGER.info("command found.");
 			commands.get(name).execute();
 		} else {
+			LOGGER.info("command not found.");
 			System.out.println("Unknow command, please use one of the following");
 			this.listCommands();
 		}

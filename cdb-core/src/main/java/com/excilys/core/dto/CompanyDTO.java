@@ -1,12 +1,14 @@
 package com.excilys.core.dto;
 
+import java.io.Serializable;
+
 /**
  * Representation of a Company object which is given to the front.
  * 
  * @author pqwarlot
  *
  */
-public class CompanyDTO {
+public class CompanyDTO implements Serializable {
 	private String id;
 	private String name;
 
