@@ -7,11 +7,10 @@ import com.excilys.console.restClient.ReturnRest;
 import com.excilys.core.date.DateMapper;
 import com.excilys.core.dto.ComputerDTO;
 
-public class ComputerListOneCommand implements Command {	
+public class ComputerListOneCommand implements Command {
+	
 	@Override
-	public void execute() {
-		@SuppressWarnings("resource")
-		Scanner input = new Scanner(System.in);
+	public void execute(Scanner input) {
 		String computerId = null;
 		Long computerIdInt = null;
 

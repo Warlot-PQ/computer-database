@@ -52,15 +52,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.formLogin()
 				.loginPage("/login")
 				.failureUrl("/login?error")
-		        .usernameParameter("username") // input name where the id is retrieved in the login form
-				.permitAll();
+		        .usernameParameter("username") // input name where the username is retrieved in the login form
+		        .successHandler(new URLAuthenticationSuccessHandler())
+		        .permitAll();
 		}
 		// HTTPS
 		http.requiresChannel().antMatchers("/Dashboard").requiresSecure();
 		http.requiresChannel().antMatchers("/AddComputer").requiresSecure();
 		http.requiresChannel().antMatchers("/EditComputer").requiresSecure();
 	}
-
+	
 	/*
 	 * Digest HTTP authentifications
 	 */

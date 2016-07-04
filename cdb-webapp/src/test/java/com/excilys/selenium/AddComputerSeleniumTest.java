@@ -9,7 +9,6 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
@@ -66,15 +65,25 @@ public class AddComputerSeleniumTest {
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 	}
 	
+	private void login() {
+		driver.get(baseUrl + "/computer-database/login");
+		
+	    driver.findElement(By.id("inputUsername")).clear();
+	    driver.findElement(By.id("inputUsername")).sendKeys("admin");
+	    driver.findElement(By.id("inputPassword")).clear();
+	    driver.findElement(By.id("inputPassword")).sendKeys("123");
+	    driver.findElement(By.xpath("//button[@type='submit']")).click();
+
+	}
+	
 	/**
 	 * Test adding a valid computer and getting a success message
 	 * @throws Exception
 	 */
 	@Test
-	@Ignore
 	public void testAddGoodComputer() throws Exception {
-		driver.get(baseUrl + "/computer-database/Dashboard");
-		
+		login();		
+	    
 		driver.findElement(By.cssSelector("body section > div:nth-child(1) a:nth-child(1)")).click();
 		
 		driver.findElement(By.cssSelector("body section div div form fieldset div:nth-child(1) input")).sendKeys("test 123");
@@ -87,7 +96,7 @@ public class AddComputerSeleniumTest {
 		driver.findElement(By.cssSelector("input.btn.btn-primary")).click();
 		
 		WebElement errorDivElt = driver.findElement(By.cssSelector(".alert"));
-		Assert.assertEquals("Computer saved successfully", errorDivElt.getText());
+		Assert.assertEquals("Computer saved successfully.", errorDivElt.getText());
 		
 		driver.findElement(By.linkText("Application - Computer Database")).click();
 	}
@@ -97,9 +106,8 @@ public class AddComputerSeleniumTest {
 	 * @throws Exception
 	 */
 	@Test
-	@Ignore
 	public void testAddWrongComputer() throws Exception {
-		driver.get(baseUrl + "/computer-database/Dashboard");
+		login();	
 
 		driver.findElement(By.cssSelector("body section > div:nth-child(1) a:nth-child(1)")).click();
 		
@@ -123,9 +131,8 @@ public class AddComputerSeleniumTest {
 	 * @throws Exception
 	 */
 	@Test
-	@Ignore
 	public void testEditGoodComputer() throws Exception {
-	    driver.get(baseUrl + "/computer-database/Dashboard");
+		login();
 
 	    // MacBook Pro
 	    driver.findElement(By.cssSelector("table tbody tr:nth-child(1) a")).click();
@@ -138,7 +145,7 @@ public class AddComputerSeleniumTest {
 		new Select(driver.findElement(By.cssSelector("body section div div form select"))).selectByVisibleText("Thinking Machines");
 		driver.findElement(By.cssSelector("input.btn.btn-primary")).click();
 		WebElement errorDivElt = driver.findElement(By.id("errorMsg"));
-		Assert.assertEquals("Computer saved successfully", errorDivElt.getText());
+		Assert.assertEquals("Computer updated successfully.", errorDivElt.getText());
 
 		driver.findElement(By.linkText("Application - Computer Database")).click();
 	}
@@ -148,9 +155,8 @@ public class AddComputerSeleniumTest {
 	 * @throws Exception
 	 */
 	@Test
-	@Ignore
 	public void testEditWrongComputer() throws Exception {
-	    driver.get(baseUrl + "/computer-database/Dashboard");
+		login();		
 
 	    // MacBook Pro 15.4 inch
 	    driver.findElement(By.cssSelector("table tbody tr:nth-child(1) a")).click();

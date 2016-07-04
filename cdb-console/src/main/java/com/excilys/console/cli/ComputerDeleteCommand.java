@@ -8,13 +8,11 @@ import com.excilys.core.date.DateMapper;
 import com.excilys.core.dto.ComputerDTO;
 
 public class ComputerDeleteCommand implements Command {	
+	
 	@Override
-	public void execute() {
-		@SuppressWarnings("resource")
-		Scanner input = new Scanner(System.in);
+	public void execute(Scanner input) {
 		String computerId = null;
 		Long computerIdInt = null;
-		ComputerDTO computerDTOToCreate = null;
 
 		System.out.printf("Enter the machine id to delete:%n>");
 		computerId = input.nextLine();

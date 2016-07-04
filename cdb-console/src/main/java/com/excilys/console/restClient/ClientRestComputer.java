@@ -24,7 +24,7 @@ import com.excilys.service.pagination.Page;
  */
 public class ClientRestComputer {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ClientRestComputer.class);
-	private static final String URI = "https://localhost:8443/computer-database/rest";
+	private static final String URI = "http://localhost:8080/computer-database/rest";
 
 	public static ReturnRest<Page<ComputerDTO>> getPageComputer(String pageNumber, String eltByPage) {
 		Client client = ClientBuilder.newClient();

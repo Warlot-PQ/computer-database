@@ -8,10 +8,9 @@ import com.excilys.core.dto.ComputerDTO;
 import com.excilys.core.validator.DateValidator;
 
 public class ComputerCreateCommand implements Command {
+	
 	@Override
-	public void execute() {
-		@SuppressWarnings("resource")
-		Scanner input = new Scanner(System.in);
+	public void execute(Scanner input) {
 		ComputerDTO computerDTOToCreate = new ComputerDTO();
 
 		System.out.printf("Enter the computer name:%n>");

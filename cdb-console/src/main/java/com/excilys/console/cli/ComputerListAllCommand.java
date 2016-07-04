@@ -1,6 +1,7 @@
 package com.excilys.console.cli;
 
 import java.util.List;
+import java.util.Scanner;
 
 import com.excilys.console.restClient.ClientRestComputer;
 import com.excilys.console.restClient.ReturnRest;
@@ -8,7 +9,7 @@ import com.excilys.core.dto.ComputerDTO;
 
 public class ComputerListAllCommand implements Command {	
 	@Override
-	public void execute() {
+	public void execute(Scanner input) {
 		int responseCode = 0;
 		
 		System.out.println("Sending get request to server....");

@@ -1197,3 +1197,5 @@
 12:08:57.427 [main] DEBUG o.h.j.i.s.JpaSchemaGenerator.execute - No actions specified; doing nothing
 12:08:57.466 [main] DEBUG o.h.j.i.EntityManagerFactoryRegistry.<init> - Initializing EntityManagerFactoryRegistry : org.hibernate.jpa.internal.EntityManagerFactoryRegistry@3b569985
 12:08:57.466 [main] DEBUG o.h.j.i.EntityManagerFactoryRegistry.addEntityManagerFactory - Registering EntityManagerFactory: default 
+17:20:34.757 [http-nio-8443-exec-17] ERROR o.h.e.j.s.SqlExceptionHelper.logExceptions - Cannot add or update a child row: a foreign key constraint fails (`computer-database-db`.`computer`, CONSTRAINT `fk_computer_company_1` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`))
+17:20:34.757 [http-nio-8443-exec-17] ERROR o.h.e.j.s.SqlExceptionHelper.logExceptions - Cannot add or update a child row: a foreign key constraint fails (`computer-database-db`.`computer`, CONSTRAINT `fk_computer_company_1` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`))

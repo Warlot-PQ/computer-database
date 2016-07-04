@@ -9,10 +9,9 @@ import com.excilys.core.dto.ComputerDTO;
 import com.excilys.core.validator.DateValidator;
 
 public class ComputerUpdateCommand implements Command {
+	
 	@Override
-	public void execute() {
-		@SuppressWarnings("resource")
-		Scanner input = new Scanner(System.in);
+	public void execute(Scanner input) {
 		String computerIdToUpdateStr = null;
 		Long computerIdToUpdate = null;
 
@@ -72,5 +71,4 @@ public class ComputerUpdateCommand implements Command {
 			System.out.println("No message from server.");
 		}
 	}
-
 }

@@ -1,6 +1,7 @@
 package com.excilys.console.cli;
 
 import java.util.HashMap;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -29,18 +30,17 @@ public class CommandFactory {
 		addCommand("Create_a_computer", computerCreateCommand);
 		addCommand("Update_a_computer", computerUpdateCommand);
 		addCommand("Delete_a_computer", computerDeleteCommand);
-		addCommand("Exit", exitCommand);
 	}
 
 	public void addCommand(String name, Command command) {
 		commands.put(name, command);
 	}
 
-	public void executeCommand(String name) {
+	public void executeCommand(String name, Scanner input) {
 		LOGGER.info("Command: " + name + " requested.");
 		if (commands.containsKey(name)) {
 			LOGGER.info("command found.");
-			commands.get(name).execute();
+			commands.get(name).execute(input);
 		} else {
 			LOGGER.info("command not found.");
 			System.out.println("Unknow command, please use one of the following");

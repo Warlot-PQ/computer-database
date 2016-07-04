@@ -16,6 +16,8 @@ public class CDB_launcher {
 	 *            arguments to parse, only the first one is used
 	 */
 	public static void main(String[] args) {
+		Scanner input = new Scanner(System.in);
+		
 		applicationContext = new AnnotationConfigApplicationContext(ConsoleConfig.class);	
 		CommandFactory cf = applicationContext.getBean(CommandFactory.class);
 		String firstArg = null;
@@ -26,20 +28,21 @@ public class CDB_launcher {
 			firstArg = args[0];
 
 			System.out.println("You have entered: " + firstArg + ".");
-			cf.executeCommand(firstArg);
+			cf.executeCommand(firstArg, input);
 		} else {
-			@SuppressWarnings("resource")
-			Scanner input = new Scanner(System.in);
-
 			// Infinite loop until the user enter "exit"
-			while (true) {
+			do {
 				System.out.printf("%nPlease enter your command: (enter anything for help)%n>");
 				firstArg = input.nextLine();
-
-				cf.executeCommand(firstArg);
+				
+				if (firstArg.equals("Exit") == false) {
+					cf.executeCommand(firstArg, input);
+				}
 			}
+			while (firstArg.equals("Exit") == false);
 		}
 		System.out.println("Bye bye.");
+		input.close();
 		applicationContext.close();
 	}
 }
