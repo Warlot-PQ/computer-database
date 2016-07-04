@@ -30,6 +30,7 @@
 		<javax.servlet.jsp-api.version>2.2.1</javax.servlet.jsp-api.version>
 		<mysql-connector-java.version>5.1.39</mysql-connector-java.version>
 		<junit.version>4.12</junit.version>
+		<mockito.version>1.10.19</mockito.version>
 		<slf4j.version>1.6.1</slf4j.version>
 		<logback.version>0.9.26</logback.version>
 		<jstl.version>1.2</jstl.version>
@@ -104,7 +105,7 @@
 						<!--
 							path is the Tomcat context (root (/) if not specified). 
 							/ 				   -> www.localhost:8080/Dashboard
-							/computer-database -> www.localhost:8080/TOMCAT_CONTEXT/Dashboard
+							/computer-database -> www.localhost:8080/computer-database/Dashboard
 						-->
 						<path>/computer-database</path>
 					</configuration>   
@@ -284,6 +285,7 @@
 			</dependency>
 	
 			<!-- MySql 5.X Connector -->
+			
 			<dependency>
 				<groupId>mysql</groupId>
 				<artifactId>mysql-connector-java</artifactId>
@@ -292,6 +294,7 @@
 			</dependency>
 	
 			<!-- jUnit 4.X -->
+			
 			<dependency>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
@@ -299,6 +302,14 @@
 				<scope>test</scope>
 			</dependency>
 	
+			<!-- Mockito -->
+	
+			<dependency>
+			    <groupId>org.mockito</groupId>
+			    <artifactId>mockito-all</artifactId>
+			    <version>${mockito.version}</version>
+			</dependency>
+		
 			<!-- SLF4j interface -->
 	
 			<dependency>

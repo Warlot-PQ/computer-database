@@ -48,12 +48,12 @@ public class PageRequest {
 			return this;
 		}
 		
-		public Builder computerId(Long computerId) {
+		public Builder id(Long computerId) {
 			this.id = computerId;
 			return this;
 		}
 		
-		public Builder computerSeachedName(String computerName) {
+		public Builder seachedName(String computerName) {
 			this.name = computerName;
 			return this;
 		}

@@ -71,7 +71,7 @@ public class Dashboard {
 
 	private void prepareSearchJSP(RequestModel requestModel, Model model) {
 		Page<ComputerDTO> page = computerService.getPage(PageRequest.create()
-				.computerSeachedName(requestModel.getSearch())
+				.seachedName(requestModel.getSearch())
 				.page(requestModel.getPage())
 				.eltByPage(requestModel.getLimit())
 				.orderBy(requestModel.getOrderBy())

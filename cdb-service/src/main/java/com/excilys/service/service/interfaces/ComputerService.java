@@ -5,6 +5,7 @@ import java.util.List;
 import com.excilys.core.dto.ComputerDTO;
 import com.excilys.core.entity.Computer;
 import com.excilys.persistence.pagination.PageRequest;
+import com.excilys.persistence.repository.interfaces.ComputerDAO;
 import com.excilys.service.pagination.Page;
 
 /**
@@ -16,6 +17,9 @@ public interface ComputerService {
 	public enum ErrorMessage {
 		COMPUTER_DATE_ERROR, NONE
 	};
+	
+	public void setComputerDAO(ComputerDAO computerDAO);
+	
 	/**
 	 * Get all computers
 	 * @return list of ComputerDTO

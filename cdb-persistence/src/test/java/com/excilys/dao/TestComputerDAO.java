@@ -75,7 +75,7 @@ public class TestComputerDAO {
 
 	@Test
 	public void testReadOne() {
-		List<ComputerDTO> computersExpected = computerDAO.findAll(PageRequest.create().computerId(5L).build());
+		List<ComputerDTO> computersExpected = computerDAO.findAll(PageRequest.create().id(5L).build());
 		
 		// computersExpected
 		// Expect not null

@@ -20,8 +20,8 @@ import com.excilys.service.service.interfaces.ComputerService;
 import com.excilys.service.validation.ComputerValidation;
 
 /**
- * Service to manipulate Company table. Use cache data if possible.
- * Singleton class.
+ * Service to manipulate Company table. Use cache data if possible. Singleton
+ * class.
  * 
  * @author pqwarlot
  *
@@ -32,6 +32,11 @@ public class ComputerServiceImpl implements ComputerService {
 	private static Logger logger = LoggerFactory.getLogger(ComputerServiceImpl.class);
 	@Autowired
 	private ComputerDAO computerDAO;
+
+	public void setComputerDAO(ComputerDAO computerDAO) {
+		this.computerDAO = computerDAO;
+	}
+
 	@Autowired
 	private Cache cache;
 
@@ -42,11 +47,11 @@ public class ComputerServiceImpl implements ComputerService {
 	}
 
 	@Override
-	@Transactional(readOnly = true, propagation=Propagation.REQUIRES_NEW)
+	@Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
 	public List<ComputerDTO> getAll() {
 		return computerDAO.findAll(PageRequest.create().build());
 	}
-	
+
 	/**
 	 * Get all computers informations
 	 * 
@@ -58,10 +63,11 @@ public class ComputerServiceImpl implements ComputerService {
 	@Override
 	@Transactional(readOnly = true)
 	public List<ComputerDTO> getAll(PageRequest pageRequest) {
-		if (pageRequest == null) return null;
+		if (pageRequest == null)
+			return null;
 		return computerDAO.findAll(pageRequest);
 	}
-	
+
 	/**
 	 * Get informations from a specific computer
 	 * 
@@ -75,8 +81,9 @@ public class ComputerServiceImpl implements ComputerService {
 	@Override
 	@Transactional(readOnly = true)
 	public ComputerDTO get(Long id) {
-		if (id == null) return null;
-		List<ComputerDTO> computers = computerDAO.findAll(PageRequest.create().computerId(id).build());
+		if (id == null)
+			return null;
+		List<ComputerDTO> computers = computerDAO.findAll(PageRequest.create().id(id).build());
 
 		if (computers != null && computers.size() > 0) {
 			// If one or multiple matche
@@ -98,13 +105,14 @@ public class ComputerServiceImpl implements ComputerService {
 	 * @throws ConnectionException
 	 */
 	@Override
-	@Transactional(propagation=Propagation.REQUIRES_NEW)
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public ErrorMessage create(Computer computer) {
-		if (computer == null) return null;
+		if (computer == null)
+			return null;
 		if (ComputerValidation.date(computer) == false) {
 			return ErrorMessage.COMPUTER_DATE_ERROR;
 		}
-		
+
 		computerDAO.create(computer);
 		cache.incrementCount(1);
 		return ErrorMessage.NONE;
@@ -123,13 +131,14 @@ public class ComputerServiceImpl implements ComputerService {
 	 * @throws ConnectionException
 	 */
 	@Override
-	@Transactional(propagation=Propagation.REQUIRES_NEW)
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public ErrorMessage update(Computer computer) {
-		if (computer == null) return null;
+		if (computer == null)
+			return null;
 		if (ComputerValidation.date(computer) == false) {
 			return ErrorMessage.COMPUTER_DATE_ERROR;
 		}
-		
+
 		computerDAO.updateById(computer);
 		return ErrorMessage.NONE;
 	}
@@ -145,9 +154,10 @@ public class ComputerServiceImpl implements ComputerService {
 	 * @throws ConnectionException
 	 */
 	@Override
-	@Transactional(propagation=Propagation.REQUIRES_NEW)
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public void delete(Long id) {
-		if (id == null) return;
+		if (id == null)
+			return;
 		computerDAO.delete(id);
 		cache.decrementCount(1);
 	}
@@ -155,19 +165,20 @@ public class ComputerServiceImpl implements ComputerService {
 	@Override
 	@Transactional(readOnly = true)
 	public int count() {
-		Integer computersNumber = cache.getCountComputer(); 
-		
+		Integer computersNumber = cache.getCountComputer();
+
 		if (computersNumber == null) {
 			// If value not already in cache
 			computersNumber = computerDAO.count(PageRequest.create().build());
-		}		
+		}
 		return computersNumber;
 	}
 
 	@Override
-	@Transactional(propagation=Propagation.REQUIRES_NEW)
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public void deleteByCompany(Long id) {
-		if (id == null) return;
+		if (id == null)
+			return;
 		throw new UnsupportedClassVersionError();
 		// update cache once implemented
 	}
@@ -175,19 +186,21 @@ public class ComputerServiceImpl implements ComputerService {
 	@Override
 	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRES_NEW)
 	public Page<ComputerDTO> getPage(PageRequest pageRequest) {
-		if (pageRequest == null) return null;
+		if (pageRequest == null)
+			return null;
 		List<ComputerDTO> computers = null;
 		Integer computersNumber = 0;
-		
+
 		if (pageRequest.getSearchedName() == null || pageRequest.getSearchedName().isEmpty()) {
 			// If not in search mode
 			computersNumber = count();
 		} else {
 			// Count the searched elements founded
-			computersNumber = computerDAO.count(pageRequest);			
+			computersNumber = computerDAO.count(pageRequest);
 		}
 		computers = computerDAO.findAll(pageRequest);
 
-		return new Page<ComputerDTO>(computers, computersNumber, pageRequest.getPage().intValue(), pageRequest.getEltByPage().intValue());
+		return new Page<ComputerDTO>(computers, computersNumber, pageRequest.getPage().intValue(),
+				pageRequest.getEltByPage().intValue());
 	}
 }
