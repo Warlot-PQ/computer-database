@@ -1,7 +1,6 @@
 package com.excilys.service.marshaller;
 
 import java.io.File;
-import java.io.StringWriter;
 import java.util.List;
 
 import javax.xml.bind.JAXBContext;
@@ -25,7 +24,6 @@ public class MarshallerXml {
 	
 	public void computerAll() {
 		//TODO pass file name as parameter
-		java.io.StringWriter stringWriter = new StringWriter();
 		JAXBContext jaxbContext;
 		try {
 			jaxbContext = JAXBContext.newInstance(ComputersDTO.class, ComputerDTO.class);

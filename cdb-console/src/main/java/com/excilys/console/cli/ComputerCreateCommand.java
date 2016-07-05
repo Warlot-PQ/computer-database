@@ -2,13 +2,21 @@ package com.excilys.console.cli;
 
 import java.util.Scanner;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.excilys.console.restClient.ClientRestComputer;
 import com.excilys.console.restClient.ReturnRest;
 import com.excilys.core.dto.ComputerDTO;
 import com.excilys.core.validator.DateValidator;
 
 public class ComputerCreateCommand implements Command {
+	@Autowired
+	private ClientRestComputer clientRest;
 	
+	public void setClientRest(ClientRestComputer clientRest) {
+		this.clientRest = clientRest;
+	}
+
 	@Override
 	public void execute(Scanner input) {
 		ComputerDTO computerDTOToCreate = new ComputerDTO();
@@ -39,7 +47,7 @@ public class ComputerCreateCommand implements Command {
 		System.out.println("Computer to create: " + computerDTOToCreate.toString());
 		
 		System.out.println("Sending request to server....");
-		ReturnRest<String> returnElt = ClientRestComputer.createComputer(computerDTOToCreate);
+		ReturnRest<String> returnElt = clientRest.createComputer(computerDTOToCreate);
 		System.out.println("server answer " + returnElt.getStatusCode());
 		System.out.println("server answer " + returnElt.getEntity().toString());
 		

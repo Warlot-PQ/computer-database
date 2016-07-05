@@ -13,6 +13,7 @@ import javax.ws.rs.core.Response;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import com.excilys.core.dto.ComputerDTO;
 import com.excilys.service.pagination.Page;
@@ -22,11 +23,12 @@ import com.excilys.service.pagination.Page;
  * @author pqwarlot
  *
  */
+@Component
 public class ClientRestComputer {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ClientRestComputer.class);
 	private static final String URI = "http://localhost:8080/computer-database/rest";
 
-	public static ReturnRest<Page<ComputerDTO>> getPageComputer(String pageNumber, String eltByPage) {
+	public ReturnRest<Page<ComputerDTO>> getPageComputer(String pageNumber, String eltByPage) {
 		Client client = ClientBuilder.newClient();
 		WebTarget webTarget = client.target(URI).path("computer").path(pageNumber).path(eltByPage);
 		LOGGER.debug("URI: " + webTarget.getUri());
@@ -39,7 +41,7 @@ public class ClientRestComputer {
 				}));
 	}
 
-	public static ReturnRest<List<ComputerDTO>> getAllComputer() {
+	public ReturnRest<List<ComputerDTO>> getAllComputer() {
 		Client client = ClientBuilder.newClient();
 		WebTarget webTarget = client.target(URI).path("computer");
 		LOGGER.debug("URI: " + webTarget.getUri());
@@ -52,7 +54,7 @@ public class ClientRestComputer {
 				}));
 	}
 
-	public static ReturnRest<ComputerDTO> getComputer(String computerId) {
+	public ReturnRest<ComputerDTO> getComputer(String computerId) {
 		Client client = ClientBuilder.newClient();
 		WebTarget webTarget = client.target(URI).path("computer").path(computerId);
 		LOGGER.debug("URI: " + webTarget.getUri());
@@ -65,7 +67,7 @@ public class ClientRestComputer {
 				}));
 	}
 
-	public static ReturnRest<String> createComputer(ComputerDTO computerDTO) {
+	public ReturnRest<String> createComputer(ComputerDTO computerDTO) {
 		Client client = ClientBuilder.newClient();
 		WebTarget webTarget = client.target(URI).path("computer");
 		LOGGER.debug("URI: " + webTarget.getUri());
@@ -76,7 +78,7 @@ public class ClientRestComputer {
 		return new ReturnRest<String>(response.getStatus(), response.readEntity(String.class));
 	}
 
-	public static ReturnRest<String> updateComputer(ComputerDTO computerDTO) {
+	public ReturnRest<String> updateComputer(ComputerDTO computerDTO) {
 		Client client = ClientBuilder.newClient();
 		WebTarget webTarget = client.target(URI).path("computer");
 		LOGGER.debug("URI: " + webTarget.getUri());
@@ -87,7 +89,7 @@ public class ClientRestComputer {
 		return new ReturnRest<String>(response.getStatus(), response.readEntity(String.class));
 	}
 
-	public static ReturnRest<String> deleteComputer(String computerId) {
+	public ReturnRest<String> deleteComputer(String computerId) {
 		Client client = ClientBuilder.newClient();
 		WebTarget webTarget = client.target(URI).path("computer").path(computerId);
 		LOGGER.debug("RestClient delete computer id=" + computerId);

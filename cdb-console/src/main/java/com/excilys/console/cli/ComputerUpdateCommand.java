@@ -2,6 +2,8 @@ package com.excilys.console.cli;
 
 import java.util.Scanner;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.excilys.console.restClient.ClientRestComputer;
 import com.excilys.console.restClient.ReturnRest;
 import com.excilys.core.date.DateMapper;
@@ -9,6 +11,8 @@ import com.excilys.core.dto.ComputerDTO;
 import com.excilys.core.validator.DateValidator;
 
 public class ComputerUpdateCommand implements Command {
+	@Autowired
+	private ClientRestComputer clientRest;
 	
 	@Override
 	public void execute(Scanner input) {
@@ -24,7 +28,7 @@ public class ComputerUpdateCommand implements Command {
 
 		// Fetch the computer to update
 		System.out.println("Sending deletion request to server....");
-		ReturnRest<ComputerDTO> returnEltGet = ClientRestComputer.getComputer(computerIdToUpdateStr);
+		ReturnRest<ComputerDTO> returnEltGet = clientRest.getComputer(computerIdToUpdateStr);
 		System.out.println("server: " + returnEltGet.getStatusCode() + " code");
 
 		System.out.println("You have chosen to update the following computer:");
@@ -61,7 +65,7 @@ public class ComputerUpdateCommand implements Command {
 
 		// Report changes to the DB
 		System.out.println("Sending deletion request to server....");
-		ReturnRest<String> returnEltUpdate = ClientRestComputer.updateComputer(computerDTOToUpdate);
+		ReturnRest<String> returnEltUpdate = clientRest.updateComputer(computerDTOToUpdate);
 		System.out.println("server: " + returnEltGet.getStatusCode() + " code");
 
 		String msg = returnEltUpdate.getEntity();

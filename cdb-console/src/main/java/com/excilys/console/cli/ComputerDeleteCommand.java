@@ -2,12 +2,16 @@ package com.excilys.console.cli;
 
 import java.util.Scanner;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.excilys.console.restClient.ClientRestComputer;
 import com.excilys.console.restClient.ReturnRest;
 import com.excilys.core.date.DateMapper;
 import com.excilys.core.dto.ComputerDTO;
 
 public class ComputerDeleteCommand implements Command {	
+	@Autowired
+	private ClientRestComputer clientRest;
 	
 	@Override
 	public void execute(Scanner input) {
@@ -23,7 +27,7 @@ public class ComputerDeleteCommand implements Command {
 		}
 
 		System.out.println("Sending get request to server....");
-		ReturnRest<ComputerDTO> returnEltGet = ClientRestComputer.getComputer(computerId);
+		ReturnRest<ComputerDTO> returnEltGet = clientRest.getComputer(computerId);
 		System.out.println("server: " + returnEltGet.getStatusCode() + " code");
 
 		System.out.println("You have chosen to delete the following computer:");
@@ -36,7 +40,7 @@ public class ComputerDeleteCommand implements Command {
 		}
 
 		System.out.println("Sending deletion request to server....");
-		ReturnRest<String> returnEltDelete = ClientRestComputer.deleteComputer(computerId);
+		ReturnRest<String> returnEltDelete = clientRest.deleteComputer(computerId);
 		System.out.println("server: " + returnEltGet.getStatusCode() + " code");
 		
 		String msg = returnEltDelete.getEntity();
