@@ -25,7 +25,7 @@ import com.excilys.webapp.controller.mapper.RequestModel;
  */
 @Controller
 @RequestMapping("/Dashboard")
-public class Dashboard {   
+public class Dashboard {
 	@Autowired
 	private ComputerService computerService;
 	@Autowired

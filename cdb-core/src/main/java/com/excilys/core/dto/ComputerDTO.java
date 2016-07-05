@@ -5,6 +5,9 @@ import java.time.LocalDate;
 
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import com.excilys.core.date.DateMapper;
 import com.excilys.core.entity.Company;
@@ -15,6 +18,8 @@ import com.excilys.core.validator.DateValidator;
  * @author pqwarlot
  *
  */
+@XmlRootElement(name = "computer")
+@XmlAccessorType (XmlAccessType.FIELD)
 public class ComputerDTO implements Serializable {
 	@Size(max=20)
 	private String id;

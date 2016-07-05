@@ -75,4 +75,11 @@
    		<filter-name>springSecurityFilterChain</filter-name>
    		<url-pattern>/*</url-pattern>
    	</filter-mapping>
+   	
+   	<!-- Interpret empty string as null value in DB -->
+   	
+   	<context-param>
+   		<param-name>javax.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL</param-name>
+   		<param-value>true</param-value>
+   	</context-param>
 </web-app>

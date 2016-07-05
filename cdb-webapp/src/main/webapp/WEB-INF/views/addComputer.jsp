@@ -66,7 +66,7 @@
                             <div class="form-group">
                                 <label for="companyId">${i18nComputerCompany}</label>
                                 <form:select path="companyId" name="companyId" class="form-control" id="companyId" >
-                                	<option value="0">--</option>
+                                	<option value="">--</option>
                                 	<jslt:forEach var="company" items="${companies}">
                                 		<option value="${company.id}" ${(computerDTO.companyId eq company.id) ? ' selected' : ''}>${company.name}</option>
                                 	</jslt:forEach>

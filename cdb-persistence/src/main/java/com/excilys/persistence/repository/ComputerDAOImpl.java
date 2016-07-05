@@ -45,7 +45,7 @@ public class ComputerDAOImpl implements ComputerDAO {
 	}
 	
 	@Override
-	public void create(Computer computer) {		
+	public void create(Computer computer) {
 		em.persist(computer);
 	}
 

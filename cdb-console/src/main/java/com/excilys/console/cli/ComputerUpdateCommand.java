@@ -40,7 +40,7 @@ public class ComputerUpdateCommand implements Command {
 		System.out.printf("Enter the computer name:%n>");
 		computerDTOToUpdate.setName(input.nextLine());
 
-		System.out.printf("Enter the computer introduced date: format DD/MM/YYYY (enter to skip)%n>");
+		System.out.printf("Enter the computer introduced date: format " + DateValidator.DATE_PATTERN + " (enter to skip)%n>");
 		String dateStr = input.nextLine();
 		if (DateValidator.isValid(dateStr) == false) { 
 			System.out.println("Incorrect date format! Stopping process.");
@@ -48,7 +48,7 @@ public class ComputerUpdateCommand implements Command {
 		}
 		computerDTOToUpdate.setIntroduced(dateStr);
 
-		System.out.printf("Enter the computer discontinued date: format DD/MM/YYYY (enter to skip)%n>");
+		System.out.printf("Enter the computer discontinued date: format " + DateValidator.DATE_PATTERN + " (enter to skip)%n>");
 		dateStr = input.nextLine();
 		if (DateValidator.isValid(dateStr) == false) { 
 			System.out.println("Incorrect date format! Stopping process.");

@@ -75,9 +75,15 @@
 				</div>
 				<security:authorize access="hasRole('ROLE_ADMIN')">
 				<div class="pull-right">
-					<a class="btn btn-success" id="addComputer" href="AddComputer">${i18nButtonAdd}</a>
-					<a class="btn btn-default" id="editComputer" href="#"
-						onclick="$.fn.toggleEditMode();">${i18nButtonEdit}</a>
+					<div class="row">
+						<a class="btn btn-success" id="addComputer" href="AddComputer">${i18nButtonAdd}</a>
+						<a class="btn btn-default" id="editComputer" href="#"
+							onclick="$.fn.toggleEditMode();">${i18nButtonEdit}</a>
+					</div>
+					<div class="row text-center">
+						<a class="btn btn-default" href="Export">Export</a>
+						<a class="btn btn-default" href="#">Import</a>
+					</div>
 				</div>
 				</security:authorize>
 			</div>

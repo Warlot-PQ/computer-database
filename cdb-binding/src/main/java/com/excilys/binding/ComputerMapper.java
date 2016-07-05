@@ -12,11 +12,19 @@ import com.excilys.core.entity.Computer;
  */
 public class ComputerMapper {
 	public static Computer toEntity(ComputerDTO computerDTO) {
+		System.out.println(computerDTO.toString());
+		
+		Company company = null;
+		if (computerDTO.getCompanyId() != null 
+				&& computerDTO.getCompanyId().isEmpty() == false) {
+			company = new Company(DateMapper.convertStringToLong(computerDTO.getCompanyId()), computerDTO.getCompanyName());
+		}
+		
 		return new Computer(
 				DateMapper.convertStringToLong(computerDTO.getId()),
 				computerDTO.getName(),
 				DateMapper.convertStringToLocalDate(computerDTO.getIntroduced()),
 				DateMapper.convertStringToLocalDate(computerDTO.getDiscontinued()),
-				new Company(DateMapper.convertStringToLong(computerDTO.getCompanyId()), computerDTO.getCompanyName()));
+				company);
 	}
 }

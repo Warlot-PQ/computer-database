@@ -33,6 +33,7 @@ public class ComputerServiceImpl implements ComputerService {
 	@Autowired
 	private ComputerDAO computerDAO;
 
+	@Override
 	public void setComputerDAO(ComputerDAO computerDAO) {
 		this.computerDAO = computerDAO;
 	}
