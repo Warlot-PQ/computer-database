@@ -106,7 +106,8 @@
 					<version>${tomcatPlugin.version}</version>  
 					<configuration>
 						<url>http://localhost:8080/manager/text</url>
-						<server>TomcatServer</server> 
+						<server>TomcatServer</server>
+						<path>/computer-database</path>
 					</configuration>   
 				</plugin> 
 				
@@ -548,12 +549,6 @@
 			    <version>${hibernate.version}</version>
 			</dependency>
 			
-			<dependency>
-			    <groupId>org.eclipse.persistence</groupId>
-			    <artifactId>javax.persistence</artifactId>
-			    <version>${javax.persistence}</version>
-			</dependency>	
-			
 			<!-- JRS-303 bean validation -->
 					
 			<dependency>
@@ -575,6 +570,12 @@
 			  <groupId>com.mysema.querydsl</groupId>
 			  <artifactId>querydsl-jpa</artifactId>
 			  <version>${querydsl.version}</version>
+			  <exclusions>
+			  	<exclusion>
+			  		<groupId>org.hibernate.javax.persistence</groupId>
+			  		<artifactId>hibernate-jpa-2.0-api</artifactId>
+			  	</exclusion>
+			  </exclusions>
 			</dependency>
 			
 			<!-- Fix a bug using Junit and JPA -->

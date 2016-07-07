@@ -41,7 +41,7 @@ public class Export {
 		if (result.hasErrors()) {
 			requestModel.reset();
 		}
-System.out.println(requestModel.toString());
+
 		Builder builderDataRequest = PageRequest.create().page(requestModel.getPage()).eltByPage(Integer.MAX_VALUE)
 				.orderBy(requestModel.getOrderBy()).orderAlphaNumerical(requestModel.isOrderAlphaNum());
 
