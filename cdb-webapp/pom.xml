@@ -12,6 +12,8 @@
 	<packaging>war</packaging>
 
 	<build>
+		<finalName>computer-database</finalName>
+	
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -32,6 +34,21 @@
 				<groupId>org.apache.tomcat.maven</groupId>  
 				<artifactId>tomcat7-maven-plugin</artifactId>
 			</plugin> 
+			
+			<plugin>
+				<groupId>org.codehaus.cargo</groupId>
+				<artifactId>cargo-maven2-plugin</artifactId>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>selenium-maven-plugin</artifactId>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+			</plugin>
 		</plugins>			
 	</build>
 

@@ -43,8 +43,8 @@
 		<HikariCP.version>2.4.5</HikariCP.version>
 		<mockito-all.version>1.9.5</mockito-all.version>		
 		<spring.version>4.1.0.RELEASE</spring.version>
-		<tomcat.directory>/home/pqwarlot/workspace/computer-database/project resources/apache-tomcat-8.0.33</tomcat.directory>
-		<jta.version>1.1</jta.version>		
+		<tomcat.directory>/home/pqwarlot/apache-tomcat-8.0.33/</tomcat.directory>
+		<jta.version>1.1</jta.version>
 		<hibernate-validator.version>5.2.4.Final</hibernate-validator.version>
 		
 		<javax.persistence>2.1.1</javax.persistence>
@@ -107,12 +107,6 @@
 					<configuration>
 						<url>http://localhost:8080/manager/text</url>
 						<server>TomcatServer</server> 
-						<!--
-							path is the Tomcat context (root (/) if not specified). 
-							/ 				   -> www.localhost:8080/Dashboard
-							/computer-database -> www.localhost:8080/computer-database/Dashboard
-						-->
-						<path>/computer-database</path>
 					</configuration>   
 				</plugin> 
 				

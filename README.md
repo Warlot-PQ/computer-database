@@ -4,6 +4,10 @@
 
 https://github.com/loicortola/spec-cdb
 
+## DB configuration
+
+Use SQL file main/resources and test/resources in persistence module to setup.
+
 ## SSL configuration
 
 Create a certificate by running the following command.
@@ -29,9 +33,9 @@ Configure the Tomcat server, TOMCAT_DIR/conf/server.xml
 		sslProtocol="TLS" />
 ```
 
-## Maven command line
+## Maven and Tomcat config
 
-To configure a Tomcat server and SSL in a maven multi-modules properly, create /home/.m2/setting.xml and /home/apache-tomcat-8.0.33/conf/tomcat-users.xml. Files are in "project resources/multi-modules". And configure the CATALINA_HOME env variable, ex: export CATALINA_HOME=/home/pqwarlot/apache-tomcat-8.0.33.
+To configure a Tomcat server and SSL in a maven multi-modules properly, create /home/.m2/setting.xml and /home/apache-tomcat-8.0.33/conf/tomcat-users.xml. Files are in "project resources/multi-modules". And configure the tomcat.directory properties in the parent pom to point your tomcat 8 directory.
 
 To launch the project, first launch the Tomcat with ./catalina.sh and deploy the project into the server with mvn tomcat7:redeplay. Or run mvn tomcat7:run-war to do both with one command.
 
@@ -39,7 +43,7 @@ To launch the project, first launch the Tomcat with ./catalina.sh and deploy the
 
 At compile-time, Qclasses are generated in target/generated-sources/queryDSL. Copy these files in com.excilys.entity package to make repository classes working.
 
-## Todo before using project with docker features
+## Todo before using project with docker features (not up to date)
 
 Download Tomcat : at root project directory, enter mkdir apache-tomcat-8.0.33 && cd apache-tomcat-8.0.33 && wget http://wwwftp.ciril.fr/pub/apache/tomcat/tomcat-8/v8.0.35/bin/apache-tomcat-8.0.35.tar.gz && tar xvf apache-tomcat-8.0.35.tar.gz && mv apache-tomcat-8.0.35/* . && rm -R apache-tomcat-8.0.35
 
@@ -61,51 +65,3 @@ docker build -t jenkins-cdb ./
 
 docker run -d --name jenkins -v /var/run/docker.sock:/var/run/docker.sock -p 8085:8080 -p 
 50000:50000 jenkins-cdb
-
-## Librairy used
-
-mysql-connector-java-5.1.39-bin.jar --- 
-
-slf4j-api-1.7.21.jar --- Logger API
-
-logback-classic-1.1.7.jar --- Logger implementation
-
-logback-core-1.1.7.jar --- Logger implementation
-
-jUnit4 --- Unit test
-
-jsp --- Dynamically create XHTML
-
-jstl --- Tag JSP
-
-selenium.java --- UI integration testing
-
-javax.servlet.api --- Servlet API
-
-javax.servlet-jsp.api --- JSP API
-
-commons-lang3 --- escape HTML code.
-
-## Plugin used
-
-maven-compiler-plugin --- Maven compilation
-
-maven-war-plugin --- War file deployment
-
-maven-checkstyle-plugin --- Code checkstyle
-
-cargo-maven2-plugin --- start Tomcat server
-
-selenium-maven-plugin --- start Selenium server
-
-maven-surefire-plugin --- Run integration tests, exclude integration tests from unit tests
-
-## Maven command
-
-mvn checkstyle:checkstyle --- give the number of checkstyle errors.
-
-mvn checkstyle:check --- give all checkstyle errors.
-
-mvn clean test --- clean project and run unit test.
-
-mvn clean integration-test --- clean project and run integration-test.

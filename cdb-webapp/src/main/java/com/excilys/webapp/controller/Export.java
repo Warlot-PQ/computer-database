@@ -41,14 +41,14 @@ public class Export {
 		if (result.hasErrors()) {
 			requestModel.reset();
 		}
-
+System.out.println(requestModel.toString());
 		Builder builderDataRequest = PageRequest.create().page(requestModel.getPage()).eltByPage(Integer.MAX_VALUE)
 				.orderBy(requestModel.getOrderBy()).orderAlphaNumerical(requestModel.isOrderAlphaNum());
 
 		if (requestModel.getSearch() != null) {
 			builderDataRequest.seachedName(requestModel.getSearch());
 		}
-
+		
 		String filePath = "computer.xml";
 		marshallerXml.computerAll(filePath, builderDataRequest.build());
 
@@ -88,7 +88,7 @@ public class Export {
 		while ((bytesRead = inputStream.read(buffer)) != -1) {
 			outStream.write(buffer, 0, bytesRead);
 		}
-
+		
 		inputStream.close();
 		outStream.close();
 		downloadFile.delete();

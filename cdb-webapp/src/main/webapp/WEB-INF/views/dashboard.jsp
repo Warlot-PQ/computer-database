@@ -81,11 +81,10 @@
 						<a class="btn btn-success" id="addComputer" href="add_computer">${i18nButtonAdd}</a>
 						<a class="btn btn-default" id="editComputer" href="#"
 							onclick="$.fn.toggleEditMode();">${i18nButtonEdit}</a>
-						<a class="btn btn-default" href="Export?page=${currentPage}&limit=${currentLimit}&search=${nameSearched}">Export</a>
 					</div>
 					<div class="row">
-						<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target=""import_export_modal"">
-						 Import/Export
+						<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#import_export_modal">
+							 Import/Export
 						</button>
 					</div>
 				</div>
@@ -158,14 +157,6 @@
 
 			<myLib:pagination start="1" current="${currentPage}" end="${totalPages}" limit="${currentLimit}" search="${nameSearched}" orderBy="${currentOrderBy}" orderAlphaNum="${currentOrderAlphaNumerical}" />
 	
-			<div class="btn-group btn-group-sm pull-left" role="group">
-					
-				<form method="POST" action="Import" enctype="multipart/form-data">
-					<input type="file" name="file">
-					<input class="btn btn-default" style="display: inline-block;" type="submit" value="Import">
-				</form>
-			</div>
-			
 			<div class="btn-group btn-group-sm pull-right" role="group">
 			
 				<myLib:link page="1" limit="10" search="${nameSearched}" orderBy="${currentOrderBy}" orderAlphaNum="${currentOrderAlphaNumerical}" classes="btn btn-default">
@@ -182,12 +173,16 @@
 		</div>
 	</footer>
 	
-	<jsp:include page="components/ImportExport.jsp" />
+	<jsp:include page="components/ImportExport.jsp">
+		<jsp:param name="currentPage" value="${currentPage}" />
+		<jsp:param name="currentLimit" value="12" />
+		<jsp:param name="nameSearched" value="${nameSearched}" />
+	</jsp:include>
 	
 	<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/dashboard.js"></script>
-	<!-- TODO get i18n messages and put them into $ (jQuery) object --> 
+	
 	<script type="text/javascript">
 		$.messages = ${langMsg};
 	</script>
