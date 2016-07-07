@@ -16,18 +16,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.excilys.binding.ComputerMapper;
 import com.excilys.core.dto.CompanyDTO;
 import com.excilys.core.dto.ComputerDTO;
-import com.excilys.service.service.interfaces.CompanyService;
-import com.excilys.service.service.interfaces.ComputerService;
-import com.excilys.service.service.interfaces.ComputerService.ErrorMessage;
-import com.excilys.binding.ComputerMapper;
+import com.excilys.service.service.CompanyService;
+import com.excilys.service.service.ComputerService;
+import com.excilys.service.service.ComputerService.ErrorMessage;
 
 /**
  * Servlet implementation class EditComputer
  */
 @Controller
-@RequestMapping("/EditComputer")
+@RequestMapping("/edit_computer")
 public class EditComputer {  
 	@Autowired
 	private ComputerService computerService;  

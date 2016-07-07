@@ -29,7 +29,7 @@
 <body>
     <header class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="Dashboard"> Application - Computer Database </a>
+            <a class="navbar-brand" href="dashboard"> Application - Computer Database </a>
         </div>
     </header>
     
@@ -50,7 +50,7 @@
                     	${i18nEditTitle}
                     </h1>
 
-                    <form:form commandName="computerDTO" action="EditComputer" onsubmit="return validateForm();" method="POST">
+                    <form:form commandName="computerDTO" action="edit_computer" onsubmit="return validateForm();" method="POST">
                         <form:errors path="*" cssClass="errorBlock" element="div" />
                         <input name="id" type="hidden" id="id" value="${computerDTO.id}" />
                         <fieldset>
@@ -91,7 +91,7 @@
                         <div class="actions pull-right">
                             <input type="submit" value="${i18nButtonEdit}" class="btn btn-primary">
                             or
-                            <a href="Dashboard" class="btn btn-default">${i18nButtonCancel}</a>
+                            <a href="dashboard" class="btn btn-default">${i18nButtonCancel}</a>
                         </div>
                     </form:form>
                 </div>

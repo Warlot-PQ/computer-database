@@ -25,7 +25,7 @@ import com.excilys.ResetDB;
 import com.excilys.core.date.DateMapper;
 import com.excilys.core.dto.ComputerDTO;
 import com.excilys.persistence.pagination.PageRequest;
-import com.excilys.persistence.repository.interfaces.ComputerDAO;
+import com.excilys.persistence.repository.ComputerDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes=com.excilys.persistence.config.PersistenceConfig.class, loader=AnnotationConfigContextLoader.class)

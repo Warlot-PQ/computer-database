@@ -24,8 +24,7 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
 import com.excilys.core.dto.ComputerDTO;
 import com.excilys.persistence.pagination.PageRequest;
-import com.excilys.persistence.repository.interfaces.ComputerDAO;
-import com.excilys.service.service.interfaces.ComputerService;
+import com.excilys.persistence.repository.ComputerDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes=com.excilys.service.config.ServiceConfig.class, loader=AnnotationConfigContextLoader.class)

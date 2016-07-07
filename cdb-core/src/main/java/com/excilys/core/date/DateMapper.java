@@ -21,7 +21,7 @@ public class DateMapper {
 	 */
 	public static Long convertStringToLong(String msg) {
 		Long number = null;
-		if (msg != null && StringUtils.isNumeric(msg) == true) {
+		if (msg != null && StringUtils.isNumeric(msg)) {
 			number = Long.valueOf(msg);
 		} else {
 			System.out.println("Incorrect format!");

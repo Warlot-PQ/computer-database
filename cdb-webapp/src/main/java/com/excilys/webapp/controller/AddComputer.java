@@ -13,17 +13,17 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.excilys.core.dto.ComputerDTO;
-import com.excilys.service.service.interfaces.CompanyService;
-import com.excilys.service.service.interfaces.ComputerService;
-import com.excilys.service.service.interfaces.ComputerService.ErrorMessage;
 import com.excilys.binding.ComputerMapper;
+import com.excilys.core.dto.ComputerDTO;
+import com.excilys.service.service.CompanyService;
+import com.excilys.service.service.ComputerService;
+import com.excilys.service.service.ComputerService.ErrorMessage;
 
 /**
  * Servlet implementation class AddComputer
  */
 @Controller
-@RequestMapping("/AddComputer")
+@RequestMapping("/add_computer")
 public class AddComputer extends HttpServlet {
 	@Autowired  
 	private ComputerService computerService;  

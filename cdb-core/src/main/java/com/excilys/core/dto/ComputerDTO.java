@@ -8,6 +8,7 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import com.excilys.core.date.DateMapper;
 import com.excilys.core.entity.Company;
@@ -21,6 +22,7 @@ import com.excilys.core.validator.DateValidator;
 @XmlRootElement(name = "computer")
 @XmlAccessorType (XmlAccessType.FIELD)
 public class ComputerDTO implements Serializable {
+	@XmlTransient
 	@Size(max=20)
 	private String id;
 	@Size(min=1, max=255)

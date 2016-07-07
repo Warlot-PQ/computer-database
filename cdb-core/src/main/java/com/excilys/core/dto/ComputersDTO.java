@@ -23,4 +23,9 @@ public class ComputersDTO implements Serializable {
 	public void setComputers(List<ComputerDTO> computers) {
 		this.computers = computers;
 	}
+	
+	@Override
+	public String toString() {
+		return getComputers().toString();
+	}
 }

@@ -28,7 +28,7 @@
 	<c:set var="orderAlphaNumUrlFragment" value="orderAlphaNum=${orderAlphaNum}&" />
 </c:if>
 <c:if test="${enable ne false}">
-	<c:set var="href" value="${projectPath}/Dashboard?${searchUrlFragment}${orderByUrlFragment}${orderAlphaNumUrlFragment}page=${page}&limit=${limit}" />
+	<c:set var="href" value="${projectPath}/dashboard?${searchUrlFragment}${orderByUrlFragment}${orderAlphaNumUrlFragment}page=${page}&limit=${limit}" />
 </c:if>
 <a class="${classes}" href="${href}" ${att}>
 	${bodyRes}	

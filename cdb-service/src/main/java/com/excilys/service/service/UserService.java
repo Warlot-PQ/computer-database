@@ -1,4 +1,4 @@
-package com.excilys.service.service.interfaces;
+package com.excilys.service.service;
 
 import java.util.List;
 

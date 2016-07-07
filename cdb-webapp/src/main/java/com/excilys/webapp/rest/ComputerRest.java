@@ -15,7 +15,7 @@ import com.excilys.binding.ComputerMapper;
 import com.excilys.core.dto.ComputerDTO;
 import com.excilys.persistence.pagination.PageRequest;
 import com.excilys.service.pagination.Page;
-import com.excilys.service.service.interfaces.ComputerService;
+import com.excilys.service.service.ComputerService;
 
 @RestController
 public class ComputerRest {

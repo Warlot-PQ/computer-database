@@ -19,7 +19,7 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import com.excilys.ResetDB;
 import com.excilys.core.dto.CompanyDTO;
 import com.excilys.persistence.pagination.PageRequest;
-import com.excilys.persistence.repository.interfaces.CompanyDAO;
+import com.excilys.persistence.repository.CompanyDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes=com.excilys.persistence.config.PersistenceConfig.class, loader=AnnotationConfigContextLoader.class)

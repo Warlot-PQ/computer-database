@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.excilys.core.entity.User;
-import com.excilys.persistence.repository.interfaces.UserDAO;
+import com.excilys.persistence.repository.UserDAO;
 
 /**
  * Get spring security UserDetails from DAO to identify user from data stored in DB.

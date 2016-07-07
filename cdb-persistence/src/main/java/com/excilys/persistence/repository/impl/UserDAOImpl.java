@@ -1,4 +1,4 @@
-package com.excilys.persistence.repository;
+package com.excilys.persistence.repository.impl;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.excilys.core.entity.Company;
 import com.excilys.core.entity.QUser;
 import com.excilys.core.entity.User;
-import com.excilys.persistence.repository.interfaces.UserDAO;
+import com.excilys.persistence.repository.UserDAO;
 import com.mysema.query.jpa.impl.JPAQuery;
 
 /**

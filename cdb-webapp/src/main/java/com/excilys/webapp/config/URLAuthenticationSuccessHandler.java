@@ -36,6 +36,6 @@ public class URLAuthenticationSuccessHandler implements AuthenticationSuccessHan
 
 	/** Builds the target URL according to the logic defined in the main class Javadoc. */
 	protected String determineTargetUrl(Authentication authentication) {
-		return "/Dashboard";
+		return WebappConfig.URL_DASHBOARD;
 	}
 }

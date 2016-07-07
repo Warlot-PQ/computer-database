@@ -1,4 +1,4 @@
-package com.excilys.persistence.repository.interfaces;
+package com.excilys.persistence.repository;
 
 import java.util.List;
 

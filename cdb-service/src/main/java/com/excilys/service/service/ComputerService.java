@@ -1,11 +1,11 @@
-package com.excilys.service.service.interfaces;
+package com.excilys.service.service;
 
 import java.util.List;
 
 import com.excilys.core.dto.ComputerDTO;
 import com.excilys.core.entity.Computer;
 import com.excilys.persistence.pagination.PageRequest;
-import com.excilys.persistence.repository.interfaces.ComputerDAO;
+import com.excilys.persistence.repository.ComputerDAO;
 import com.excilys.service.pagination.Page;
 
 /**

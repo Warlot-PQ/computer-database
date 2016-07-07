@@ -15,7 +15,7 @@ import com.excilys.core.dto.CompanyDTO;
 import com.excilys.core.entity.Company;
 import com.excilys.persistence.pagination.PageRequest;
 import com.excilys.service.pagination.Page;
-import com.excilys.service.service.interfaces.CompanyService;
+import com.excilys.service.service.CompanyService;
 
 @RestController
 public class CompanyRest {

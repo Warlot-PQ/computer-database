@@ -1,4 +1,4 @@
-package com.excilys.service.service;
+package com.excilys.service.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 import com.excilys.binding.UserMapper;
 import com.excilys.core.dto.UserDTO;
 import com.excilys.core.entity.User;
-import com.excilys.persistence.repository.interfaces.UserDAO;
-import com.excilys.service.service.interfaces.UserService;
+import com.excilys.persistence.repository.UserDAO;
+import com.excilys.service.service.UserService;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {

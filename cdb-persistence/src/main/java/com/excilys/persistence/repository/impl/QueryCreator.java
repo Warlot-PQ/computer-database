@@ -1,4 +1,4 @@
-package com.excilys.persistence.repository;
+package com.excilys.persistence.repository.impl;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +13,7 @@ import com.excilys.persistence.pagination.PageRequest;
  */
 public class QueryCreator {
 	private PageRequest pageRequest;
-	private boolean count;
+	private boolean isCount;
 	private static Map<String, String> tableFieldConverter = new HashMap<>();
 	private static Map<Boolean, String> tableOrderConverter = new HashMap<>();
 	
@@ -28,19 +28,19 @@ public class QueryCreator {
 	
 	public QueryCreator(PageRequest pageRequest, boolean count) {
 		this.pageRequest = pageRequest;
-		this.count = count;
+		this.isCount = count;
 	}
 	
 	/**
-	 * Create a SQL query.
-	 * @return SQL command
+	 * Create a query.
+	 * @return JPQL command as String
 	 */
 	public String createQuery() {
 		StringBuilder sql = new StringBuilder();
 		
 		sql.append("SELECT");
 		
-		if (count == true) {
+		if (isCount) {
 			sql.append(" COUNT(computer.id)");
 		} else {
 			sql.append(" NEW com.excilys.core.dto.ComputerDTO(computer.id, computer.name, computer.introduced, computer.discontinued, computer.company) ");
@@ -62,7 +62,7 @@ public class QueryCreator {
 				sql.append(" computer.name LIKE '"  + pageRequest.getSearchedName() + "%'" + " OR company.name LIKE '" + pageRequest.getSearchedName() + "%'");
 			}
 		}
-		if (count == false) {
+		if (!isCount) {
 			if (pageRequest.getOrderBy() != null) {
 				sql.append(" ORDER BY");
 				sql.append(" " + tableFieldConverter.get(pageRequest.getOrderBy()));				

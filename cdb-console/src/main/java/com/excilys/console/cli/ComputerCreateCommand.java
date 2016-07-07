@@ -43,7 +43,6 @@ public class ComputerCreateCommand implements Command {
 		
 		System.out.printf("Enter the company id:%n>");
 		computerDTOToCreate.setCompanyId(input.nextLine());
-
 		System.out.println("Computer to create: " + computerDTOToCreate.toString());
 		
 		System.out.println("Sending request to server....");

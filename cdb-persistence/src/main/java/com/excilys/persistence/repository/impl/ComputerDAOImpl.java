@@ -1,4 +1,4 @@
-package com.excilys.persistence.repository;
+package com.excilys.persistence.repository.impl;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 import com.excilys.core.dto.ComputerDTO;
 import com.excilys.core.entity.Computer;
 import com.excilys.persistence.pagination.PageRequest;
-import com.excilys.persistence.repository.interfaces.ComputerDAO;
+import com.excilys.persistence.repository.ComputerDAO;
 
 /**
  * DB manipulation on Computer entity using JPQL.

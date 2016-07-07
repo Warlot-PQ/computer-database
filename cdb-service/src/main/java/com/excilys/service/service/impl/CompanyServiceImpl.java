@@ -1,4 +1,4 @@
-package com.excilys.service.service;
+package com.excilys.service.service.impl;
 
 import java.util.List;
 
@@ -11,11 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.excilys.core.dto.CompanyDTO;
 import com.excilys.core.entity.Company;
 import com.excilys.persistence.pagination.PageRequest;
-import com.excilys.persistence.repository.interfaces.CompanyDAO;
-import com.excilys.persistence.repository.interfaces.ComputerDAO;
+import com.excilys.persistence.repository.CompanyDAO;
+import com.excilys.persistence.repository.ComputerDAO;
 import com.excilys.service.cache.Cache;
 import com.excilys.service.pagination.Page;
-import com.excilys.service.service.interfaces.CompanyService;
+import com.excilys.service.service.CompanyService;
 
 /**
  * Service to manipulate Computer table.  Use cache data if possible.

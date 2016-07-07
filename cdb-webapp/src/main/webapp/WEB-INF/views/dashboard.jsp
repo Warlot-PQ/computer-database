@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="jslt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -26,6 +27,7 @@
 <c:set var="currentOrderBy" value="${requestModel.orderBy}" />
 <c:set var="currentOrderAlphaNumerical" value="${requestModel.orderAlphaNum}" />
 <c:set var="nameSearched" value="${requestModel.search}" />
+<c:set var="langMsg" value="${langMsg}" />
 
 <!DOCTYPE html>
 <html>
@@ -44,11 +46,11 @@
 <body>
 	<header class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
-			<a class="navbar-brand" href="Dashboard"> Application -
+			<a class="navbar-brand" href="dashboard"> Application -
 				Computer Database </a>
 			<div class="navbar-brand pull-right">
 				<form:form name="logoutForm" action="${pageContext.request.contextPath}/logout" method="POST">
-   					 <span onclick="document.logoutForm.submit()">Logout</span>
+   					 <span class="display-inline" onclick="document.logoutForm.submit()">Logout</span>
 				</form:form>
 			</div>
 		</div>
@@ -65,7 +67,7 @@
 			<h1 id="homeTitle">${currentComputersFrom}-${currentComputersTo} / ${totalComputers} ${i18nDashboardTitle}</h1>
 			<div id="actions" class="form-horizontal">
 				<div class="pull-left">
-					<form id="searchForm" action="Dashboard"onsubmit="return validateSearch()"  method="GET" class="form-inline">
+					<form id="searchForm" action="dashboard" onsubmit="return validateSearch()"  method="GET" class="form-inline">
 
 						<input type="search" id="searchbox" name="search"
 							class="form-control" placeholder="${i18nPlaceHorlderSearchName}" value="${nameSearched}" /> <input
@@ -76,20 +78,17 @@
 				<security:authorize access="hasRole('ROLE_ADMIN')">
 				<div class="pull-right">
 					<div class="row">
-						<a class="btn btn-success" id="addComputer" href="AddComputer">${i18nButtonAdd}</a>
+						<a class="btn btn-success" id="addComputer" href="add_computer">${i18nButtonAdd}</a>
 						<a class="btn btn-default" id="editComputer" href="#"
 							onclick="$.fn.toggleEditMode();">${i18nButtonEdit}</a>
-					</div>
-					<div class="row text-center">
-						<a class="btn btn-default" href="Export">Export</a>
-						<a class="btn btn-default" href="#">Import</a>
+						<a class="btn btn-default" href="Export?page=${currentPage}&limit=${currentLimit}&search=${nameSearched}">Export</a>
 					</div>
 				</div>
 				</security:authorize>
 			</div>
 		</div>
 
-		<form id="deleteForm" action="Dashboard?page=${currentPage}&limit=${currentLimit}&search=${nameSearched}" method="POST">
+		<form id="deleteForm" action="dashboard?page=${currentPage}&limit=${currentLimit}&search=${nameSearched}" method="POST">
 			<input type="hidden" name="selection" value="">
 		</form>
 
@@ -136,7 +135,7 @@
 						<tr>
 							<td class="editMode"><input type="checkbox" name="cb"
 								class="cb" value="${computer.id}"></td>
-							<td><a href="EditComputer?id=${computer.id}" onclick="">${computer.name}</a>
+							<td><a href="edit_computer?id=${computer.id}" onclick="">${computer.name}</a>
 							</td>
 							<td>${computer.getIntroduced()}</td>
 							<td>${computer.getDiscontinued()}</td>
@@ -153,7 +152,15 @@
 		<div class="container text-center">
 
 			<myLib:pagination start="1" current="${currentPage}" end="${totalPages}" limit="${currentLimit}" search="${nameSearched}" orderBy="${currentOrderBy}" orderAlphaNum="${currentOrderAlphaNumerical}" />
-		
+	
+			<div class="btn-group btn-group-sm pull-left" role="group">
+					
+				<form method="POST" action="Import" enctype="multipart/form-data">
+					<input type="file" name="file">
+					<input class="btn btn-default" style="display: inline-block;" type="submit" value="Import">
+				</form>
+			</div>
+			
 			<div class="btn-group btn-group-sm pull-right" role="group">
 			
 				<myLib:link page="1" limit="10" search="${nameSearched}" orderBy="${currentOrderBy}" orderAlphaNum="${currentOrderAlphaNumerical}" classes="btn btn-default">
@@ -169,9 +176,14 @@
 			</div>
 		</div>
 	</footer>
+	
 	<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/dashboard.js"></script>
+	<!-- TODO get i18n messages and put them into $ (jQuery) object --> 
+	<script type="text/javascript">
+		$.messages = ${langMsg};
+	</script>
 
 </body>
 </html>

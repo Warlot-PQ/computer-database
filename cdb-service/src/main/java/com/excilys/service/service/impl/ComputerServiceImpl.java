@@ -1,4 +1,4 @@
-package com.excilys.service.service;
+package com.excilys.service.service.impl;
 
 import java.util.List;
 
@@ -13,10 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.excilys.core.dto.ComputerDTO;
 import com.excilys.core.entity.Computer;
 import com.excilys.persistence.pagination.PageRequest;
-import com.excilys.persistence.repository.interfaces.ComputerDAO;
+import com.excilys.persistence.repository.ComputerDAO;
 import com.excilys.service.cache.Cache;
 import com.excilys.service.pagination.Page;
-import com.excilys.service.service.interfaces.ComputerService;
+import com.excilys.service.service.ComputerService;
+import com.excilys.service.service.ComputerService.ErrorMessage;
 import com.excilys.service.validation.ComputerValidation;
 
 /**
@@ -29,7 +30,7 @@ import com.excilys.service.validation.ComputerValidation;
 @Service("computerService")
 @Scope("singleton")
 public class ComputerServiceImpl implements ComputerService {
-	private static Logger logger = LoggerFactory.getLogger(ComputerServiceImpl.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ComputerServiceImpl.class);
 	@Autowired
 	private ComputerDAO computerDAO;
 

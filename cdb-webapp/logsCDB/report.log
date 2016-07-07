@@ -17322,3 +17322,923 @@ javax.xml.bind.MarshalException: unsupported javax.xml.parser.transform.Result p
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [na:1.8.0_92]
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-util.jar:8.0.33]
 	at java.lang.Thread.run(Thread.java:745) [na:1.8.0_92]
+10:50:57.884 [localhost-startStop-1] ERROR o.s.w.c.ContextLoader.initWebApplicationContext - Context initialization failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'import': Injection of autowired dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Could not autowire field: com.excilys.service.marshaller.UnmarshallerXml com.excilys.webapp.controller.Import.unmarshallerXml; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [com.excilys.service.marshaller.UnmarshallerXml] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:326) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1204) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:538) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:476) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:302) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:229) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:298) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:193) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:725) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:757) ~[spring-context-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:480) ~[spring-context-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:403) ~[spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:306) ~[spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:106) [spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.apache.catalina.core.StandardContext.listenerStart(StandardContext.java:4811) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5251) [catalina.jar:8.0.33]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:147) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1408) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1398) [catalina.jar:8.0.33]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) [na:1.8.0_92]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [na:1.8.0_92]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [na:1.8.0_92]
+	at java.lang.Thread.run(Thread.java:745) [na:1.8.0_92]
+Caused by: org.springframework.beans.factory.BeanCreationException: Could not autowire field: com.excilys.service.marshaller.UnmarshallerXml com.excilys.webapp.controller.Import.unmarshallerXml; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [com.excilys.service.marshaller.UnmarshallerXml] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:542) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:87) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:323) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	... 22 common frames omitted
+Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [com.excilys.service.marshaller.UnmarshallerXml] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.raiseNoSuchBeanDefinitionException(DefaultListableBeanFactory.java:1261) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1009) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:904) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:514) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	... 24 common frames omitted
+10:50:57.884 [localhost-startStop-1] ERROR o.s.w.c.ContextLoader.initWebApplicationContext - Context initialization failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'import': Injection of autowired dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Could not autowire field: com.excilys.service.marshaller.UnmarshallerXml com.excilys.webapp.controller.Import.unmarshallerXml; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [com.excilys.service.marshaller.UnmarshallerXml] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:326) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1204) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:538) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:476) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:302) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:229) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:298) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:193) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:725) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:757) ~[spring-context-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:480) ~[spring-context-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:403) ~[spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:306) ~[spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:106) [spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.apache.catalina.core.StandardContext.listenerStart(StandardContext.java:4811) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5251) [catalina.jar:8.0.33]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:147) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1408) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1398) [catalina.jar:8.0.33]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) [na:1.8.0_92]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [na:1.8.0_92]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [na:1.8.0_92]
+	at java.lang.Thread.run(Thread.java:745) [na:1.8.0_92]
+Caused by: org.springframework.beans.factory.BeanCreationException: Could not autowire field: com.excilys.service.marshaller.UnmarshallerXml com.excilys.webapp.controller.Import.unmarshallerXml; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [com.excilys.service.marshaller.UnmarshallerXml] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:542) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:87) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:323) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	... 22 common frames omitted
+Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [com.excilys.service.marshaller.UnmarshallerXml] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.raiseNoSuchBeanDefinitionException(DefaultListableBeanFactory.java:1261) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1009) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:904) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:514) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	... 24 common frames omitted
+11:01:31.768 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR o.s.w.c.ContextLoader.initWebApplicationContext - Context initialization failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dashboard': Injection of autowired dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Could not autowire field: private com.excilys.service.service.interfaces.ComputerService com.excilys.webapp.controller.Dashboard.computerService; nested exception is java.lang.NoClassDefFoundError: ErrorMessage
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:326) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1204) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:538) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:476) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:302) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:229) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:298) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:193) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:725) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:757) ~[spring-context-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:480) ~[spring-context-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:403) ~[spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:306) ~[spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:106) [spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.apache.catalina.core.StandardContext.listenerStart(StandardContext.java:4811) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5251) [catalina.jar:8.0.33]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:147) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.StandardContext.reload(StandardContext.java:3827) [catalina.jar:8.0.33]
+	at org.apache.catalina.loader.WebappLoader.backgroundProcess(WebappLoader.java:291) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.StandardContext.backgroundProcess(StandardContext.java:5608) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.processChildren(ContainerBase.java:1377) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.processChildren(ContainerBase.java:1381) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.processChildren(ContainerBase.java:1381) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.run(ContainerBase.java:1349) [catalina.jar:8.0.33]
+	at java.lang.Thread.run(Thread.java:745) [na:1.8.0_92]
+Caused by: org.springframework.beans.factory.BeanCreationException: Could not autowire field: private com.excilys.service.service.interfaces.ComputerService com.excilys.webapp.controller.Dashboard.computerService; nested exception is java.lang.NoClassDefFoundError: ErrorMessage
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:542) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:87) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:323) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	... 24 common frames omitted
+Caused by: java.lang.NoClassDefFoundError: ErrorMessage
+	at java.lang.Class.getDeclaredMethods0(Native Method) ~[na:1.8.0_92]
+	at java.lang.Class.privateGetDeclaredMethods(Class.java:2701) ~[na:1.8.0_92]
+	at java.lang.Class.getDeclaredMethods(Class.java:1975) ~[na:1.8.0_92]
+	at org.springframework.util.ReflectionUtils.getDeclaredMethods(ReflectionUtils.java:570) ~[spring-core-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.util.ReflectionUtils.doWithMethods(ReflectionUtils.java:489) ~[spring-core-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.util.ReflectionUtils.doWithMethods(ReflectionUtils.java:473) ~[spring-core-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.determineCandidateConstructors(AutowiredAnnotationBeanPostProcessor.java:241) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.determineConstructorsFromBeanPostProcessors(AbstractAutowireCapableBeanFactory.java:1059) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1032) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:505) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:476) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:302) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:229) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:298) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:193) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.findAutowireCandidates(DefaultListableBeanFactory.java:1081) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1006) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:904) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:514) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	... 26 common frames omitted
+Caused by: java.lang.ClassNotFoundException: ErrorMessage
+	at org.apache.catalina.loader.WebappClassLoaderBase.loadClass(WebappClassLoaderBase.java:1305) ~[catalina.jar:8.0.33]
+	at org.apache.catalina.loader.WebappClassLoaderBase.loadClass(WebappClassLoaderBase.java:1139) ~[catalina.jar:8.0.33]
+	... 45 common frames omitted
+11:01:31.768 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR o.s.w.c.ContextLoader.initWebApplicationContext - Context initialization failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dashboard': Injection of autowired dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Could not autowire field: private com.excilys.service.service.interfaces.ComputerService com.excilys.webapp.controller.Dashboard.computerService; nested exception is java.lang.NoClassDefFoundError: ErrorMessage
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:326) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1204) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:538) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:476) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:302) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:229) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:298) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:193) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:725) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:757) ~[spring-context-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:480) ~[spring-context-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:403) ~[spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:306) ~[spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:106) [spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.apache.catalina.core.StandardContext.listenerStart(StandardContext.java:4811) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5251) [catalina.jar:8.0.33]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:147) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.StandardContext.reload(StandardContext.java:3827) [catalina.jar:8.0.33]
+	at org.apache.catalina.loader.WebappLoader.backgroundProcess(WebappLoader.java:291) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.StandardContext.backgroundProcess(StandardContext.java:5608) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.processChildren(ContainerBase.java:1377) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.processChildren(ContainerBase.java:1381) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.processChildren(ContainerBase.java:1381) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.run(ContainerBase.java:1349) [catalina.jar:8.0.33]
+	at java.lang.Thread.run(Thread.java:745) [na:1.8.0_92]
+Caused by: org.springframework.beans.factory.BeanCreationException: Could not autowire field: private com.excilys.service.service.interfaces.ComputerService com.excilys.webapp.controller.Dashboard.computerService; nested exception is java.lang.NoClassDefFoundError: ErrorMessage
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:542) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:87) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:323) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	... 24 common frames omitted
+Caused by: java.lang.NoClassDefFoundError: ErrorMessage
+	at java.lang.Class.getDeclaredMethods0(Native Method) ~[na:1.8.0_92]
+	at java.lang.Class.privateGetDeclaredMethods(Class.java:2701) ~[na:1.8.0_92]
+	at java.lang.Class.getDeclaredMethods(Class.java:1975) ~[na:1.8.0_92]
+	at org.springframework.util.ReflectionUtils.getDeclaredMethods(ReflectionUtils.java:570) ~[spring-core-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.util.ReflectionUtils.doWithMethods(ReflectionUtils.java:489) ~[spring-core-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.util.ReflectionUtils.doWithMethods(ReflectionUtils.java:473) ~[spring-core-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.determineCandidateConstructors(AutowiredAnnotationBeanPostProcessor.java:241) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.determineConstructorsFromBeanPostProcessors(AbstractAutowireCapableBeanFactory.java:1059) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1032) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:505) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:476) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:302) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:229) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:298) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:193) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.findAutowireCandidates(DefaultListableBeanFactory.java:1081) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1006) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:904) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:514) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	... 26 common frames omitted
+Caused by: java.lang.ClassNotFoundException: ErrorMessage
+	at org.apache.catalina.loader.WebappClassLoaderBase.loadClass(WebappClassLoaderBase.java:1305) ~[catalina.jar:8.0.33]
+	at org.apache.catalina.loader.WebappClassLoaderBase.loadClass(WebappClassLoaderBase.java:1139) ~[catalina.jar:8.0.33]
+	... 45 common frames omitted
+11:26:08.444 [http-nio-8443-exec-10] ERROR o.h.e.j.s.SqlExceptionHelper.logExceptions - Duplicate entry '1' for key 'PRIMARY'
+11:26:08.444 [http-nio-8443-exec-10] ERROR o.h.e.j.s.SqlExceptionHelper.logExceptions - Duplicate entry '1' for key 'PRIMARY'
+11:26:08.465 [http-nio-8443-exec-10] ERROR o.h.e.j.s.SqlExceptionHelper.logExceptions - Duplicate entry '3' for key 'PRIMARY'
+11:26:08.465 [http-nio-8443-exec-10] ERROR o.h.e.j.s.SqlExceptionHelper.logExceptions - Duplicate entry '3' for key 'PRIMARY'
+11:26:08.467 [http-nio-8443-exec-10] ERROR o.h.e.j.s.SqlExceptionHelper.logExceptions - Duplicate entry '4' for key 'PRIMARY'
+11:26:08.467 [http-nio-8443-exec-10] ERROR o.h.e.j.s.SqlExceptionHelper.logExceptions - Duplicate entry '4' for key 'PRIMARY'
+11:26:08.470 [http-nio-8443-exec-10] ERROR o.h.e.j.s.SqlExceptionHelper.logExceptions - Duplicate entry '5' for key 'PRIMARY'
+11:26:08.470 [http-nio-8443-exec-10] ERROR o.h.e.j.s.SqlExceptionHelper.logExceptions - Duplicate entry '5' for key 'PRIMARY'
+11:26:08.472 [http-nio-8443-exec-10] ERROR o.h.e.j.s.SqlExceptionHelper.logExceptions - Duplicate entry '6' for key 'PRIMARY'
+11:26:08.472 [http-nio-8443-exec-10] ERROR o.h.e.j.s.SqlExceptionHelper.logExceptions - Duplicate entry '6' for key 'PRIMARY'
+11:26:08.474 [http-nio-8443-exec-10] ERROR o.h.e.j.s.SqlExceptionHelper.logExceptions - Duplicate entry '7' for key 'PRIMARY'
+11:26:08.474 [http-nio-8443-exec-10] ERROR o.h.e.j.s.SqlExceptionHelper.logExceptions - Duplicate entry '7' for key 'PRIMARY'
+11:26:08.476 [http-nio-8443-exec-10] ERROR o.h.e.j.s.SqlExceptionHelper.logExceptions - Duplicate entry '8' for key 'PRIMARY'
+11:26:08.476 [http-nio-8443-exec-10] ERROR o.h.e.j.s.SqlExceptionHelper.logExceptions - Duplicate entry '8' for key 'PRIMARY'
+11:26:08.478 [http-nio-8443-exec-10] ERROR o.h.e.j.s.SqlExceptionHelper.logExceptions - Duplicate entry '9' for key 'PRIMARY'
+11:26:08.478 [http-nio-8443-exec-10] ERROR o.h.e.j.s.SqlExceptionHelper.logExceptions - Duplicate entry '9' for key 'PRIMARY'
+11:26:08.481 [http-nio-8443-exec-10] ERROR o.h.e.j.s.SqlExceptionHelper.logExceptions - Duplicate entry '10' for key 'PRIMARY'
+11:26:08.481 [http-nio-8443-exec-10] ERROR o.h.e.j.s.SqlExceptionHelper.logExceptions - Duplicate entry '10' for key 'PRIMARY'
+11:26:08.482 [http-nio-8443-exec-10] ERROR o.h.e.j.s.SqlExceptionHelper.logExceptions - Duplicate entry '11' for key 'PRIMARY'
+11:26:08.482 [http-nio-8443-exec-10] ERROR o.h.e.j.s.SqlExceptionHelper.logExceptions - Duplicate entry '11' for key 'PRIMARY'
+11:26:08.487 [http-nio-8443-exec-10] ERROR o.h.e.j.s.SqlExceptionHelper.logExceptions - Duplicate entry '12' for key 'PRIMARY'
+11:26:08.487 [http-nio-8443-exec-10] ERROR o.h.e.j.s.SqlExceptionHelper.logExceptions - Duplicate entry '12' for key 'PRIMARY'
+11:26:08.490 [http-nio-8443-exec-10] ERROR o.h.e.j.s.SqlExceptionHelper.logExceptions - Duplicate entry '13' for key 'PRIMARY'
+11:26:08.490 [http-nio-8443-exec-10] ERROR o.h.e.j.s.SqlExceptionHelper.logExceptions - Duplicate entry '13' for key 'PRIMARY'
+11:26:08.493 [http-nio-8443-exec-10] ERROR o.h.e.j.s.SqlExceptionHelper.logExceptions - Duplicate entry '14' for key 'PRIMARY'
+11:26:08.493 [http-nio-8443-exec-10] ERROR o.h.e.j.s.SqlExceptionHelper.logExceptions - Duplicate entry '14' for key 'PRIMARY'
+11:26:08.496 [http-nio-8443-exec-10] ERROR o.h.e.j.s.SqlExceptionHelper.logExceptions - Duplicate entry '15' for key 'PRIMARY'
+11:26:08.496 [http-nio-8443-exec-10] ERROR o.h.e.j.s.SqlExceptionHelper.logExceptions - Duplicate entry '15' for key 'PRIMARY'
+11:26:08.499 [http-nio-8443-exec-10] ERROR o.h.e.j.s.SqlExceptionHelper.logExceptions - Duplicate entry '16' for key 'PRIMARY'
+11:26:08.499 [http-nio-8443-exec-10] ERROR o.h.e.j.s.SqlExceptionHelper.logExceptions - Duplicate entry '16' for key 'PRIMARY'
+11:26:08.503 [http-nio-8443-exec-10] ERROR o.h.e.j.s.SqlExceptionHelper.logExceptions - Duplicate entry '17' for key 'PRIMARY'
+11:26:08.503 [http-nio-8443-exec-10] ERROR o.h.e.j.s.SqlExceptionHelper.logExceptions - Duplicate entry '17' for key 'PRIMARY'
+11:26:08.505 [http-nio-8443-exec-10] ERROR o.h.e.j.s.SqlExceptionHelper.logExceptions - Duplicate entry '18' for key 'PRIMARY'
+11:26:08.505 [http-nio-8443-exec-10] ERROR o.h.e.j.s.SqlExceptionHelper.logExceptions - Duplicate entry '18' for key 'PRIMARY'
+11:26:08.508 [http-nio-8443-exec-10] ERROR o.h.e.j.s.SqlExceptionHelper.logExceptions - Duplicate entry '19' for key 'PRIMARY'
+11:26:08.508 [http-nio-8443-exec-10] ERROR o.h.e.j.s.SqlExceptionHelper.logExceptions - Duplicate entry '19' for key 'PRIMARY'
+11:26:08.511 [http-nio-8443-exec-10] ERROR o.h.e.j.s.SqlExceptionHelper.logExceptions - Duplicate entry '20' for key 'PRIMARY'
+11:26:08.511 [http-nio-8443-exec-10] ERROR o.h.e.j.s.SqlExceptionHelper.logExceptions - Duplicate entry '20' for key 'PRIMARY'
+11:50:39.458 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR o.s.w.c.ContextLoader.initWebApplicationContext - Context initialization failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dashboard': Injection of autowired dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Could not autowire field: private com.excilys.service.service.interfaces.ComputerService com.excilys.webapp.controller.Dashboard.computerService; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [com.excilys.service.service.interfaces.ComputerService] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:326) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1204) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:538) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:476) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:302) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:229) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:298) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:193) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:725) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:757) ~[spring-context-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:480) ~[spring-context-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:403) ~[spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:306) ~[spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:106) [spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.apache.catalina.core.StandardContext.listenerStart(StandardContext.java:4811) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5251) [catalina.jar:8.0.33]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:147) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.StandardContext.reload(StandardContext.java:3827) [catalina.jar:8.0.33]
+	at org.apache.catalina.loader.WebappLoader.backgroundProcess(WebappLoader.java:291) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.StandardContext.backgroundProcess(StandardContext.java:5608) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.processChildren(ContainerBase.java:1377) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.processChildren(ContainerBase.java:1381) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.processChildren(ContainerBase.java:1381) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.run(ContainerBase.java:1349) [catalina.jar:8.0.33]
+	at java.lang.Thread.run(Thread.java:745) [na:1.8.0_92]
+Caused by: org.springframework.beans.factory.BeanCreationException: Could not autowire field: private com.excilys.service.service.interfaces.ComputerService com.excilys.webapp.controller.Dashboard.computerService; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [com.excilys.service.service.interfaces.ComputerService] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:542) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:87) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:323) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	... 24 common frames omitted
+Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [com.excilys.service.service.interfaces.ComputerService] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.raiseNoSuchBeanDefinitionException(DefaultListableBeanFactory.java:1261) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1009) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:904) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:514) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	... 26 common frames omitted
+11:50:39.458 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR o.s.w.c.ContextLoader.initWebApplicationContext - Context initialization failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dashboard': Injection of autowired dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Could not autowire field: private com.excilys.service.service.interfaces.ComputerService com.excilys.webapp.controller.Dashboard.computerService; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [com.excilys.service.service.interfaces.ComputerService] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:326) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1204) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:538) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:476) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:302) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:229) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:298) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:193) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:725) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:757) ~[spring-context-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:480) ~[spring-context-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:403) ~[spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:306) ~[spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:106) [spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.apache.catalina.core.StandardContext.listenerStart(StandardContext.java:4811) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5251) [catalina.jar:8.0.33]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:147) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.StandardContext.reload(StandardContext.java:3827) [catalina.jar:8.0.33]
+	at org.apache.catalina.loader.WebappLoader.backgroundProcess(WebappLoader.java:291) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.StandardContext.backgroundProcess(StandardContext.java:5608) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.processChildren(ContainerBase.java:1377) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.processChildren(ContainerBase.java:1381) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.processChildren(ContainerBase.java:1381) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.run(ContainerBase.java:1349) [catalina.jar:8.0.33]
+	at java.lang.Thread.run(Thread.java:745) [na:1.8.0_92]
+Caused by: org.springframework.beans.factory.BeanCreationException: Could not autowire field: private com.excilys.service.service.interfaces.ComputerService com.excilys.webapp.controller.Dashboard.computerService; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [com.excilys.service.service.interfaces.ComputerService] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:542) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:87) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:323) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	... 24 common frames omitted
+Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [com.excilys.service.service.interfaces.ComputerService] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.raiseNoSuchBeanDefinitionException(DefaultListableBeanFactory.java:1261) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1009) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:904) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:514) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	... 26 common frames omitted
+12:00:29.672 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR o.s.w.c.ContextLoader.initWebApplicationContext - Context initialization failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'messageSource' defined in class com.excilys.webapp.config.WebappConfig: Instantiation of bean failed; nested exception is org.springframework.beans.factory.BeanDefinitionStoreException: Factory method [public org.springframework.context.support.ReloadableResourceBundleMessageSource com.excilys.webapp.config.WebappConfig.getMessageSource()] threw exception; nested exception is java.lang.Error: Unresolved compilation problem: 
+	The method setBasename(String) in the type ReloadableResourceBundleMessageSource is not applicable for the arguments ()
+
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:601) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1113) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1008) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:505) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:476) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:302) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:229) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:298) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:198) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.initMessageSource(AbstractApplicationContext.java:625) ~[spring-context-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:468) ~[spring-context-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:403) ~[spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:306) ~[spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:106) [spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.apache.catalina.core.StandardContext.listenerStart(StandardContext.java:4811) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5251) [catalina.jar:8.0.33]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:147) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.StandardContext.reload(StandardContext.java:3827) [catalina.jar:8.0.33]
+	at org.apache.catalina.loader.WebappLoader.backgroundProcess(WebappLoader.java:291) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.StandardContext.backgroundProcess(StandardContext.java:5608) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.processChildren(ContainerBase.java:1377) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.processChildren(ContainerBase.java:1381) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.processChildren(ContainerBase.java:1381) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.run(ContainerBase.java:1349) [catalina.jar:8.0.33]
+	at java.lang.Thread.run(Thread.java:745) [na:1.8.0_92]
+Caused by: org.springframework.beans.factory.BeanDefinitionStoreException: Factory method [public org.springframework.context.support.ReloadableResourceBundleMessageSource com.excilys.webapp.config.WebappConfig.getMessageSource()] threw exception; nested exception is java.lang.Error: Unresolved compilation problem: 
+	The method setBasename(String) in the type ReloadableResourceBundleMessageSource is not applicable for the arguments ()
+
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:188) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:590) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	... 24 common frames omitted
+Caused by: java.lang.Error: Unresolved compilation problem: 
+	The method setBasename(String) in the type ReloadableResourceBundleMessageSource is not applicable for the arguments ()
+
+	at com.excilys.webapp.config.WebappConfig.getMessageSource(WebappConfig.java:69) ~[classes/:na]
+	at com.excilys.webapp.config.WebappConfig$$EnhancerBySpringCGLIB$$1576cd6.CGLIB$getMessageSource$4(<generated>) ~[spring-core-4.1.0.RELEASE.jar:na]
+	at com.excilys.webapp.config.WebappConfig$$EnhancerBySpringCGLIB$$1576cd6$$FastClassBySpringCGLIB$$37726c61.invoke(<generated>) ~[spring-core-4.1.0.RELEASE.jar:na]
+	at org.springframework.cglib.proxy.MethodProxy.invokeSuper(MethodProxy.java:228) ~[spring-core-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.context.annotation.ConfigurationClassEnhancer$BeanMethodInterceptor.intercept(ConfigurationClassEnhancer.java:312) ~[spring-context-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at com.excilys.webapp.config.WebappConfig$$EnhancerBySpringCGLIB$$1576cd6.getMessageSource(<generated>) ~[spring-core-4.1.0.RELEASE.jar:na]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_92]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_92]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_92]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[na:1.8.0_92]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:166) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	... 25 common frames omitted
+12:00:29.672 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR o.s.w.c.ContextLoader.initWebApplicationContext - Context initialization failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'messageSource' defined in class com.excilys.webapp.config.WebappConfig: Instantiation of bean failed; nested exception is org.springframework.beans.factory.BeanDefinitionStoreException: Factory method [public org.springframework.context.support.ReloadableResourceBundleMessageSource com.excilys.webapp.config.WebappConfig.getMessageSource()] threw exception; nested exception is java.lang.Error: Unresolved compilation problem: 
+	The method setBasename(String) in the type ReloadableResourceBundleMessageSource is not applicable for the arguments ()
+
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:601) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1113) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1008) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:505) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:476) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:302) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:229) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:298) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:198) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.initMessageSource(AbstractApplicationContext.java:625) ~[spring-context-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:468) ~[spring-context-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:403) ~[spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:306) ~[spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:106) [spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.apache.catalina.core.StandardContext.listenerStart(StandardContext.java:4811) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5251) [catalina.jar:8.0.33]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:147) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.StandardContext.reload(StandardContext.java:3827) [catalina.jar:8.0.33]
+	at org.apache.catalina.loader.WebappLoader.backgroundProcess(WebappLoader.java:291) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.StandardContext.backgroundProcess(StandardContext.java:5608) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.processChildren(ContainerBase.java:1377) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.processChildren(ContainerBase.java:1381) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.processChildren(ContainerBase.java:1381) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.run(ContainerBase.java:1349) [catalina.jar:8.0.33]
+	at java.lang.Thread.run(Thread.java:745) [na:1.8.0_92]
+Caused by: org.springframework.beans.factory.BeanDefinitionStoreException: Factory method [public org.springframework.context.support.ReloadableResourceBundleMessageSource com.excilys.webapp.config.WebappConfig.getMessageSource()] threw exception; nested exception is java.lang.Error: Unresolved compilation problem: 
+	The method setBasename(String) in the type ReloadableResourceBundleMessageSource is not applicable for the arguments ()
+
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:188) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:590) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	... 24 common frames omitted
+Caused by: java.lang.Error: Unresolved compilation problem: 
+	The method setBasename(String) in the type ReloadableResourceBundleMessageSource is not applicable for the arguments ()
+
+	at com.excilys.webapp.config.WebappConfig.getMessageSource(WebappConfig.java:69) ~[classes/:na]
+	at com.excilys.webapp.config.WebappConfig$$EnhancerBySpringCGLIB$$1576cd6.CGLIB$getMessageSource$4(<generated>) ~[spring-core-4.1.0.RELEASE.jar:na]
+	at com.excilys.webapp.config.WebappConfig$$EnhancerBySpringCGLIB$$1576cd6$$FastClassBySpringCGLIB$$37726c61.invoke(<generated>) ~[spring-core-4.1.0.RELEASE.jar:na]
+	at org.springframework.cglib.proxy.MethodProxy.invokeSuper(MethodProxy.java:228) ~[spring-core-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.context.annotation.ConfigurationClassEnhancer$BeanMethodInterceptor.intercept(ConfigurationClassEnhancer.java:312) ~[spring-context-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at com.excilys.webapp.config.WebappConfig$$EnhancerBySpringCGLIB$$1576cd6.getMessageSource(<generated>) ~[spring-core-4.1.0.RELEASE.jar:na]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_92]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_92]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_92]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[na:1.8.0_92]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:166) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	... 25 common frames omitted
+12:15:41.319 [http-nio-8443-exec-7] ERROR c.e.w.c.Import.<init> - Cannot laod properties languages file from WEB-INF/classes/messages/messagesfr
+12:15:41.319 [http-nio-8443-exec-7] ERROR c.e.w.c.Import.<init> - Cannot laod properties languages file from WEB-INF/classes/messages/messagesfr
+12:18:41.418 [http-nio-8443-exec-2] ERROR c.e.w.c.Import.<init> - Cannot laod properties languages file from WEB-INF/classes/messages/messages_fr
+12:18:41.418 [http-nio-8443-exec-2] ERROR c.e.w.c.Import.<init> - Cannot laod properties languages file from WEB-INF/classes/messages/messages_fr
+12:19:24.473 [http-nio-8443-exec-6] ERROR c.e.w.c.Import.<init> - Cannot laod properties languages file from WEB-INF/classes/messages/messages_fr.properties
+12:19:24.473 [http-nio-8443-exec-6] ERROR c.e.w.c.Import.<init> - Cannot laod properties languages file from WEB-INF/classes/messages/messages_fr.properties
+14:02:24.177 [http-nio-8443-exec-5] ERROR c.e.w.c.Import.<init> - Cannot laod properties languages file from WEB-INF/classes/messages/messages
+14:02:24.177 [http-nio-8443-exec-5] ERROR c.e.w.c.Import.<init> - Cannot laod properties languages file from WEB-INF/classes/messages/messages
+14:02:54.545 [http-nio-8443-exec-2] ERROR c.e.w.c.Import.<init> - Cannot laod properties languages file from messages/messages_fr.properties
+14:02:54.545 [http-nio-8443-exec-2] ERROR c.e.w.c.Import.<init> - Cannot laod properties languages file from messages/messages_fr.properties
+14:03:55.918 [http-nio-8443-exec-8] ERROR c.e.w.c.Import.<init> - Cannot laod properties languages file from WEB-INF/classes/messages/messages_fr.properties
+14:03:55.918 [http-nio-8443-exec-8] ERROR c.e.w.c.Import.<init> - Cannot laod properties languages file from WEB-INF/classes/messages/messages_fr.properties
+14:06:47.501 [http-nio-8443-exec-7] ERROR c.e.w.c.Import.<init> - Cannot laod properties languages file from classpath:/messages/messages_fr.properties
+14:06:47.501 [http-nio-8443-exec-7] ERROR c.e.w.c.Import.<init> - Cannot laod properties languages file from classpath:/messages/messages_fr.properties
+14:08:10.845 [http-nio-8443-exec-8] ERROR c.e.w.c.Import.<init> - Cannot laod properties languages file from messages/messages_fr.properties
+14:08:10.845 [http-nio-8443-exec-8] ERROR c.e.w.c.Import.<init> - Cannot laod properties languages file from messages/messages_fr.properties
+14:10:24.078 [http-nio-8443-exec-8] ERROR c.e.w.c.Import.<init> - Cannot laod properties languages file from messages/messages_fr.properties
+14:10:24.078 [http-nio-8443-exec-8] ERROR c.e.w.c.Import.<init> - Cannot laod properties languages file from messages/messages_fr.properties
+14:11:10.413 [http-nio-8443-exec-8] ERROR c.e.w.c.Import.<init> - Cannot laod properties languages file from messages/messages_fr.properties
+14:11:10.413 [http-nio-8443-exec-8] ERROR c.e.w.c.Import.<init> - Cannot laod properties languages file from messages/messages_fr.properties
+15:31:40.151 [http-nio-8443-exec-3] ERROR c.e.w.c.Import.<init> - Cannot laod properties languages file from WEB-INF/classes/messages/messages
+15:31:40.151 [http-nio-8443-exec-3] ERROR c.e.w.c.Import.<init> - Cannot laod properties languages file from WEB-INF/classes/messages/messages
+16:09:40.210 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR o.s.w.c.ContextLoader.initWebApplicationContext - Context initialization failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'addComputer': Injection of autowired dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Could not autowire field: private org.springframework.context.support.ResourceBundleMessageSource com.excilys.webapp.controller.AddComputer.messageSource; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [org.springframework.context.support.ResourceBundleMessageSource] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:326) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1204) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:538) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:476) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:302) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:229) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:298) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:193) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:725) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:757) ~[spring-context-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:480) ~[spring-context-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:403) ~[spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:306) ~[spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:106) [spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.apache.catalina.core.StandardContext.listenerStart(StandardContext.java:4811) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5251) [catalina.jar:8.0.33]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:147) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.StandardContext.reload(StandardContext.java:3827) [catalina.jar:8.0.33]
+	at org.apache.catalina.loader.WebappLoader.backgroundProcess(WebappLoader.java:291) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.StandardContext.backgroundProcess(StandardContext.java:5608) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.processChildren(ContainerBase.java:1377) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.processChildren(ContainerBase.java:1381) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.processChildren(ContainerBase.java:1381) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.run(ContainerBase.java:1349) [catalina.jar:8.0.33]
+	at java.lang.Thread.run(Thread.java:745) [na:1.8.0_92]
+Caused by: org.springframework.beans.factory.BeanCreationException: Could not autowire field: private org.springframework.context.support.ResourceBundleMessageSource com.excilys.webapp.controller.AddComputer.messageSource; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [org.springframework.context.support.ResourceBundleMessageSource] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:542) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:87) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:323) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	... 24 common frames omitted
+Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [org.springframework.context.support.ResourceBundleMessageSource] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.raiseNoSuchBeanDefinitionException(DefaultListableBeanFactory.java:1261) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1009) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:904) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:514) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	... 26 common frames omitted
+16:09:40.210 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR o.s.w.c.ContextLoader.initWebApplicationContext - Context initialization failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'addComputer': Injection of autowired dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Could not autowire field: private org.springframework.context.support.ResourceBundleMessageSource com.excilys.webapp.controller.AddComputer.messageSource; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [org.springframework.context.support.ResourceBundleMessageSource] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:326) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1204) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:538) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:476) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:302) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:229) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:298) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:193) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:725) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:757) ~[spring-context-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:480) ~[spring-context-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:403) ~[spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:306) ~[spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:106) [spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.apache.catalina.core.StandardContext.listenerStart(StandardContext.java:4811) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5251) [catalina.jar:8.0.33]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:147) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.StandardContext.reload(StandardContext.java:3827) [catalina.jar:8.0.33]
+	at org.apache.catalina.loader.WebappLoader.backgroundProcess(WebappLoader.java:291) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.StandardContext.backgroundProcess(StandardContext.java:5608) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.processChildren(ContainerBase.java:1377) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.processChildren(ContainerBase.java:1381) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.processChildren(ContainerBase.java:1381) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.run(ContainerBase.java:1349) [catalina.jar:8.0.33]
+	at java.lang.Thread.run(Thread.java:745) [na:1.8.0_92]
+Caused by: org.springframework.beans.factory.BeanCreationException: Could not autowire field: private org.springframework.context.support.ResourceBundleMessageSource com.excilys.webapp.controller.AddComputer.messageSource; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [org.springframework.context.support.ResourceBundleMessageSource] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:542) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:87) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:323) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	... 24 common frames omitted
+Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [org.springframework.context.support.ResourceBundleMessageSource] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.raiseNoSuchBeanDefinitionException(DefaultListableBeanFactory.java:1261) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1009) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:904) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:514) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	... 26 common frames omitted
+16:14:36.527 [localhost-startStop-1] ERROR o.s.w.c.ContextLoader.initWebApplicationContext - Context initialization failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dashboard': Injection of autowired dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Could not autowire field: private org.springframework.context.support.ResourceBundleMessageSource com.excilys.webapp.controller.Dashboard.messageSource; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [org.springframework.context.support.ResourceBundleMessageSource] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:326) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1204) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:538) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:476) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:302) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:229) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:298) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:193) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:725) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:757) ~[spring-context-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:480) ~[spring-context-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:403) ~[spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:306) ~[spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:106) [spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.apache.catalina.core.StandardContext.listenerStart(StandardContext.java:4811) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5251) [catalina.jar:8.0.33]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:147) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1408) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1398) [catalina.jar:8.0.33]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) [na:1.8.0_92]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [na:1.8.0_92]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [na:1.8.0_92]
+	at java.lang.Thread.run(Thread.java:745) [na:1.8.0_92]
+Caused by: org.springframework.beans.factory.BeanCreationException: Could not autowire field: private org.springframework.context.support.ResourceBundleMessageSource com.excilys.webapp.controller.Dashboard.messageSource; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [org.springframework.context.support.ResourceBundleMessageSource] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:542) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:87) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:323) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	... 22 common frames omitted
+Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [org.springframework.context.support.ResourceBundleMessageSource] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.raiseNoSuchBeanDefinitionException(DefaultListableBeanFactory.java:1261) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1009) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:904) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:514) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	... 24 common frames omitted
+16:14:36.527 [localhost-startStop-1] ERROR o.s.w.c.ContextLoader.initWebApplicationContext - Context initialization failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dashboard': Injection of autowired dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Could not autowire field: private org.springframework.context.support.ResourceBundleMessageSource com.excilys.webapp.controller.Dashboard.messageSource; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [org.springframework.context.support.ResourceBundleMessageSource] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:326) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1204) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:538) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:476) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:302) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:229) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:298) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:193) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:725) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:757) ~[spring-context-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:480) ~[spring-context-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:403) ~[spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:306) ~[spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:106) [spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.apache.catalina.core.StandardContext.listenerStart(StandardContext.java:4811) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5251) [catalina.jar:8.0.33]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:147) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1408) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1398) [catalina.jar:8.0.33]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) [na:1.8.0_92]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [na:1.8.0_92]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [na:1.8.0_92]
+	at java.lang.Thread.run(Thread.java:745) [na:1.8.0_92]
+Caused by: org.springframework.beans.factory.BeanCreationException: Could not autowire field: private org.springframework.context.support.ResourceBundleMessageSource com.excilys.webapp.controller.Dashboard.messageSource; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [org.springframework.context.support.ResourceBundleMessageSource] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:542) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:87) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:323) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	... 22 common frames omitted
+Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [org.springframework.context.support.ResourceBundleMessageSource] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.raiseNoSuchBeanDefinitionException(DefaultListableBeanFactory.java:1261) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1009) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:904) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:514) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	... 24 common frames omitted
+16:16:51.251 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR o.s.w.c.ContextLoader.initWebApplicationContext - Context initialization failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dashboard': Injection of autowired dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Could not autowire field: private org.springframework.context.support.ResourceBundleMessageSource com.excilys.webapp.controller.Dashboard.messageSource; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [org.springframework.context.support.ResourceBundleMessageSource] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:326) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1204) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:538) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:476) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:302) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:229) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:298) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:193) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:725) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:757) ~[spring-context-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:480) ~[spring-context-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:403) ~[spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:306) ~[spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:106) [spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.apache.catalina.core.StandardContext.listenerStart(StandardContext.java:4811) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5251) [catalina.jar:8.0.33]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:147) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.StandardContext.reload(StandardContext.java:3827) [catalina.jar:8.0.33]
+	at org.apache.catalina.loader.WebappLoader.backgroundProcess(WebappLoader.java:291) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.StandardContext.backgroundProcess(StandardContext.java:5608) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.processChildren(ContainerBase.java:1377) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.processChildren(ContainerBase.java:1381) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.processChildren(ContainerBase.java:1381) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.run(ContainerBase.java:1349) [catalina.jar:8.0.33]
+	at java.lang.Thread.run(Thread.java:745) [na:1.8.0_92]
+Caused by: org.springframework.beans.factory.BeanCreationException: Could not autowire field: private org.springframework.context.support.ResourceBundleMessageSource com.excilys.webapp.controller.Dashboard.messageSource; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [org.springframework.context.support.ResourceBundleMessageSource] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:542) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:87) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:323) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	... 24 common frames omitted
+Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [org.springframework.context.support.ResourceBundleMessageSource] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.raiseNoSuchBeanDefinitionException(DefaultListableBeanFactory.java:1261) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1009) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:904) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:514) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	... 26 common frames omitted
+16:16:51.251 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR o.s.w.c.ContextLoader.initWebApplicationContext - Context initialization failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dashboard': Injection of autowired dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Could not autowire field: private org.springframework.context.support.ResourceBundleMessageSource com.excilys.webapp.controller.Dashboard.messageSource; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [org.springframework.context.support.ResourceBundleMessageSource] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:326) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1204) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:538) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:476) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:302) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:229) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:298) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:193) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:725) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:757) ~[spring-context-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:480) ~[spring-context-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:403) ~[spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:306) ~[spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:106) [spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.apache.catalina.core.StandardContext.listenerStart(StandardContext.java:4811) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5251) [catalina.jar:8.0.33]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:147) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.StandardContext.reload(StandardContext.java:3827) [catalina.jar:8.0.33]
+	at org.apache.catalina.loader.WebappLoader.backgroundProcess(WebappLoader.java:291) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.StandardContext.backgroundProcess(StandardContext.java:5608) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.processChildren(ContainerBase.java:1377) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.processChildren(ContainerBase.java:1381) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.processChildren(ContainerBase.java:1381) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.run(ContainerBase.java:1349) [catalina.jar:8.0.33]
+	at java.lang.Thread.run(Thread.java:745) [na:1.8.0_92]
+Caused by: org.springframework.beans.factory.BeanCreationException: Could not autowire field: private org.springframework.context.support.ResourceBundleMessageSource com.excilys.webapp.controller.Dashboard.messageSource; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [org.springframework.context.support.ResourceBundleMessageSource] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:542) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:87) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:323) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	... 24 common frames omitted
+Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [org.springframework.context.support.ResourceBundleMessageSource] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.raiseNoSuchBeanDefinitionException(DefaultListableBeanFactory.java:1261) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1009) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:904) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:514) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	... 26 common frames omitted
+16:17:02.025 [localhost-startStop-1] ERROR o.s.w.c.ContextLoader.initWebApplicationContext - Context initialization failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'addComputer': Injection of autowired dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Could not autowire field: private org.springframework.context.support.ResourceBundleMessageSource com.excilys.webapp.controller.AddComputer.messageSource; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [org.springframework.context.support.ResourceBundleMessageSource] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:326) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1204) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:538) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:476) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:302) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:229) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:298) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:193) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:725) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:757) ~[spring-context-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:480) ~[spring-context-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:403) ~[spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:306) ~[spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:106) [spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.apache.catalina.core.StandardContext.listenerStart(StandardContext.java:4811) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5251) [catalina.jar:8.0.33]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:147) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1408) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1398) [catalina.jar:8.0.33]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) [na:1.8.0_92]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [na:1.8.0_92]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [na:1.8.0_92]
+	at java.lang.Thread.run(Thread.java:745) [na:1.8.0_92]
+Caused by: org.springframework.beans.factory.BeanCreationException: Could not autowire field: private org.springframework.context.support.ResourceBundleMessageSource com.excilys.webapp.controller.AddComputer.messageSource; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [org.springframework.context.support.ResourceBundleMessageSource] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:542) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:87) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:323) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	... 22 common frames omitted
+Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [org.springframework.context.support.ResourceBundleMessageSource] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.raiseNoSuchBeanDefinitionException(DefaultListableBeanFactory.java:1261) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1009) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:904) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:514) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	... 24 common frames omitted
+16:17:02.025 [localhost-startStop-1] ERROR o.s.w.c.ContextLoader.initWebApplicationContext - Context initialization failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'addComputer': Injection of autowired dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Could not autowire field: private org.springframework.context.support.ResourceBundleMessageSource com.excilys.webapp.controller.AddComputer.messageSource; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [org.springframework.context.support.ResourceBundleMessageSource] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:326) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1204) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:538) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:476) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:302) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:229) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:298) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:193) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:725) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:757) ~[spring-context-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:480) ~[spring-context-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:403) ~[spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:306) ~[spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:106) [spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.apache.catalina.core.StandardContext.listenerStart(StandardContext.java:4811) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5251) [catalina.jar:8.0.33]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:147) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1408) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1398) [catalina.jar:8.0.33]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) [na:1.8.0_92]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [na:1.8.0_92]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [na:1.8.0_92]
+	at java.lang.Thread.run(Thread.java:745) [na:1.8.0_92]
+Caused by: org.springframework.beans.factory.BeanCreationException: Could not autowire field: private org.springframework.context.support.ResourceBundleMessageSource com.excilys.webapp.controller.AddComputer.messageSource; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [org.springframework.context.support.ResourceBundleMessageSource] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:542) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:87) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:323) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	... 22 common frames omitted
+Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [org.springframework.context.support.ResourceBundleMessageSource] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.raiseNoSuchBeanDefinitionException(DefaultListableBeanFactory.java:1261) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1009) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:904) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:514) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	... 24 common frames omitted
+17:35:50.161 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR o.s.w.c.ContextLoader.initWebApplicationContext - Context initialization failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dashboard' defined in file [/home/pqwarlot/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/cdb-webapp/WEB-INF/classes/com/excilys/webapp/controller/Dashboard.class]: Instantiation of bean failed; nested exception is org.springframework.beans.BeanInstantiationException: Could not instantiate bean class [com.excilys.webapp.controller.Dashboard]: Constructor threw exception; nested exception is java.lang.Error: Unresolved compilation problem: 
+	Type mismatch: cannot convert from String[] to String
+
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1095) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1040) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:505) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:476) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:302) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:229) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:298) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:193) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:725) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:757) ~[spring-context-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:480) ~[spring-context-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:403) ~[spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:306) ~[spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:106) [spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.apache.catalina.core.StandardContext.listenerStart(StandardContext.java:4811) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5251) [catalina.jar:8.0.33]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:147) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.StandardContext.reload(StandardContext.java:3827) [catalina.jar:8.0.33]
+	at org.apache.catalina.loader.WebappLoader.backgroundProcess(WebappLoader.java:291) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.StandardContext.backgroundProcess(StandardContext.java:5608) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.processChildren(ContainerBase.java:1377) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.processChildren(ContainerBase.java:1381) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.processChildren(ContainerBase.java:1381) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.run(ContainerBase.java:1349) [catalina.jar:8.0.33]
+	at java.lang.Thread.run(Thread.java:745) [na:1.8.0_92]
+Caused by: org.springframework.beans.BeanInstantiationException: Could not instantiate bean class [com.excilys.webapp.controller.Dashboard]: Constructor threw exception; nested exception is java.lang.Error: Unresolved compilation problem: 
+	Type mismatch: cannot convert from String[] to String
+
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:163) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:89) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1088) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	... 24 common frames omitted
+Caused by: java.lang.Error: Unresolved compilation problem: 
+	Type mismatch: cannot convert from String[] to String
+
+	at com.excilys.webapp.controller.Dashboard.<init>(Dashboard.java:29) ~[classes/:na]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[na:1.8.0_92]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62) ~[na:1.8.0_92]
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[na:1.8.0_92]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423) ~[na:1.8.0_92]
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:147) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	... 26 common frames omitted
+17:35:50.161 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR o.s.w.c.ContextLoader.initWebApplicationContext - Context initialization failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dashboard' defined in file [/home/pqwarlot/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/cdb-webapp/WEB-INF/classes/com/excilys/webapp/controller/Dashboard.class]: Instantiation of bean failed; nested exception is org.springframework.beans.BeanInstantiationException: Could not instantiate bean class [com.excilys.webapp.controller.Dashboard]: Constructor threw exception; nested exception is java.lang.Error: Unresolved compilation problem: 
+	Type mismatch: cannot convert from String[] to String
+
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1095) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1040) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:505) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:476) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:302) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:229) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:298) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:193) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:725) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:757) ~[spring-context-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:480) ~[spring-context-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:403) ~[spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:306) ~[spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:106) [spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.apache.catalina.core.StandardContext.listenerStart(StandardContext.java:4811) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5251) [catalina.jar:8.0.33]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:147) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.StandardContext.reload(StandardContext.java:3827) [catalina.jar:8.0.33]
+	at org.apache.catalina.loader.WebappLoader.backgroundProcess(WebappLoader.java:291) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.StandardContext.backgroundProcess(StandardContext.java:5608) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.processChildren(ContainerBase.java:1377) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.processChildren(ContainerBase.java:1381) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.processChildren(ContainerBase.java:1381) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.run(ContainerBase.java:1349) [catalina.jar:8.0.33]
+	at java.lang.Thread.run(Thread.java:745) [na:1.8.0_92]
+Caused by: org.springframework.beans.BeanInstantiationException: Could not instantiate bean class [com.excilys.webapp.controller.Dashboard]: Constructor threw exception; nested exception is java.lang.Error: Unresolved compilation problem: 
+	Type mismatch: cannot convert from String[] to String
+
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:163) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:89) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1088) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	... 24 common frames omitted
+Caused by: java.lang.Error: Unresolved compilation problem: 
+	Type mismatch: cannot convert from String[] to String
+
+	at com.excilys.webapp.controller.Dashboard.<init>(Dashboard.java:29) ~[classes/:na]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[na:1.8.0_92]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62) ~[na:1.8.0_92]
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[na:1.8.0_92]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423) ~[na:1.8.0_92]
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:147) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	... 26 common frames omitted
+09:51:50.856 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR o.s.w.c.ContextLoader.initWebApplicationContext - Context initialization failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'webappConfig': Instantiation of bean failed; nested exception is org.springframework.beans.BeanInstantiationException: Could not instantiate bean class [com.excilys.webapp.config.WebappConfig$$EnhancerBySpringCGLIB$$33d879e]: Constructor threw exception; nested exception is java.lang.Error: Unresolved compilation problem: 
+	Syntax error on token "String", strictfp expected
+
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1095) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1040) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:505) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:476) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:302) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:229) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:298) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:193) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:370) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1113) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1008) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:505) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:476) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:302) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:229) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:298) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:198) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.initMessageSource(AbstractApplicationContext.java:625) ~[spring-context-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:468) ~[spring-context-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:403) ~[spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:306) ~[spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:106) [spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.apache.catalina.core.StandardContext.listenerStart(StandardContext.java:4811) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5251) [catalina.jar:8.0.33]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:147) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.StandardContext.reload(StandardContext.java:3827) [catalina.jar:8.0.33]
+	at org.apache.catalina.loader.WebappLoader.backgroundProcess(WebappLoader.java:291) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.StandardContext.backgroundProcess(StandardContext.java:5608) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.processChildren(ContainerBase.java:1377) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.processChildren(ContainerBase.java:1381) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.processChildren(ContainerBase.java:1381) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.run(ContainerBase.java:1349) [catalina.jar:8.0.33]
+	at java.lang.Thread.run(Thread.java:745) [na:1.8.0_92]
+Caused by: org.springframework.beans.BeanInstantiationException: Could not instantiate bean class [com.excilys.webapp.config.WebappConfig$$EnhancerBySpringCGLIB$$33d879e]: Constructor threw exception; nested exception is java.lang.Error: Unresolved compilation problem: 
+	Syntax error on token "String", strictfp expected
+
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:163) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:89) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1088) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	... 32 common frames omitted
+Caused by: java.lang.Error: Unresolved compilation problem: 
+	Syntax error on token "String", strictfp expected
+
+	at com.excilys.webapp.config.WebappConfig.<init>(WebappConfig.java:25) ~[classes/:na]
+	at com.excilys.webapp.config.WebappConfig$$EnhancerBySpringCGLIB$$33d879e.<init>(<generated>) ~[spring-core-4.1.0.RELEASE.jar:na]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[na:1.8.0_92]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62) ~[na:1.8.0_92]
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[na:1.8.0_92]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423) ~[na:1.8.0_92]
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:147) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	... 34 common frames omitted
+09:51:50.856 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR o.s.w.c.ContextLoader.initWebApplicationContext - Context initialization failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'webappConfig': Instantiation of bean failed; nested exception is org.springframework.beans.BeanInstantiationException: Could not instantiate bean class [com.excilys.webapp.config.WebappConfig$$EnhancerBySpringCGLIB$$33d879e]: Constructor threw exception; nested exception is java.lang.Error: Unresolved compilation problem: 
+	Syntax error on token "String", strictfp expected
+
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1095) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1040) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:505) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:476) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:302) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:229) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:298) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:193) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:370) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1113) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1008) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:505) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:476) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:302) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:229) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:298) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:198) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.initMessageSource(AbstractApplicationContext.java:625) ~[spring-context-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:468) ~[spring-context-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:403) ~[spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:306) ~[spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:106) [spring-web-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.apache.catalina.core.StandardContext.listenerStart(StandardContext.java:4811) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5251) [catalina.jar:8.0.33]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:147) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.StandardContext.reload(StandardContext.java:3827) [catalina.jar:8.0.33]
+	at org.apache.catalina.loader.WebappLoader.backgroundProcess(WebappLoader.java:291) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.StandardContext.backgroundProcess(StandardContext.java:5608) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.processChildren(ContainerBase.java:1377) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.processChildren(ContainerBase.java:1381) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.processChildren(ContainerBase.java:1381) [catalina.jar:8.0.33]
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.run(ContainerBase.java:1349) [catalina.jar:8.0.33]
+	at java.lang.Thread.run(Thread.java:745) [na:1.8.0_92]
+Caused by: org.springframework.beans.BeanInstantiationException: Could not instantiate bean class [com.excilys.webapp.config.WebappConfig$$EnhancerBySpringCGLIB$$33d879e]: Constructor threw exception; nested exception is java.lang.Error: Unresolved compilation problem: 
+	Syntax error on token "String", strictfp expected
+
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:163) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:89) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1088) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	... 32 common frames omitted
+Caused by: java.lang.Error: Unresolved compilation problem: 
+	Syntax error on token "String", strictfp expected
+
+	at com.excilys.webapp.config.WebappConfig.<init>(WebappConfig.java:25) ~[classes/:na]
+	at com.excilys.webapp.config.WebappConfig$$EnhancerBySpringCGLIB$$33d879e.<init>(<generated>) ~[spring-core-4.1.0.RELEASE.jar:na]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[na:1.8.0_92]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62) ~[na:1.8.0_92]
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[na:1.8.0_92]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423) ~[na:1.8.0_92]
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:147) ~[spring-beans-4.1.0.RELEASE.jar:4.1.0.RELEASE]
+	... 34 common frames omitted

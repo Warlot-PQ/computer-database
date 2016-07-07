@@ -27,7 +27,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		// Use HTTP Digest or Login form
-		boolean httpDigest = false;
+		boolean isHttpDigest = false;
 
 		http.csrf().disable();
 		http
@@ -36,10 +36,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/css/**").permitAll()
 				.antMatchers("/fonts/**").permitAll()
 				.antMatchers("/js/**").permitAll()	
-				.antMatchers("/Dashboard").access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+				.antMatchers(WebappConfig.URL_DASHBOARD).access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
 				.antMatchers("/**").access("hasRole('ROLE_ADMIN')");
 
-		if (httpDigest == true) {
+		if (isHttpDigest) {
 			LOGGER.info("Athentification: HTTP Digest");
 			http
 			.exceptionHandling()
@@ -57,9 +57,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		        .permitAll();
 		}
 		// HTTPS
-		http.requiresChannel().antMatchers("/Dashboard").requiresSecure();
-		http.requiresChannel().antMatchers("/AddComputer").requiresSecure();
-		http.requiresChannel().antMatchers("/EditComputer").requiresSecure();
+		http.requiresChannel().antMatchers(WebappConfig.URL_DASHBOARD).requiresSecure();
+		http.requiresChannel().antMatchers(WebappConfig.URL_ADD_COMPUTER).requiresSecure();
+		http.requiresChannel().antMatchers(WebappConfig.URL_EDIT_COMPUTER).requiresSecure();
 	}
 	
 	/*
@@ -94,7 +94,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
 		boolean useJDBC = false;
-		if (useJDBC == true) {
+		if (useJDBC) {
 		// JDBC command
 			LOGGER.info("Users datasource: JDBC");
 			auth.jdbcAuthentication().dataSource(dataSource)

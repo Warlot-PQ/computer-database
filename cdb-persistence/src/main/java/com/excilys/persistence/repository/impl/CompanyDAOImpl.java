@@ -1,4 +1,4 @@
-package com.excilys.persistence.repository;
+package com.excilys.persistence.repository.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ import com.excilys.core.dto.CompanyDTO;
 import com.excilys.core.entity.Company;
 import com.excilys.core.entity.QCompany;
 import com.excilys.persistence.pagination.PageRequest;
-import com.excilys.persistence.repository.interfaces.CompanyDAO;
+import com.excilys.persistence.repository.CompanyDAO;
 import com.mysema.query.SearchResults;
 import com.mysema.query.jpa.impl.JPAQuery;
 

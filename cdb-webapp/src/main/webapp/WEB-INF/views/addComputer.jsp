@@ -30,7 +30,7 @@
 <body>
     <header class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="${pageContext.request.contextPath}/Dashboard"> Application - Computer Database </a>
+            <a class="navbar-brand" href="${pageContext.request.contextPath}/dashboard"> Application - Computer Database </a>
         </div>
     </header>
 
@@ -46,7 +46,7 @@
             <div class="row">
                 <div class="col-xs-8 col-xs-offset-2 box">
                     <h1>${i18nAddTitle}</h1>
-                    <form:form commandName="computerDTO" action="${pageContext.request.contextPath}/AddComputer" onsubmit="return validateForm()" method="POST">
+                    <form:form commandName="computerDTO" action="${pageContext.request.contextPath}/add_computer" onsubmit="return validateForm()" method="POST">
                         <fieldset>
                             <div class="form-group">
                                 <label for="computerName">${i18nComputerName}</label>
@@ -77,7 +77,7 @@
                         <div class="actions pull-right">
                             <input type="submit" value="${i18nButtonAdd}" class="btn btn-primary">
                             or
-                            <a href="${pageContext.request.contextPath}/Router?action=dashboard" class="btn btn-default">${i18nButtonCancel}</a>
+                            <a href="${pageContext.request.contextPath}/dashboard" class="btn btn-default">${i18nButtonCancel}</a>
                         </div>
                     </form:form>
                 </div>

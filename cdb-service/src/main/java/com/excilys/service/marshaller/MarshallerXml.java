@@ -14,7 +14,8 @@ import org.springframework.stereotype.Service;
 
 import com.excilys.core.dto.ComputerDTO;
 import com.excilys.core.dto.ComputersDTO;
-import com.excilys.service.service.interfaces.ComputerService;
+import com.excilys.persistence.pagination.PageRequest;
+import com.excilys.service.service.ComputerService;
 
 @Service
 public class MarshallerXml {
@@ -22,8 +23,9 @@ public class MarshallerXml {
 	@Autowired
 	ComputerService computerService;
 	
-	public void computerAll() {
-		//TODO pass file name as parameter
+	public void computerAll(String fileName, PageRequest pageRequest) {
+		if (pageRequest == null) return;
+		
 		JAXBContext jaxbContext;
 		try {
 			jaxbContext = JAXBContext.newInstance(ComputersDTO.class, ComputerDTO.class);
@@ -31,11 +33,11 @@ public class MarshallerXml {
 			
 			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
-			List<ComputerDTO> computers = computerService.getAll();
+			List<ComputerDTO> computers = computerService.getAll(pageRequest);
 			ComputersDTO computersDTO = new ComputersDTO();
 			computersDTO.setComputers(computers);
-			//TODO write file in cdb-webapp/temp/ except of /home/pqwarlot/
-			jaxbMarshaller.marshal(computersDTO, new File("computer.xml"));
+			
+			jaxbMarshaller.marshal(computersDTO, new File(fileName));
 		} catch (JAXBException e) {
 			LOGGER.error("marshalling error", e);
 		}

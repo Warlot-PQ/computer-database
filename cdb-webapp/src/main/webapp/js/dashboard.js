@@ -46,11 +46,11 @@ $(function() {
     $.fn.toggleEditMode = function() {
         if($(".editMode").is(":visible")) {
             $(".editMode").hide();
-            $("#editComputer").text("Edit");
+            $("#editComputer").text($.messages["dashboard.edit.button"]);
         }
         else {
             $(".editMode").show();
-            $("#editComputer").text("View");
+            $("#editComputer").text($.messages["dashboard.view.button"]);
         }
         return this;
     };
@@ -96,7 +96,7 @@ function validateSearch() {
     $("#errorMsg").hide();
 
     if (computerNameSearched.trim() == "") {
-        $("#errorMsg").html("<strong>Error!</strong> search name cannot be empty!!");
+        $("#errorMsg").html($.messages["dashboard.search.empty"]);
         $("#errorMsg").show();
         return false;
     }

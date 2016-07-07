@@ -11,9 +11,7 @@ import com.excilys.core.entity.Computer;
  *
  */
 public class ComputerMapper {
-	public static Computer toEntity(ComputerDTO computerDTO) {
-		System.out.println(computerDTO.toString());
-		
+	public static Computer toEntity(ComputerDTO computerDTO) {		
 		Company company = null;
 		if (computerDTO.getCompanyId() != null 
 				&& computerDTO.getCompanyId().isEmpty() == false) {
