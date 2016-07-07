@@ -4,6 +4,10 @@
 
 https://github.com/loicortola/spec-cdb
 
+## Logback
+
+Check parent pom logPath properties for logging file. The path must be correct to properly deploy the project.
+
 ## DB configuration
 
 Use SQL file main/resources and test/resources in persistence module to setup.

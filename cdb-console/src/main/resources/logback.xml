@@ -15,7 +15,7 @@
 
 	<appender name="FILEOUT" class="ch.qos.logback.core.FileAppender">
 		<param name="File"
-			value="/home/pqwarlot/workspace/computer-database/cdb-webapp/logsCDB/report.log" />
+			value="${logPath}" />
 		<!-- <param name="append" value="true" /> -->
 		<!-- encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder 
 			by default -->

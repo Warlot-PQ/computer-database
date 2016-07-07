@@ -83,8 +83,9 @@
 							onclick="$.fn.toggleEditMode();">${i18nButtonEdit}</a>
 					</div>
 					<div class="row">
-						<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#import_export_modal">
+						<button type="button" class="btn btn-default" data-toggle="modal" data-target="#import_export_modal">
 							 Import/Export
+							 <!-- TODO i18n -->
 						</button>
 					</div>
 				</div>
@@ -175,8 +176,9 @@
 	
 	<jsp:include page="components/ImportExport.jsp">
 		<jsp:param name="currentPage" value="${currentPage}" />
-		<jsp:param name="currentLimit" value="12" />
+		<jsp:param name="currentLimit" value="${currentLimit}" />
 		<jsp:param name="nameSearched" value="${nameSearched}" />
+		<jsp:param name="totalComputers" value="${totalComputers}" />
 	</jsp:include>
 	
 	<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>

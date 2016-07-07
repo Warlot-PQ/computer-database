@@ -19,6 +19,7 @@
 	<properties>	
 		<cdb.version>8.0</cdb.version>
 		<dbIP>localhost</dbIP>
+		<logPath>${env.HOME}/workspace/computer-database/cdb-webapp/logsCDB/report.log</logPath>
 		<maven-checkstyle-plugin.version>2.17</maven-checkstyle-plugin.version>
 		<maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
 		<maven-resources-plugin.version>3.0.1</maven-resources-plugin.version>
