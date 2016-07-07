@@ -23,7 +23,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private UserDetailsService userDetailsService;
 	private static final Logger LOGGER = LoggerFactory.getLogger(WebSecurityConfig.class);
-	
+		
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		// Use HTTP Digest or Login form

@@ -83,6 +83,11 @@
 							onclick="$.fn.toggleEditMode();">${i18nButtonEdit}</a>
 						<a class="btn btn-default" href="Export?page=${currentPage}&limit=${currentLimit}&search=${nameSearched}">Export</a>
 					</div>
+					<div class="row">
+						<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target=""import_export_modal"">
+						 Import/Export
+						</button>
+					</div>
 				</div>
 				</security:authorize>
 			</div>
@@ -176,6 +181,8 @@
 			</div>
 		</div>
 	</footer>
+	
+	<jsp:include page="components/ImportExport.jsp" />
 	
 	<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>

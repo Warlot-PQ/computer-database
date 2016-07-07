@@ -13,7 +13,7 @@
     <error-code>500</error-code>
     <location>/WEB-INF/views/500.jsp</location>
   </error-page>
-  
+  <!-- 
   <context-param>
       <param-name>contextClass</param-name>
       <param-value>
@@ -21,63 +21,22 @@
       </param-value>
   </context-param>
  
-  <!-- Configuration locations must consist of one or more comma- or space-delimited
+  Configuration locations must consist of one or more comma- or space-delimited
        fully-qualified @Configuration classes. Fully-qualified packages may also be
-       specified for component-scanning -->
+       specified for component-scanning
 
   <context-param>
       <param-name>contextConfigLocation</param-name>
       <param-value>com.excilys.webapp.config.WebappConfig</param-value>
   </context-param>
-  
+   -->
    <!-- Bootstrap the root application context as usual using ContextLoaderListener
    		Add Spring in the web context (e.g. enable Spring use in Tomcat servlet) -->
-  
+  <!-- 
   <listener>
       <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>  
-   
-  <!-- Spring MVC redirect all incoming request to controllers defined in the contextConfigLocation -->
-    
-	<servlet>
-	    <servlet-name>trackerServlet</servlet-name>
-	    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-	    <!-- Redirect Web request in Spring MVC dispatcher -->
-	    <init-param>
-	        <param-name>contextClass</param-name>
-	        <param-value>
-	            org.springframework.web.context.support.AnnotationConfigWebApplicationContext
-	        </param-value>
-	    </init-param>
-	    <!-- Allow Spring MVC Controllers to use Spring context -->
-	    <init-param>
-	        <param-name>contextConfigLocation</param-name>
-	        <param-value>
-	        	com.excilys.webapp.config.WebappConfig
-	        	com.excilys.webapp.config.WebSecurityConfig
-	        </param-value>
-	    </init-param>
-	</servlet>
-	 
-	<servlet-mapping>
-	    <servlet-name>trackerServlet</servlet-name>
-	    <url-pattern>/</url-pattern>
-	</servlet-mapping>
-   
-   	<!-- Security interceptor -->
-   
-  	<filter>
-   		<filter-name>springSecurityFilterChain</filter-name>
-   		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-   	</filter>
-   
-  	<filter-mapping>
-   		<filter-name>springSecurityFilterChain</filter-name>
-   		<url-pattern>/*</url-pattern>
-   	</filter-mapping>
-   	
-   	<!-- Interpret empty string as null value in DB -->
-   	
+   -->
    	<context-param>
    		<param-name>javax.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL</param-name>
    		<param-value>true</param-value>
